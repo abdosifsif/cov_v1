@@ -1,0 +1,81 @@
+body{
+    background: #1E5959;
+  }
+  article{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+   
+  }
+  form{
+    background: #184646;
+    box-shadow: 7px -1px 55px 21px #184646;
+    margin: 200px auto;
+    padding: 15px 40px 40px 40px;
+    width: 500px;
+    color: #89D99D;
+  }
+  
+  .tab p{
+    font-size: 20px;
+    margin: 0 0 10px 0;
+  }
+  
+  input{
+    margin: 10px 0;
+    padding: 10px;
+    box-sizing: border-box;
+    width: 400px;
+    font-size: 17px;
+    border: 1px solid #f8f8f8;
+  }
+  
+  select{
+    margin: 10px 0;
+    padding: 10px;
+    box-sizing: border-box;
+    width: 400px;
+    font-size: 17px;
+    border: 1px solid #f8f8f8;
+  }
+  option{
+    font-size: 17px;
+   
+  }
+  
+  .index-btn-wrapper{
+    display: flex;
+  }
+  
+  .index-btn{
+    margin: 20px 15px 0 0;
+    background: #1E5959;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 17px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .index-btn:hover{
+    opacity: 0.8;
+    background: #89D99D;
+  }
+  
+  .step{
+    height: 30px;
+    width: 30px;
+    line-height: 30px;
+    margin: 0 2px;
+    color: white;
+    background:  #1E5959;
+    border-radius: 50%;
+    display: inline-block;
+    opacity: 0.25;
+  }
+  #map{
+    width: 400px;
+    height: 400px;
+  }

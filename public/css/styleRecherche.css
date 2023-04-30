@@ -1,0 +1,59 @@
+article{
+    width: 100%;
+   /* background-image: linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3),url(images/Covoiturage1.jpeg));
+    background-size: cover;
+    background-position: center;*/
+    background-image: url('/images/Covoiturage.jpeg');
+    padding: 280px;
+}
+.search-bar{
+    background: #184646;
+    color: #fff;
+    width: 80%;
+    margin: 30px auto;
+    border-radius: 50px;
+}
+.search-bar form{
+    display: flex; 
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 10px 10px;
+    justify-content: space-evenly;
+    
+}
+.search-bar form input{
+    display: block;
+    border: 0;
+    color: #fff;
+    outline: none;
+    background: transparent;
+}
+.search-bar form button{
+    background:  #1E5959;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    border: 0;
+    outline: none;
+    cursor: pointer;
+}
+.search-bar form button:hover{
+    background:  #89D99D;
+}
+.search-bar form button img{
+    width: 15px;
+    margin-top: 7px;
+}
+
+.search-bar form label{
+    font-weight: 600;
+}
+.container{
+    color:#184646;
+    border-radius: 50px;
+}
+.container h1{
+    text-align: center;
+    font-size: 3vw;
+    font-family: serif;
+}

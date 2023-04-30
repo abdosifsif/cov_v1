@@ -1,0 +1,122 @@
+.card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 20px;
+  max-width: 350px;
+  overflow: hidden;
+  padding: 20px;
+ 
+  width: 100%;
+}
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.card-header {
+  text-align: center;
+  padding-bottom: 10px;
+}
+
+#userpic {
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+  object-fit: cover;
+}
+
+.card-body {
+  padding: 10px 0;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.card-title {
+  font-weight: 500;
+  margin: 0;
+}
+
+.circles {
+  display: flex;
+  align-items: center;
+}
+
+.outer_circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #89D99D;
+  border-radius: 50%;
+  height: 20px;
+  width: 20px;
+}
+
+.circle {
+  background-color: #89D99D;
+  border-radius: 50%;
+  height: 10px;
+  width: 10px;
+}
+
+.line {
+  background-color: #89D99D;
+  height: 2px;
+  width: 50px;
+}
+
+.card-text {
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+.card-features {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.card-pricing {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.card-price {
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.card-currency {
+  font-size: 14px;
+  margin-right: 5px;
+}
+
+.card-footer {
+  text-align: center;
+  padding-top: 10px;
+}
+
+.btn {
+  background-color: #89D99D;
+  border: none;
+  border-radius: 5px;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 10px 20px;
+}
+
+.btn:hover {
+  background-color: #6fbf87;
+}
