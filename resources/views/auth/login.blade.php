@@ -11,47 +11,14 @@
 </head>
 
 <body>
-    <header>
-        
-        <div>
-            <nav>
-                <a href="/" class="logo"> Covoiturage</a>
-                <ul class="principale">
-                    <li><a href="/recherche">
-                            <div class="link-wrap">
-                              <img src="images/search-svgrepo-com (1).svg">
-                                <div>
-                                    <p> Recherche</p>
-                                </div>
-                            </div>
-                        </a></li>
-                    <li><a href="/ajouter-trajet">
-                            <div class="link-wrap">
-                                <img src="images/add-circle-svgrepo-com.svg">
-                                <div>
-                                    <p> Publier un trajet</p>
-                                </div>
-                            </div>
-                        </a></l>
-                </ul>
-                <img src="images/person-circle-fill-svgrepo-com.svg" class="user-pic" onclick="showMenu()">
-
-                <div class="sub-menu-wrap" id="subMenu">
-                    <div class="sub-menu">
-                        <a href="/login" class="sub-menu-links">
-                            <p>connexion</p>
-                            <span>></span>
-                        </a>
-                        <hr>
-                        <a href="/register" class="sub-menu-links">
-                            <p>inscription</p>
-                            <span>></span>
-                        </a>
-                    </div>
-                </div>
-            </nav>
-        </div>
-       
+    <header class="main-head">
+        <nav>
+            <h2 id="logo">Covoiturage</h2>
+            <ul class="hover_cont">
+                <li><a href="/login""><strong>Se Connecter</strong></a></li>
+                <li><a href="/register"><strong> S'inscrire</strong></a></li>
+            </ul>
+        </nav>
     </header>
     <article>
         <form class="form" method="POST" action="{{ route('login') }}" >
