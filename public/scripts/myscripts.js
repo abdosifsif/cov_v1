@@ -1,11 +1,26 @@
-let subMenu = document.getElementById("subMenu");
+const observer = new IntersectionObserver((entries)=>{
+    entries.forEach((entry)=>{ 
+        console.log(entry)
+        if (entry.isIntersecting) {
+            entry.target.classList.add('show')
+        }else{
+            entry.target.classList.remove('show')
 
-function showMenu() {
-    subMenu.classList.toggle("open-menu");
-}
-function hidMenu() {
-    submenu.classList.toggle("hide-menu");
-}
+        }
+
+    })
+})
+
+const hiddenElemnts = document.querySelectorAll('.hidden');
+hiddenElemnts.forEach((el)=>observer.observe(el));
+
+
+
+
+
+
+
+
 function myFunction() {
     var x = document.getElementById("password");
     if (x.type === "password") {
