@@ -89,6 +89,11 @@ h4,h5{
   background: #0a2b19;
   transition: .5s;
 }
+.submit:hover{
+  background-color: gainsboro;
+  transition: .5s;
+  color: #0a2b19;
+}
 .link{
   margin: 10px;
   text-align: center;
@@ -105,3 +110,8 @@ form {
     justify-content: center;
     flex-direction: column;
   }
+  .link a:hover {
+    color: black;
+    transition: .5s;
+  } 
+ 

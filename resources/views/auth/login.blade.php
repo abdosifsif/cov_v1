@@ -39,7 +39,7 @@
             
         </form>
         <div class="link">
-            <a href=""{{ route('password.request') }}"">Mot de passe oublier</a><br><a href="{{ route('register') }}">S'inscrire</a>
+            <a href="{{ route('password.request') }}">Mot de passe oublier</a><br><a href="{{ route('register') }}">S'inscrire</a>
     
         </div>
 
