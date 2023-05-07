@@ -20,16 +20,31 @@
             </ul>
         </nav>
     </header>
-    <article>
+    <div class="frst">  
+        <div class="main">
+           <div class="title">Covoiturage</div>
         <form class="form" method="POST" action="{{ route('login') }}" >
             @csrf
-            <input placeholder="Email address or phone number" class="input" type="text" name="email" value="{{ old('email') }}" required autofocus autocomplete="username">
-            <input placeholder="Password" class="input" type="password" name="password" required autocomplete="current-password">
-            <button id="loginBtn" type="submit">{{ __('Log in') }}</button>
-            <a id="forgotPassword" href="{{ route('password.request') }}">Forgotten password?</a>
-            <button class="create" id="createAccountBtn"><a href="{{ route('register') }}">Create new account</a></button>
+            <div class="credentials">
+                <div class="username">
+                    <span class="glyphicon glyphicon-user"></span>
+                    <input type="email" name="email" value="{{ old('email') }}" placeholder="Votre email" required  autofocus autocomplete="email">
+                </div>          
+                <div class="password">
+                    <span class="glyphicon glyphicon-lock"></span>
+                    <input type="password" name="password" placeholder="Votre mot de passe" required autocomplete="current-password">
+                </div>
+            </div>
+            <button type="submit" class="submit">Connecter</button>
+            
         </form>
-    </article>
+        <div class="link">
+            <a href=""{{ route('password.request') }}"">Mot de passe oublier</a><br><a href="{{ route('register') }}">S'inscrire</a>
+    
+        </div>
+
+    </div>
+</div> 
 </body>
-<script type="text/javascript" src="{{ URL::asset('scripts/myscripts.js') }}"></script>
+
 </html>
