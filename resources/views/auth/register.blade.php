@@ -12,100 +12,75 @@
 </head>
 
 <body>
-    <header>
-        
-        <div>
-            <nav>
-                <a href="/" class="logo"> Covoiturage</a>
-                <ul class="principale">
-                    <li><a href="/recherche">
-                            <div class="link-wrap">
-                              <img src="images/search-svgrepo-com (1).svg">
-                                <div>
-                                    <p> Recherche</p>
-                                </div>
-                            </div>
-                        </a></li>
-                    <li><a href="/ajouter-trajet">
-                            <div class="link-wrap">
-                                <img src="images/add-circle-svgrepo-com.svg">
-                                <div>
-                                    <p> Publier un trajet</p>
-                                </div>
-                            </div>
-                        </a></l>
-                </ul>
-                <img src="images/person-circle-fill-svgrepo-com.svg" class="user-pic" onclick="showMenu()">
-
-                <div class="sub-menu-wrap" id="subMenu">
-                    <div class="sub-menu">
-                        <a href="/login" class="sub-menu-links">
-                            <p>connexion</p>
-                            <span>></span>
-                        </a>
-                        <hr>
-                        <a href="/register" class="sub-menu-links">
-                            <p>inscription</p>
-                            <span>></span>
-                        </a>
-                    </div>
-                </div>
-            </nav>
-        </div>
-       
+    <header class="main-head">
+        <nav>
+            <h2 id="logo">Covoiturage</h2>
+            <ul class="hover_cont">
+                <li><a href="/login""><strong>Se Connecter</strong></a></li>
+                <li><a href="/register"><strong> S'inscrire</strong></a></li>
+            </ul>
+        </nav>
     </header>
-    <article>
-        <form action="{{ route('register') }}" method="POST" enctype="multipart/form-data">
-            @csrf
-           
-            <div class="column">
-                <label for="nom">Nom:</label>
-                <input type="text" id="nom" name="nom" required><br>
 
-                <label for="prenom">Prénom:</label>
-                <input type="text" id="prenom" name="prenom" required><br>
 
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required><br>
-               
-                <label for="password">mot de pass:</label>
-                <input type="password" id="password" name="password" required>
-                <br>
-                {{-- <input type="checkbox" onclick="myFunction()">Show Password<br> --}}
-               
-                <label for="password">confirmer votre mot de passe:</label>
-                <input type="password" id="password_confirmation" name="password_confirmation" required><br>
-               
-                <label for="date">Date:</label>
-                <input type="date" id="date" name="date" required><br>
+    <div class="frst">
+        <section class="container">
+            <header>Inscription</header>
+            <form action="{{ route('register') }}" method="POST" enctype="multipart/form-data" class="form">
+                @csrf
+              <div class="input-box">
+                <label >Nom</label>
+                <input type="text" name="nom" placeholder="Votre nom" required />
+              </div>
+              <div class="input-box">
+                <label for="prenom">Prénom</label>
+                <input type="text" name="prenom" placeholder="Votre Prenom" required />
+              </div>
+              <div class="column">
+                <div class="input-box">
+                  <label for="telephone">Numero de téléphone</label>
+                  <input type="number" name="telephone" placeholder="Votre numero de téléphone" required />
+                </div>
+                <div class="input-box">
+                  <label for="date">Date de naissance</label>
+                  <input type="date" name="date" placeholder="Enter birth date" required />
+                </div>
+              </div>
+              <div class="gender-box">
+                <h3>Sexe</h3>
+                <div class="gender-option">
+                  <div class="gender">
+                    <input type="radio" id="check-male" name="sexe" checked />
+                    <label for="check-male">Homme</label>
+                  </div>
+                  <div class="gender">
+                    <input type="radio" id="check-female" name="sexe" />
+                    <label for="check-female">Femme</label>
+                  </div>
+                </div>
+              </div>
+              <div class="input-box address">
+                <label for="email">Email</label>
+                <input type="email" name="email" placeholder="Votre email" required />
+                <div class="column">
+                  <div class="select-box">
+                    <select name="ville">
+                      <option hidden>Ville</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="column">
+                  <input type="password" name="password" placeholder="Votre mot de passe" required />
+                  <input type="password" name="password_confirmation" placeholder="Confirmer votre mot de passe" required />
+                </div>
+              </div>
+              <button>S'inscrire</button>
+            </form>
+            <div class="link">
+                <a href="log_in.html">T'as déjà un compte ?</a>
             </div>
-
-            <div class="column" id="ss">
-                <label for="sexe">Sexe:</label>
-                <select id="sexe" name="sexe" required>
-                    <option value="homme">---Sexe---</option>
-                    <option value="homme">Homme</option>
-                    <option value="femme">Femme</option>
-                </select><br>
-
-                <label for="telephone">Téléphone:</label>
-                <input type="tel" id="telephone" name="telephone" required><br>
-
-                <label for="ville">Ville:</label>
-                <input type="text" id="ville" name="ville" required><br>
-
-                <label for="picture">Photo de profil:</label>
-                <input type="file" id="picture" name="picture" ><br>
-                
-                <input type="submit" value="S'inscrire" onclick="return validateForm()">
-            </div>
-        </form>
-
-
-
-
-
-    </article>
+          </section>
+        </div>
 
 </body>
 <script type="text/javascript" src="{{ URL::asset('scripts/myscripts.js') }}"></script>
