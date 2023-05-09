@@ -55,11 +55,11 @@ submitButton.addEventListener('click', function(event) {
       errorMessage.textContent = 'Veuillez entrer votre numéro de téléphone.';
     }
     return;
-  } else if (!/^\d{10}$/.test(telephone.value.trim())) {
+  } else if (!/^(06|07)\d{8}$/.test(telephone.value.trim())) {
     telephone.style.borderColor = 'red';
     const errorMessage = telephone.nextElementSibling;
     if (errorMessage !== null) {
-      errorMessage.textContent = 'Le numéro de téléphone doit contenir 10 chiffres.';
+      errorMessage.textContent = 'Le numéro de téléphone doit commencer par 06 ou 07 et contenir 10 chiffres.';
     }
     return;
   } else {
