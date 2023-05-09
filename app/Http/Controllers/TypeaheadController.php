@@ -7,6 +7,13 @@ use Illuminate\Support\Facades\DB;
 class TypeaheadController extends Controller
 {
  
+
+
+    public function myControllerMethod()
+    {
+        $villes = DB::table('villes')->get();
+        return view('auth.register', ['villes' => $villes]);
+    }
     public function autocompleteSearch(Request $request)
     {
         $query = $request->get('query');

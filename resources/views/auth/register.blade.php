@@ -26,62 +26,76 @@
     <div class="frst">
         <section class="container">
             <header>Inscription</header>
-            <form action="{{ route('register') }}" method="POST" enctype="multipart/form-data" class="form">
-                @csrf
+            <form id="registration-form" action="{{ route('register') }}" method="POST" enctype="multipart/form-data" class="form">
+              @csrf
               <div class="input-box">
-                <label >Nom</label>
-                <input type="text" name="nom" placeholder="Votre nom" required />
+                <label>Nom</label>
+                <input type="text" name="nom" placeholder="Votre nom"  />
+                <span class="error-message"></span>
               </div>
               <div class="input-box">
                 <label for="prenom">Prénom</label>
-                <input type="text" name="prenom" placeholder="Votre Prenom" required />
+                <input type="text" name="prenom" placeholder="Votre Prenom"  />
+                <span class="error-message"></span>
               </div>
               <div class="column">
                 <div class="input-box">
                   <label for="telephone">Numero de téléphone</label>
-                  <input type="number" name="telephone" placeholder="Votre numero de téléphone" required />
+                  <input type="number" name="telephone" placeholder="Votre numero de téléphone"  />
+                  <span class="error-message"></span>
                 </div>
                 <div class="input-box">
                   <label for="date">Date de naissance</label>
-                  <input type="date" name="date" placeholder="Enter birth date" required />
+                  <input type="date" name="date" placeholder="Enter birth date"  />
+                  <span class="error-message"></span>
                 </div>
               </div>
               <div class="gender-box">
                 <h3>Sexe</h3>
                 <div class="gender-option">
                   <div class="gender">
-                    <input type="radio" id="check-male" name="sexe" checked />
+                    <input type="radio" id="check-male" name="sexe" value="Homme" checked />
                     <label for="check-male">Homme</label>
                   </div>
                   <div class="gender">
-                    <input type="radio" id="check-female" name="sexe" />
+                    <input type="radio" id="check-female" name="sexe" value="Femme"/>
                     <label for="check-female">Femme</label>
                   </div>
                 </div>
               </div>
               <div class="input-box address">
                 <label for="email">Email</label>
-                <input type="email" name="email" placeholder="Votre email" required />
+                <input type="email" name="email" placeholder="Votre email"  />
+                <span class="error-message"></span>
                 <div class="column">
                   <div class="select-box">
-                    <select name="ville">
+                    <select name="ville" >
                       <option hidden>Ville</option>
+                      @foreach($villes as $ville)
+                      <option value="{{ $ville->id }}">{{ $ville->ville }}</option>
+                      @endforeach
                     </select>
+                    <span class="error-message"></span>
                   </div>
-                </div>
+                </div>  
+                <br>
                 <div class="column">
-                  <input type="password" name="password" placeholder="Votre mot de passe" required />
-                  <input type="password" name="password_confirmation" placeholder="Confirmer votre mot de passe" required />
+                  <input type="password" name="password" placeholder="Votre mot de passe"  />
+                  <span class="error-message" style="display: block; margin-top: 5px;"></span>
+                  <input type="password" name="password_confirmation" placeholder="Confirmer votre mot de passe"  />
+                  <span class="error-message"></span>
                 </div>
               </div>
-              <button>S'inscrire</button>
+              <button id="submit-button">S'inscrire</button>
             </form>
+            
             <div class="link">
-                <a href="log_in.html">T'as déjà un compte ?</a>
+                <a href="{{ route('login') }}">T'as déjà un compte ?</a>
             </div>
           </section>
         </div>
 
 </body>
-<script type="text/javascript" src="{{ URL::asset('scripts/myscripts.js') }}"></script>
+
+<script type="text/javascript" src="{{ URL::asset('scripts/formValidate.js') }}"></script>
 </html>
