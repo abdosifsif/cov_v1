@@ -97,3 +97,6 @@ form {
     color: red;
     font-size: medium;
   }
+  .submit a {
+    background: none;
+  }

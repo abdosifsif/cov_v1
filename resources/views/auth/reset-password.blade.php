@@ -8,73 +8,42 @@
     <title>Covoiturage</title>
     <link rel="stylesheet" href="{{ asset('css/styleHeader.css') }}">
     <link rel="stylesheet" href="{{ asset('css/styleRecup.css') }}">
-    
 </head>
 
-<body onclick="hidMenu()">
-    <header>
-        
-        <div>
-            <nav>
-                <a href="/" class="logo"> Covoiturage</a>
-                <ul class="principale">
-                    <li><a href="/recherche">
-                            <div class="link-wrap">
-                              <img src="images/search-svgrepo-com (1).svg">
-                                <div>
-                                    <p> Recherche</p>
-                                </div>
-                            </div>
-                        </a></li>
-                    <li><a href="/ajouter-trajet">
-                            <div class="link-wrap">
-                                <img src="images/add-circle-svgrepo-com.svg">
-                                <div>
-                                    <p> Publier un trajet</p>
-                                </div>
-                            </div>
-                        </a></l>
-                </ul>
-                <img src="images/person-circle-fill-svgrepo-com.svg" class="user-pic" onclick="showMenu()">
-
-                <div class="sub-menu-wrap" id="subMenu">
-                    <div class="sub-menu">
-                        <a href="/login" class="sub-menu-links">
-                            <p>connexion</p>
-                            <span>></span>
-                        </a>
-                        <hr>
-                        <a href="/register" class="sub-menu-links">
-                            <p>inscription</p>
-                            <span>></span>
-                        </a>
-                    </div>
-                </div>
-            </nav>
-        </div>
-       
+<body>
+    <header class="main-head">
+        <nav>
+            <h2 id="logo">Covoiturage</h2>
+            <ul class="hover_cont">
+                <li><a href="/login""><strong>Se Connecter</strong></a></li>
+                <li><a href="/register"><strong> S'inscrire</strong></a></li>
+            </ul>
+        </nav>
     </header>
-    <article>
+    <div class="frst">  
+        <div class="main">
+           <div class="title">Recuperation de mot de passe</div>
+           <form method="POST" action="{{ route('password.confirm') }}">
+            @csrf
         
-        <div>
-            <form action="" class="form">
-                <h1>Récuperer votre compte</h1>
-                <label for="">Veuillez entrer votre Nouveau mot de passe</label><br>
-                <input placeholder=" Votre e-mail  " class="input" type="text">
-                <input placeholder=" Nouveau mot de passe " class="input" type="password">
-                <input placeholder=" Confirmer votre mot de passe " class="input" type="password">
-                <input type="submit" value="Envoyer" class="loginBtn">
-                
-            </form>
+            <!-- Password Reset Token and Email -->
+            <input type="hidden" name="token" value="{{ $request->route('token') }}">
+            <input type="hidden" name="email" value="{{ request('email') }}">
+        
+            <div class="password1">
+                <div class="username">
+                    <span class="glyphicon glyphicon-user"></span>
+                    <input type="password" name="password" placeholder="Nouveau mot de passe" required>
+                </div>          
+                <div class="password2">
+                    <span class="glyphicon glyphicon-lock"></span>
+                    <input type="password" name="password_confirmation" placeholder="Confirmer le mot de passe" required>
+                </div>
+            </div>
+            <button class="submit" type="submit">Envoyer</button>
+        </form>
         </div>
-    </article>
-    <footer>
-
-
-
-
-    </footer>
-    <script type="text/javascript" src="{{ URL::asset('scripts/myscripts.js') }}"></script>
-</body>
+       </div> 
+       </body>
 
 </html>
