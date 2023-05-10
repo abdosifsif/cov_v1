@@ -35,8 +35,8 @@
                         @enderror
                     </div>
                 </div>
-                <button class="submit" onclick="window.location.href='/login'">Annuler</button>
-                <button class="submit">Envoyer</button>
+                <<button class="submit"> <a href="{{ url('/login') }}" class="submit">Annuler</a> </button>
+                    <button class="submit">Envoyer</button>
             </form>
         </div>
     </div>
