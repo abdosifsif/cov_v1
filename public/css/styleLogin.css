@@ -114,4 +114,6 @@ form {
     color: black;
     transition: .5s;
   } 
- 
+ .alert{
+  color: green;
+ }

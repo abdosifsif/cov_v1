@@ -23,6 +23,11 @@
     <div class="frst">  
         <div class="main">
            <div class="title">Covoiturage</div>
+           @if (session('success'))
+           <div class="alert alert-success">
+               <h4>{{ session('success') }}</h4>
+           </div>
+       @endif
         <form class="form" method="POST" action="{{ route('login') }}" >
             @csrf
             <div class="credentials">

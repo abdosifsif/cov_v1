@@ -1,79 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Covoiturage</title>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel="stylesheet" href="{{ asset('css/styleHeader.css') }}">
     <link rel="stylesheet" href="{{ asset('css/styleMotOub.css') }}">
 </head>
 
-<body onclick="hidMenu()">
-    <header>
-        
-        <div>
-            <nav>
-                <a href="/" class="logo"> Covoiturage</a>
-                <ul class="principale">
-                    <li><a href="/recherche">
-                            <div class="link-wrap">
-                              <img src="images/search-svgrepo-com (1).svg">
-                                <div>
-                                    <p> Recherche</p>
-                                </div>
-                            </div>
-                        </a></li>
-                    <li><a href="/ajouter-trajet">
-                            <div class="link-wrap">
-                                <img src="images/add-circle-svgrepo-com.svg">
-                                <div>
-                                    <p> Publier un trajet</p>
-                                </div>
-                            </div>
-                        </a></l>
-                </ul>
-                <img src="images/person-circle-fill-svgrepo-com.svg" class="user-pic" onclick="showMenu()">
-
-                <div class="sub-menu-wrap" id="subMenu">
-                    <div class="sub-menu">
-                        <a href="/login" class="sub-menu-links">
-                            <p>connexion</p>
-                            <span>></span>
-                        </a>
-                        <hr>
-                        <a href="/register" class="sub-menu-links">
-                            <p>inscription</p>
-                            <span>></span>
-                        </a>
-                    </div>
-                </div>
-            </nav>
-        </div>
-       
+<body>
+    <header class="main-head">
+        <nav>
+            <h2 id="logo">Covoiturage</h2>
+            <ul class="hover_cont">
+                <li><a href="/login""><strong>Se Connecter</strong></a></li>
+                <li><a href="/register"><strong> S'inscrire</strong></a></li>
+            </ul>
+        </nav>
     </header>
-    <article>
-        
-        <div>
+    <div class="frst">
+        <div class="main">
+            <div class="title">Recuperer votre compte</div>
             <form method="POST" action="{{ route('password.email') }}">
                 @csrf
-                <h1>Récuperer votre compte</h1>
-                <label for="">Veuillez entrer votre adresse e-mail pour récuperer votre mot de passe</label><br>
-                <input placeholder=" Votre e-mail  " class="input" type="text" name="email" value="{{ old('email') }}" required>
-                <input type="reset" value="Annuler" class="loginBtn">
-                <input type="submit" value="Envoyer" class="loginBtn">
+                <div class="mail">
+                    <div class="username">
+                        <span class="glyphicon glyphicon-user"></span>
+                        <input type="email" name="email" value="{{ old('email') }}" placeholder="Votre email"
+                            required>
+                        @error('email')
+                            <div class="error-message">Nous ne trouvons pas d'utilisateur avec cette adresse e-mail.</div>
+                        @enderror
+                    </div>
+                </div>
+                <button class="submit" onclick="window.location.href='/login'">Annuler</button>
+                <button class="submit">Envoyer</button>
             </form>
-            
         </div>
-    </article>
-    <footer>
-
-
-
-
-    </footer>
-    <script src="myscripts.js"></script>
+    </div>
 </body>
-<script type="text/javascript" src="{{ URL::asset('scripts/myscripts.js') }}"></script>
+
 </html>
