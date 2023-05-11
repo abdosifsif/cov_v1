@@ -10,20 +10,23 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up()
-{
-    Schema::table('trajets', function (Blueprint $table) {
-        $table->unsignedBigInteger('user_id');
-        $table->foreign('user_id')->references('id')->on('users');
-    });
-}
-
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
     {
-        Schema::table('trajets', function (Blueprint $table) {
-            //
-        });
+        if (!Schema::hasColumn('trajets', 'user_id')) {
+            Schema::table('trajets', function (Blueprint $table) {
+                $table->unsignedBigInteger('user_id')->after('id');
+                $table->foreign('user_id')->references('id')->on('users');
+            });
+        }
+    }
+
+    public function down()
+    {
+        if (Schema::hasColumn('trajets', 'user_id')) {
+            Schema::table('trajets', function (Blueprint $table) {
+                $table->dropForeign(['user_id']);
+                $table->dropColumn('user_id');
+            });
+        }
     }
 };
+

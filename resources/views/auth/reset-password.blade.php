@@ -20,30 +20,38 @@
             </ul>
         </nav>
     </header>
-    <div class="frst">  
+    <div class="frst">
         <div class="main">
-           <div class="title">Recuperation de mot de passe</div>
-           <form method="POST" action="{{ route('password.confirm') }}">
-            @csrf
-        
-            <!-- Password Reset Token and Email -->
-            <input type="hidden" name="token" value="{{ $request->route('token') }}">
-            <input type="hidden" name="email" value="{{ request('email') }}">
-        
-            <div class="password1">
-                <div class="username">
-                    <span class="glyphicon glyphicon-user"></span>
-                    <input type="password" name="password" placeholder="Nouveau mot de passe" required>
-                </div>          
-                <div class="password2">
-                    <span class="glyphicon glyphicon-lock"></span>
-                    <input type="password" name="password_confirmation" placeholder="Confirmer le mot de passe" required>
-                </div>
-            </div>
-            <button class="submit" type="submit">Envoyer</button>
-        </form>
-        </div>
-       </div> 
-       </body>
+            <div class="title">Recuperation de mot de passe</div>
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                        @foreach ($errors->all() as $error)
+                            <h4 class="error-message">{{ $error }}</h4>
+                        @endforeach
 
+                </div>
+            @endif
+            <form method="POST" action="{{ route('password.store') }}">
+                @csrf
+
+                <!-- Password Reset Token and Email -->
+                <input type="hidden" name="token" value="{{ $request->route('token') }}">
+                <input type="hidden" name="email" value="{{ request('email') }}">
+
+                <div class="password1">
+                    <div class="username">
+                        <span class="glyphicon glyphicon-user"></span>
+                        <input type="password" name="password" placeholder="Nouveau mot de passe" required>
+                    </div>
+                    <div class="password2">
+                        <span class="glyphicon glyphicon-lock"></span>
+                        <input type="password" name="password_confirmation" placeholder="Confirmer le mot de passe"
+                            required>
+                    </div>
+                </div>
+                <button class="submit" type="submit">Envoyer</button>
+            </form>
+        </div>
+    </div>
+</body>
 </html>

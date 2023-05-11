@@ -23,6 +23,9 @@
     <div class="frst">
         <div class="main">
             <div class="title">Recuperer votre compte</div>
+            @error('email')
+            <div class="error-message"><h4>Nous ne trouvons pas d'utilisateur avec cette adresse e-mail.</h4></div>
+        @enderror
             <form method="POST" action="{{ route('password.email') }}">
                 @csrf
                 <div class="mail">
@@ -30,9 +33,7 @@
                         <span class="glyphicon glyphicon-user"></span>
                         <input type="email" name="email" value="{{ old('email') }}" placeholder="Votre email"
                             required>
-                        @error('email')
-                            <div class="error-message">Nous ne trouvons pas d'utilisateur avec cette adresse e-mail.</div>
-                        @enderror
+
                     </div>
                 </div>
                 <<button class="submit"> <a href="{{ url('/login') }}" class="submit">Annuler</a> </button>
