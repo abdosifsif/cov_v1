@@ -24,15 +24,20 @@
         <div class="main">
             <div class="title">Covoiturage</div>
             @if (session('success'))
-                <div class="alert alert-success">
+                <div class="alert-success">
                     <h4>{{ session('success') }}</h4>
                 </div>
             @endif
             @if (session('status'))
-                <div class="alert alert-success">
+                <div class="alert-success">
                     <h4>{{ session('status') }}</h4>
                 </div>
             @endif
+            @error('email')
+                <div class="alert">
+                    <h5>{{ $message }}</h4>
+                </div>
+            @enderror
             <form class="form" method="POST" action="{{ route('login') }}">
                 @csrf
                 <div class="credentials">
@@ -40,11 +45,15 @@
                         <span class="glyphicon glyphicon-user"></span>
                         <input type="email" name="email" value="{{ old('email') }}" placeholder="Votre email"
                             required autofocus autocomplete="email">
+
                     </div>
                     <div class="password">
                         <span class="glyphicon glyphicon-lock"></span>
                         <input type="password" name="password" placeholder="Votre mot de passe" required
                             autocomplete="current-password">
+                        @error('password')
+                            <div class="error">{{ $message }}</div>
+                        @enderror
                     </div>
                 </div>
                 <button type="submit" class="submit">Connecter</button>

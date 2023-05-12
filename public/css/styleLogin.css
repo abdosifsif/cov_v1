@@ -115,5 +115,8 @@ form {
     transition: .5s;
   } 
  .alert{
+  color: red;
+}
+ .alert-success{
   color: green;
  }
