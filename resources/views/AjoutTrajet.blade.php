@@ -141,6 +141,17 @@
         $("input").css("background", "#fff");
         if (showTab == 2) {
                     initMap($('#Ladresse_de_Depart').val(), $('#Ladresse_de_Destination').val());
+                    var targetElement = document.getElementById("myForm");
+                        targetElement.style.width = "624px";
+
+                        targetElement.style.height = "837px";
+                }
+                if(showTab!=2){
+                    var targetElement = document.getElementById("myForm");
+
+                        targetElement.style.width = "550px";
+
+                        targetElement.style.height = "500px";
                 }
       }
       var map;
@@ -244,14 +255,6 @@ $('#step-2').click(function() {
     initMap($('#Ladresse_de_Depart').val(), $('#Ladresse_de_Destination').val());
 });
             
-var suivantButton = document.querySelector(".index-btn");
-suivantButton.addEventListener("click", function() {
-  var targetElement = document.getElementById("myForm");
-
-  targetElement.style.width = "624px";
-
-  targetElement.style.height = "837px";
-});
 
 
 
