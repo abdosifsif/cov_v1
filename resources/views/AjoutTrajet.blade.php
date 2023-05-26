@@ -14,47 +14,14 @@
 </head>
 
 <body>
-    <header>
-
-        <div>
-            <nav>
-                <a href="/" class="logo"> Covoiturage</a>
-                <ul class="principale">
-                    <li><a href="/recherche">
-                            <div class="link-wrap">
-                                <img src="images/search-svgrepo-com (1).svg">
-                                <div>
-                                    <p> Recherche</p>
-                                </div>
-                            </div>
-                        </a></li>
-                    <li><a href="/ajouter-trajet">
-                            <div class="link-wrap">
-                                <img src="images/add-circle-svgrepo-com.svg">
-                                <div>
-                                    <p> Publier un trajet</p>
-                                </div>
-                            </div>
-                        </a></l>
-                </ul>
-                <img src="images/person-circle-fill-svgrepo-com.svg" class="user-pic" onclick="showMenu()">
-
-                <div class="sub-menu-wrap" id="subMenu">
-                    <div class="sub-menu">
-                        <a href="/login" class="sub-menu-links">
-                            <p>connexion</p>
-                            <span>></span>
-                        </a>
-                        <hr>
-                        <a href="/register" class="sub-menu-links">
-                            <p>inscription</p>
-                            <span>></span>
-                        </a>
-                    </div>
-                </div>
-            </nav>
-        </div>
-
+    <header class="main-head">
+        <nav>
+            <h2 id="logo">Covoiturage</h2>
+            <ul class="hover_cont">
+                <li><a href="/login""><strong>Se Connecter</strong></a></li>
+                <li><a href="/register"><strong> S'inscrire</strong></a></li>
+            </ul>
+        </nav>
     </header>
     <article>
         <form id="myForm" action="{{ route('trajet.store') }}" method="post" autocomplete="off">
@@ -76,17 +43,18 @@
                 <input class="query" type="text" placeholder="L'adresse de Destination"
                     name="L'adresse_de_Destination" id="Ladresse_de_Destination">
                 <div class="index-btn-wrapper">
-                    <div class="index-btn" onclick="run(1, 2);">Next</div>
+                    <div class="index-btn" onclick="run(1, 2);">Suivant</div>
                 </div>
             </div>
-            <div class="tab" id="tab-2">
-                
-                <div><div id="map"></div></div>
+            <div class="tab" id = "tab-2">
+                <p>Plus de détails:</p>
+                <div id="map" style="height: 400px;"></div>
+                <input type = "text" placeholder="Quelle est votre route ?" name="route_details">
                 <div class="index-btn-wrapper">
-                    <div class="index-btn" onclick="run(2, 1);">Previous</div>
-                    <div class="index-btn" onclick="run(2, 3);">Next</div>
+                  <div class="index-btn" onclick="run(2, 1);">Précédant</div>
+                  <div class="index-btn" onclick="run(2, 3);">Suivant</div>
                 </div>
-            </div>
+              </div>
 
             <div class="tab" id="tab-3">
                 <p>Quand partez-vous ?:</p>
@@ -144,77 +112,149 @@
         minLength: 1
         });
         
-            // Default tab
-            $(".tab").css("display", "none");
-            $("#tab-1").css("display", "block");
-        
-            function run(hideTab, showTab) {
-                if (hideTab < showTab) { // If not press previous button
-                    // Validation if press next button
-                    var currentTab = 0;
-                    x = $('#tab-' + hideTab);
-                    y = $(x).find("input")
-                    for (i = 0; i < y.length; i++) {
-                        if (y[i].value == "") {
-                            $(y[i]).css("background", "#ffdddd");
-                            return false;
-                        }
-                    }
-                }
-        
-                // Progress bar
-                for (i = 1; i < showTab; i++) {
-                    $("#step-" + i).css("opacity", "1");
-                }
-        
-                // Switch tab
-                $("#tab-" + hideTab).css("display", "none");
-                $("#tab-" + showTab).css("display", "block");
-                $("input").css("background", "#fff");
-        
-                // If on the map tab, initialize the map
-                if (showTab == 2) {
+                 // Default tab
+      $(".tab").css("display", "none");
+      $("#tab-1").css("display", "block");
+
+      function run(hideTab, showTab){
+        if(hideTab < showTab){ // If not press previous button
+          // Validation if press next button
+          var currentTab = 0;
+          x = $('#tab-'+hideTab);
+          y = $(x).find("input")
+          for (i = 0; i < y.length; i++){
+            if (y[i].value == ""){
+              $(y[i]).css("background", "#ffdddd");
+              return false;
+            }
+          }
+        }
+
+        // Progress bar
+        for (i = 1; i < showTab; i++){
+          $("#step-"+i).css("opacity", "1");
+        }
+
+        // Switch tab
+        $("#tab-"+hideTab).css("display", "none");
+        $("#tab-"+showTab).css("display", "block");
+        $("input").css("background", "#fff");
+        if (showTab == 2) {
                     initMap($('#Ladresse_de_Depart').val(), $('#Ladresse_de_Destination').val());
                 }
+      }
+      var map;
+
+// Modify the initMap function to accept the start and end addresses as parameters:
+function initMap(start, end) {
+    var geocoder = new google.maps.Geocoder();
+    var directionsService = new google.maps.DirectionsService();
+    var directionsRenderer = new google.maps.DirectionsRenderer();
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 8,
+        center: {
+            lat: -34.397,
+            lng: 150.644
+        }
+    });
+    console.log(start);
+    console.log(end);
+
+    geocoder.geocode({ address: start }, function(results, status) {
+    if (status === google.maps.GeocoderStatus.OK) {
+      var startLatLng = results[0].geometry.location;
+      var startMarker = new google.maps.Marker({
+        position: startLatLng,
+        map: map,
+        title: 'Start'
+      });
+    }});
+    geocoder.geocode({ address: end }, function(results, status) {
+    if (status === google.maps.GeocoderStatus.OK) {
+      var startLatLng = results[0].geometry.location;
+      var startMarker = new google.maps.Marker({
+        position: startLatLng,
+        map: map,
+        title: 'end'
+      });
+    }});
+
+
+
+
+    var request = {
+        origin: start,
+        destination: end,
+        travelMode: 'DRIVING',
+        provideRouteAlternatives: true
+    };
+
+    directionsService.route(request, function(result, status) {
+        if (status == 'OK') {
+            var fastestRouteIndex = 0;
+            var fastestRouteDuration = result.routes[0].legs[0].duration.value;
+
+            // Determine the fastest route
+            for (var i = 1; i < result.routes.length; i++) {
+                var duration = result.routes[i].legs[0].duration.value;
+                if (duration < fastestRouteDuration) {
+                    fastestRouteIndex = i;
+                    fastestRouteDuration = duration;
+                }
             }
-        
-            // Modify the initMap function to accept the start and end addresses as parameters:
-            function initMap(start, end) {
-                var directionsService = new google.maps.DirectionsService();
-                var directionsRenderer = new google.maps.DirectionsRenderer();
-                var map = new google.maps.Map(document.getElementById('map'), {
-                    zoom: 8,
-                    center: {
-                        lat: -34.397,
-                        lng: 150.644
-                    }
+
+            // Create a new DirectionsRenderer object for each route
+            for (var i = 0; i < result.routes.length; i++) {
+                var directionsRenderer = new google.maps.DirectionsRenderer({
+                    map: map,
+                    directions: result,
+                    routeIndex: i,
+                    suppressMarkers: true // Hide the default markers
                 });
-                directionsRenderer.setMap(map);
-        
-                var request = {
-                    origin: start,
-                    destination: end,
-                    travelMode: 'DRIVING'
-                };
-        
-                directionsService.route(request, function(result, status) {
-                    if (status == 'OK') {
-                        directionsRenderer.setDirections(result);
-                    }
-                });
+
+                // Set the polyline options for each route
+                if (i == fastestRouteIndex) {
+                    // Set the polyline options for the fastest route
+                    directionsRenderer.setOptions({
+                        polylineOptions: {
+                            strokeColor: 'blue',
+                            strokeOpacity: 1.0,
+                            strokeWeight: 6
+                        }
+                    });
+                } else {
+                    // Set the polyline options for the other routes
+                    directionsRenderer.setoptions({
+                        polylineOptions: {
+                            strokeColor: 'gray',
+                            strokeOpacity: 0.5,
+                            strokeWeight: 4
+                        }
+                    });
+                }
             }
-        
-            window.addEventListener('load', function() {
-                // Initialize the map with default values
-                initMap('Paris', 'Marseille');
-            });
-        
-            // Add an event listener to the "Next" button on the first tab to update the map with the entered addresses:
-            $('#step-1').click(function() {
-                initMap($('#Ladresse_de_Depart').val(), $('#Ladresse_de_Destination').val());
-            });
+        }
+    });
+}
+
+
+
+// Add an event listener to the "Next" button on the first tab to update the map with the entered addresses:
+$('#step-2').click(function() {
+    initMap($('#Ladresse_de_Depart').val(), $('#Ladresse_de_Destination').val());
+});
+            
+var suivantButton = document.querySelector(".index-btn");
+suivantButton.addEventListener("click", function() {
+  var targetElement = document.getElementById("myForm");
+
+  targetElement.style.width = "624px";
+
+  targetElement.style.height = "837px";
+});
+
+
+
         </script>
 </body>
-<script type="text/javascript" src="{{ URL::asset('scripts/myscripts.js') }}"></script>
-
 </html>
