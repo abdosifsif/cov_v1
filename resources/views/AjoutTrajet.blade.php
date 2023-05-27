@@ -46,15 +46,19 @@
                     <div class="index-btn" onclick="run(1, 2);">Suivant</div>
                 </div>
             </div>
-            <div class="tab" id = "tab-2">
+            <div class="tab" id="tab-2">
                 <p>Plus de détails:</p>
                 <div id="map" style="height: 400px;"></div>
-                <input type = "text" placeholder="Quelle est votre route ?" name="route_details">
-                <div class="index-btn-wrapper">
-                  <div class="index-btn" onclick="run(2, 1);">Précédant</div>
-                  <div class="index-btn" onclick="run(2, 3);">Suivant</div>
+                <p>"Quelle est votre route ?</p>
+                <div class="select-box">
+                    <select name="route_details" id="routeSelect">
+                    </select><br>
                 </div>
-              </div>
+                <div class="index-btn-wrapper">
+                    <div class="index-btn" onclick="run(2, 1);">Précédant</div>
+                    <div class="index-btn" onclick="run(2, 3);">Suivant</div>
+                </div>
+            </div>
 
             <div class="tab" id="tab-3">
                 <p>Quand partez-vous ?:</p>
@@ -70,17 +74,19 @@
 
             <div class="tab" id="tab-4">
                 <p>Combien de passagers pouvez-vous accepter ?</p>
-                <select name="nbr_passager" id="">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                </select><br>
-                <label for="">Fixez votre prix par place</label>
+                <div class="select-box">
+                    <select name="nbr_passager" id="">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select><br>
+                </div>
+                <p>Fixez votre prix par place</p>
                 <input type="text" placeholder="prix" name="prix">
                 <div class="index-btn-wrapper">
-                    <div class="index-btn" onclick="run(4, 3);">Previous</div>
-                    <div class="index-btn" onclick="run(4, 5);">Next</div>
+                    <div class="index-btn" onclick="run(4, 3);">Précédant</div>
+                    <div class="index-btn" onclick="run(4, 5);">Suivant</div>
                 </div>
             </div>
 
@@ -96,71 +102,70 @@
 
     <script>
         $('.query').autocomplete({
-        source: function(request, response) {
-        $.ajax({
-        url: '/autocomplete-search',
-        data: 'query=' + request.term,
-        dataType: "json",
-        type: "GET",
-        success: function(data) {
-        response($.map(data, function(item) {
-        return item.ville; // map to array of labels
-        }));
-        }
+            source: function(request, response) {
+                $.ajax({
+                    url: '/autocomplete-search',
+                    data: 'query=' + request.term,
+                    dataType: "json",
+                    type: "GET",
+                    success: function(data) {
+                        response($.map(data, function(item) {
+                            return item.ville; // map to array of labels
+                        }));
+                    }
+                });
+            },
+            minLength: 1
         });
-        },
-        minLength: 1
-        });
-        
-                 // Default tab
-      $(".tab").css("display", "none");
-      $("#tab-1").css("display", "block");
 
-      function run(hideTab, showTab){
-        if(hideTab < showTab){ // If not press previous button
-          // Validation if press next button
-          var currentTab = 0;
-          x = $('#tab-'+hideTab);
-          y = $(x).find("input")
-          for (i = 0; i < y.length; i++){
-            if (y[i].value == ""){
-              $(y[i]).css("background", "#ffdddd");
-              return false;
+        // Default tab
+        $(".tab").css("display", "none");
+        $("#tab-1").css("display", "block");
+
+        function run(hideTab, showTab) {
+            if (hideTab < showTab) { // If not press previous button
+                // Validation if press next button
+                var currentTab = 0;
+                x = $('#tab-' + hideTab);
+                y = $(x).find("input")
+                for (i = 0; i < y.length; i++) {
+                    if (y[i].value == "") {
+                        $(y[i]).css("background", "#ffdddd");
+                        return false;
+                    }
+                }
             }
-          }
+
+            // Progress bar
+            for (i = 1; i < showTab; i++) {
+                $("#step-" + i).css("opacity", "1");
+            }
+
+            // Switch tab
+            $("#tab-" + hideTab).css("display", "none");
+            $("#tab-" + showTab).css("display", "block");
+            $("input").css("background", "#fff");
+            if (showTab == 2) {
+                initMap($('#Ladresse_de_Depart').val(), $('#Ladresse_de_Destination').val());
+                var targetElement = document.getElementById("myForm");
+                targetElement.style.width = "624px";
+
+                targetElement.style.height = "837px";
+            }
+            if (showTab != 2) {
+                var targetElement = document.getElementById("myForm");
+
+                targetElement.style.width = "550px";
+
+                targetElement.style.height = "500px";
+            }
         }
+        var map;
 
-        // Progress bar
-        for (i = 1; i < showTab; i++){
-          $("#step-"+i).css("opacity", "1");
-        }
-
-        // Switch tab
-        $("#tab-"+hideTab).css("display", "none");
-        $("#tab-"+showTab).css("display", "block");
-        $("input").css("background", "#fff");
-        if (showTab == 2) {
-                    initMap($('#Ladresse_de_Depart').val(), $('#Ladresse_de_Destination').val());
-                    var targetElement = document.getElementById("myForm");
-                        targetElement.style.width = "624px";
-
-                        targetElement.style.height = "837px";
-                }
-                if(showTab!=2){
-                    var targetElement = document.getElementById("myForm");
-
-                        targetElement.style.width = "550px";
-
-                        targetElement.style.height = "500px";
-                }
-      }
-      var map;
-
-// Modify the initMap function to accept the start and end addresses as parameters:
-function initMap(start, end) {
+        // Modify the initMap function to accept the start and end addresses as parameters:
+        function initMap(start, end) {
     var geocoder = new google.maps.Geocoder();
     var directionsService = new google.maps.DirectionsService();
-    var directionsRenderer = new google.maps.DirectionsRenderer();
     var map = new google.maps.Map(document.getElementById('map'), {
         zoom: 8,
         center: {
@@ -168,30 +173,28 @@ function initMap(start, end) {
             lng: 150.644
         }
     });
-    console.log(start);
-    console.log(end);
 
     geocoder.geocode({ address: start }, function(results, status) {
-    if (status === google.maps.GeocoderStatus.OK) {
-      var startLatLng = results[0].geometry.location;
-      var startMarker = new google.maps.Marker({
-        position: startLatLng,
-        map: map,
-        title: 'Start'
-      });
-    }});
+        if (status === google.maps.GeocoderStatus.OK) {
+            var startLatLng = results[0].geometry.location;
+            var startMarker = new google.maps.Marker({
+                position: startLatLng,
+                map: map,
+                title: 'Start'
+            });
+        }
+    });
+
     geocoder.geocode({ address: end }, function(results, status) {
-    if (status === google.maps.GeocoderStatus.OK) {
-      var startLatLng = results[0].geometry.location;
-      var startMarker = new google.maps.Marker({
-        position: startLatLng,
-        map: map,
-        title: 'end'
-      });
-    }});
-
-
-
+        if (status === google.maps.GeocoderStatus.OK) {
+            var endLatLng = results[0].geometry.location;
+            var endMarker = new google.maps.Marker({
+                position: endLatLng,
+                map: map,
+                title: 'End'
+            });
+        }
+    });
 
     var request = {
         origin: start,
@@ -202,20 +205,22 @@ function initMap(start, end) {
 
     directionsService.route(request, function(result, status) {
         if (status == 'OK') {
-            var fastestRouteIndex = 0;
-            var fastestRouteDuration = result.routes[0].legs[0].duration.value;
+            var routes = result.routes;
+            var selectElement = document.getElementById('routeSelect');
+            var directionsRenderers = [];
 
-            // Determine the fastest route
-            for (var i = 1; i < result.routes.length; i++) {
-                var duration = result.routes[i].legs[0].duration.value;
-                if (duration < fastestRouteDuration) {
-                    fastestRouteIndex = i;
-                    fastestRouteDuration = duration;
-                }
-            }
+            for (var i = 0; i < routes.length; i++) {
+                var route = routes[i];
+                var duration = route.legs[0].duration.text;
+                var distance = route.legs[0].distance.text;
 
-            // Create a new DirectionsRenderer object for each route
-            for (var i = 0; i < result.routes.length; i++) {
+                var option = document.createElement('option');
+                option.value = i;
+                option.text = 'Route ' + (i + 1) + ': Duration - ' + duration + ', Distance - ' + distance;
+
+                selectElement.appendChild(option);
+
+                // Create a new DirectionsRenderer object for each route
                 var directionsRenderer = new google.maps.DirectionsRenderer({
                     map: map,
                     directions: result,
@@ -224,40 +229,55 @@ function initMap(start, end) {
                 });
 
                 // Set the polyline options for each route
-                if (i == fastestRouteIndex) {
-                    // Set the polyline options for the fastest route
-                    directionsRenderer.setOptions({
-                        polylineOptions: {
-                            strokeColor: 'blue',
-                            strokeOpacity: 1.0,
-                            strokeWeight: 6
-                        }
-                    });
-                } else {
-                    // Set the polyline options for the other routes
-                    directionsRenderer.setoptions({
-                        polylineOptions: {
-                            strokeColor: 'gray',
-                            strokeOpacity: 0.5,
-                            strokeWeight: 4
-                        }
-                    });
-                }
+                directionsRenderer.setOptions({
+                    polylineOptions: {
+                        strokeColor: 'gray',
+                        strokeOpacity: 0.5,
+                        strokeWeight: 4
+                    }
+                });
+
+                directionsRenderers.push(directionsRenderer);
             }
+
+            // Event listener for route selection
+            selectElement.addEventListener('change', function() {
+                var selectedIndex = selectElement.value;
+                for (var i = 0; i < directionsRenderers.length; i++) {
+                    var directionsRenderer = directionsRenderers[i];
+                    if (i === parseInt(selectedIndex)) {
+                        // Set the polyline options for the selected route
+                        directionsRenderer.setOptions({
+                            polylineOptions: {
+                                strokeColor: 'blue',
+                                strokeOpacity: 1.0,
+                                strokeWeight: 6
+                            }
+                        });
+                    } else {
+                        // Set the polyline options for other routes
+                        directionsRenderer.setOptions({
+                            polylineOptions: {
+                                strokeColor: 'gray',
+                                strokeOpacity: 0.5,
+                                strokeWeight: 4
+                            }
+                        });
+                    }
+                    directionsRenderer.setMap(map); // Update the renderer on the map
+                }
+            });
         }
     });
 }
 
 
 
-// Add an event listener to the "Next" button on the first tab to update the map with the entered addresses:
-$('#step-2').click(function() {
-    initMap($('#Ladresse_de_Depart').val(), $('#Ladresse_de_Destination').val());
-});
-            
-
-
-
-        </script>
+        // Add an event listener to the "Next" button on the first tab to update the map with the entered addresses:
+        $('#step-2').click(function() {
+            initMap($('#Ladresse_de_Depart').val(), $('#Ladresse_de_Destination').val());
+        });
+    </script>
 </body>
+
 </html>
