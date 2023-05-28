@@ -66,7 +66,7 @@
                 <input type="date" placeholder="dd" name="departure_date" id="departure-date" onchange="updateTimeLimit()">
               
                 <p>À quelle heure souhaitez-vous retrouver vos passagers?</p>
-                <input type="time" placeholder="Heure" name="heure" id="departure-time">
+                <input type="time" placeholder="Heure" name="Heure" id="departure-time">
               
                 <div class="index-btn-wrapper">
                   <div class="index-btn" onclick="run(3, 2);">Previous</div>
