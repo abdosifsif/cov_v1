@@ -49,10 +49,10 @@
             <div class="tab" id="tab-2">
                 <p>Plus de détails:</p>
                 <div id="map" style="height: 400px;"></div>
-                <p>"Quelle est votre route ?</p>
+                <p>Quelle est votre route ?</p>
                 <div class="select-box">
                     <select name="route_details" id="routeSelect">
-                        
+
                     </select><br>
                 </div>
                 <div class="index-btn-wrapper">
@@ -200,7 +200,6 @@
                     });
                 }
             });
-
             var request = {
                 origin: start,
                 destination: end,
@@ -214,21 +213,38 @@
                     var selectElement = document.getElementById('routeSelect');
                     var directionsRenderers = [];
 
+                    var fastestRouteIndex = 0; // Initialize with the index of the first route
+                    var fastestRouteDuration = result.routes[0].legs[0].duration.value;
+
+                    // Determine the fastest route
+                    for (var i = 1; i < result.routes.length; i++) {
+                        var duration = result.routes[i].legs[0].duration.value;
+                        if (duration < fastestRouteDuration) {
+                            fastestRouteIndex = i;
+                            fastestRouteDuration = duration;
+                        }
+                    }
+
+                    // Populate the select element with route options in French
                     for (var i = 0; i < routes.length; i++) {
-                        var route = routes[i];
+                        var option = document.createElement('option');
+                        var route = result.routes[i];
                         var duration = route.legs[0].duration.text;
                         var distance = route.legs[0].distance.text;
 
-                        var option = document.createElement('option');
-                        option.value = i;
-                        option.text = 'Route ' + (i + 1) + ': Duration - ' + duration + ', Distance - ' + distance;
+                        // Create the option text in French
+                        var optionText =
+                            'Route ' + (i + 1) + ': Durée - ' + duration.replace('hours', 'heures').replace('mins',
+                                'minutes') + ', Distance - ' + distance.replace('km', 'km');
 
+                        option.value = optionText;
+                        option.text = optionText;
                         selectElement.appendChild(option);
 
                         // Create a new DirectionsRenderer object for each route
                         var directionsRenderer = new google.maps.DirectionsRenderer({
                             map: map,
-                            directions: result,
+                            directions: result, // Set the DirectionsResult object
                             routeIndex: i,
                             suppressMarkers: true // Hide the default markers
                         });
@@ -236,86 +252,92 @@
                         // Set the polyline options for each route
                         directionsRenderer.setOptions({
                             polylineOptions: {
-                                strokeColor: 'gray',
-                                strokeOpacity: 0.5,
-                                strokeWeight: 4
+                                strokeColor: i === fastestRouteIndex ? 'blue' : 'gray',
+                                strokeOpacity: i === fastestRouteIndex ? 1.0 : 0.5,
+                                strokeWeight: i === fastestRouteIndex ? 6 : 4
                             }
                         });
 
                         directionsRenderers.push(directionsRenderer);
                     }
-                    // var fastestRouteIndex = 0;
-                    // var fastestRouteDuration = result.routes[0].legs[0].duration.value;
 
-                    // // Determine the fastest route
-                    // for (var i = 1; i < result.routes.length; i++) {
-                    //     var duration = result.routes[i].legs[0].duration.value;
-                    //     if (duration < fastestRouteDuration) {
-                    //         fastestRouteIndex = i;
-                    //         fastestRouteDuration = duration;
-                    //     }
-                    // }
-
-                    // // Create a new DirectionsRenderer object for each route
-                    // for (var i = 0; i < result.routes.length; i++) {
-                    //     var directionsRenderer = new google.maps.DirectionsRenderer({
-                    //         map: map,
-                    //         directions: result,
-                    //         routeIndex: i,
-                    //         suppressMarkers: true // Hide the default markers
-                    //     });
-
-                    //     // Set the polyline options for each route
-                    //     if (i === fastestRouteIndex) {
-                    //         // Set the polyline options for the fastest route to blue
-                    //         directionsRenderer.setOptions({
-                    //             polylineOptions: {
-                    //                 strokeColor: 'green',
-                    //                 strokeOpacity: 1.0,
-                    //                 strokeWeight: 6
-                    //             }
-                    //         });
-                    //     } else {
-                    //         // Set the polyline options for the other routes to gray
-                    //         directionsRenderer.setOptions({
-                    //             polylineOptions: {
-                    //                 strokeColor: 'gray',
-                    //                 strokeOpacity: 0.5,
-                    //                 strokeWeight: 4
-                    //             }
-                    //         });
-                    //     }
-                    // }
-
-                    // Event listener for route selection
-                    selectElement.addEventListener('change', function() {   
-                        var selectedIndex = selectElement.value;
-                        for (var i = 0; i < directionsRenderers.length; i++) {
-                            var directionsRenderer = directionsRenderers[i];
-                            if (i === parseInt(selectedIndex)) {
-                                // Set the polyline options for the selected route
-                                directionsRenderer.setOptions({
-                                    polylineOptions: {
-                                        strokeColor: 'blue',
-                                        strokeOpacity: 1.0,
-                                        strokeWeight: 6
-                                    }
-                                });
-                            } else {
-                                // Set the polyline options for other routes
-                                directionsRenderer.setOptions({
-                                    polylineOptions: {
-                                        strokeColor: 'gray',
-                                        strokeOpacity: 0.5,
-                                        strokeWeight: 4
-                                    }
-                                });
-                            }
-                            directionsRenderer.setMap(map); // Update the renderer on the map
+                    // Create a new marker for the start location
+                    geocoder.geocode({
+                        address: start
+                    }, function(results, status) {
+                        if (status === google.maps.GeocoderStatus.OK) {
+                            var startLatLng = results[0].geometry.location;
+                            var startMarker = new google.maps.Marker({
+                                position: startLatLng,
+                                map: map,
+                                title: 'Start'
+                            });
                         }
                     });
+
+                    // Create a new marker for the end location
+                    geocoder.geocode({
+                        address: end
+                    }, function(results, status) {
+                        if (status === google.maps.GeocoderStatus.OK) {
+                            var endLatLng = results[0].geometry.location;
+                            var endMarker = new google.maps.Marker({
+                                position: endLatLng,
+                                map: map,
+                                title: 'End'
+                            });
+                        }
+                    });
+
+                    // Set the default selection to the fastest route
+                    selectElement.value = 'Route ' + (fastestRouteIndex + 1);
+
+                    // Update the polyline options for the default selection
+                    directionsRenderers[fastestRouteIndex].setOptions({
+                        polylineOptions: {
+                            strokeColor: 'blue',
+                            strokeOpacity: 1.0,
+                            strokeWeight: 6
+                        }
+                    });
+
+                    // Event listener for route selection
+                    selectElement.addEventListener('change', function() {
+                        var selectedIndex = selectElement.selectedIndex;
+
+                        // Reset polyline options for all routes
+                        for (var i = 0; i < directionsRenderers.length; i++) {
+                            var directionsRenderer = directionsRenderers[i];
+                            directionsRenderer.setOptions({
+                                polylineOptions: {
+                                    strokeColor: 'gray',
+                                    strokeOpacity: 1,
+                                    strokeWeight: 4
+                                }
+                            });
+                            directionsRenderer.setMap(map); // Update the renderer on the map
+                        }
+
+                        // Set the polyline options for the selected route
+                        directionsRenderers[selectedIndex].setOptions({
+                            polylineOptions: {
+                                strokeColor: 'blue',
+                                strokeOpacity: 1.0,
+                                strokeWeight: 6
+                            }
+                        });
+
+                        directionsRenderers[selectedIndex].setMap(
+                        map); // Update the selected renderer on the map
+                    });
+                    selectElement.value = 'Route ' + (fastestRouteIndex + 1);
+
+                    // Mark the fastest route option as selected
+                    var fastestOption = selectElement.querySelector('option[value="' + selectElement.value + '"]');
+                    fastestOption.selected = true;
                 }
             });
+
         }
 
 
