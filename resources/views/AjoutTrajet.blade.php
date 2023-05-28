@@ -70,8 +70,8 @@
                 <input type="time" placeholder="Heure" name="Heure" id="departure-time">
 
                 <div class="index-btn-wrapper">
-                    <div class="index-btn" onclick="run(3, 2);">Previous</div>
-                    <div class="index-btn" onclick="run(3, 4);">Next</div>
+                    <div class="index-btn" onclick="run(3, 2);">Précédant</div>
+                    <div class="index-btn" onclick="run(3, 4);">Suivant</div>
                 </div>
             </div>
 
@@ -100,7 +100,7 @@
                 <div class="g-recaptcha" data-sitekey="6LfMmEkmAAAAADORis5FtZLeYuSni8JR_O45OoKq"></div>
                 <div class="error-message" style="color: red; font-size: 14px;text-align: center;"></div>
                 <div class="index-btn-wrapper">
-                    <div class="index-btn" onclick="run(5, 4);">Previous</div>
+                    <div class="index-btn" onclick="run(5, 4);">Précédant</div>
                     <button class="index-btn" type="submit" name="submit" style="background:#184646;" onclick="return validateForm();">Ajouter trajet</button>
                 </div>
             </div>

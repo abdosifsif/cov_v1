@@ -344,7 +344,7 @@ function calculatePrice() {
     var distance = selectedOption.value.match(/Distance - ([0-9.]+) km/)[1];
   
     // Calculate the price based on the distance
-    var price = distance * 0.20;
+    var price = Math.round(distance * 0.20);
     console.log(price)
     // Set the calculated price as the input value
     prixInput.placeholder = "Le prix recommandé est de " + price.toFixed(2) + " dh";
