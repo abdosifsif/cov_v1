@@ -91,3 +91,15 @@
     display: inline-block;
     opacity: 0.25;
   }
+  .g-recaptcha {
+    display: flex;
+    justify-content: center;
+}
+#tab-5 h3 {
+  text-align: center;
+  color: green;
+}
+.your-class::placeholder { 
+  color: green;
+  opacity: 1; 
+}
