@@ -279,3 +279,42 @@ function selectFirstOption(selectId) {
     }
 }
 selectFirstOption("routeSelect");
+
+
+// Get the departure date and time inputs
+const departureDateInput = document.getElementById('departure-date');
+const departureTimeInput = document.getElementById('departure-time');
+
+// Set the minimum date for the departure date input to tomorrow's date
+const tomorrow = new Date();
+tomorrow.setDate(tomorrow.getDate() + 1);
+const tomorrowFormatted = tomorrow.toISOString().split('T')[0];
+departureDateInput.setAttribute('min', tomorrowFormatted);
+
+// Function to update the minimum time based on the selected date
+function updateTimeLimit() {
+  const selectedDate = new Date(departureDateInput.value);
+  const today = new Date();
+  const minTimeDifference = 12; // Minimum time difference in hours
+
+  // Calculate the minimum time
+  const minTime = new Date(today.getTime() + minTimeDifference * 60 * 60 * 1000);
+
+  // Restrict the time picker to the 12-hour window from the current time
+  if (selectedDate.toDateString() === today.toDateString()) {
+    const minHour = minTime.getHours();
+    const minMinute = minTime.getMinutes();
+    const minSecond = minTime.getSeconds();
+    const formattedMinHour = minHour < 10 ? '0' + minHour : minHour;
+    const formattedMinMinute = minMinute < 10 ? '0' + minMinute : minMinute;
+    const formattedMinSecond = minSecond < 10 ? '0' + minSecond : minSecond;
+    const minTimeValue = `${formattedMinHour}:${formattedMinMinute}:${formattedMinSecond}`;
+    departureTimeInput.setAttribute('min', minTimeValue);
+  } else {
+    departureTimeInput.removeAttribute('min');
+  }
+}
+
+// Initialize the time limit on page load
+updateTimeLimit();
+

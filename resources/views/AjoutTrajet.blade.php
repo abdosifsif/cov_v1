@@ -63,15 +63,17 @@
 
             <div class="tab" id="tab-3">
                 <p>Quand partez-vous ?:</p>
-                <input type="date" placeholder="dd" name="departure_date">
-
+                <input type="date" placeholder="dd" name="departure_date" id="departure-date" onchange="updateTimeLimit()">
+              
                 <p>À quelle heure souhaitez-vous retrouver vos passagers?</p>
-                <input type="text" placeholder="Heure" name="Heure">
+                <input type="time" placeholder="Heure" name="heure" id="departure-time">
+              
                 <div class="index-btn-wrapper">
-                    <div class="index-btn" onclick="run(3, 2);">Previous</div>
-                    <div class="index-btn" onclick="run(3, 4);">Next</div>
+                  <div class="index-btn" onclick="run(3, 2);">Previous</div>
+                  <div class="index-btn" onclick="run(3, 4);">Next</div>
                 </div>
-            </div>
+              </div>
+              
 
             <div class="tab" id="tab-4">
                 <p>Combien de passagers pouvez-vous accepter ?</p>
