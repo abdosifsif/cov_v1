@@ -16,6 +16,33 @@ $(".query").autocomplete({
     },
     minLength: 1,
 });
+function validateTab1() {
+    var departInput = $("#Ladresse_de_Depart");
+    var destinationInput = $("#Ladresse_de_Destination");
+
+    if (departInput.val().trim() === "") {
+        departInput.css("background", "#ffdddd");
+        return false; // Prevent navigating to the next tab
+    } else {
+        departInput.css("background", "#fff");
+    }
+
+    if (destinationInput.val().trim() === "") {
+        destinationInput.css("background", "#ffdddd");
+        return false; // Prevent navigating to the next tab
+    } else {
+        destinationInput.css("background", "#fff");
+    }
+
+    // If all inputs are valid, navigate to the next tab
+    run(1, 2);
+}
+
+// Add event listener to the next button in tab-1
+$("#tab-1 .index-btn").on("click", function () {
+    validateTab1();
+});
+
 
 // Default tab
 $(".tab").css("display", "none");
@@ -23,18 +50,80 @@ $("#tab-1").css("display", "block");
 
 function run(hideTab, showTab) {
     if (hideTab < showTab) {
-        // If not press previous button
-        // Validation if press next button
-        var currentTab = 0;
-        x = $("#tab-" + hideTab);
-        y = $(x).find("input");
-        for (i = 0; i < y.length; i++) {
-            if (y[i].value == "") {
-                $(y[i]).css("background", "#ffdddd");
-                return false;
+        // Validation if pressing next button
+        var currentTab = $("#tab-" + hideTab);
+        var inputs = currentTab.find("input.query");
+        var isValid = true;
+
+        // Check if any input is empty
+        for (var i = 0; i < inputs.length; i++) {
+            if (inputs[i].value === "") {
+                $(inputs[i]).css("background", "#ffdddd");
+                isValid = false;
+            } else {
+                $(inputs[i]).css("background", "#fff");
             }
         }
+
+        if (!isValid) {
+            return false; // Prevent transitioning to the next tab
+        }
     }
+
+    // Progress bar
+    for (var i = 1; i < showTab; i++) {
+        $("#step-" + i).css("opacity", "1");
+    }
+
+    // Switch tab
+    $("#tab-" + hideTab).css("display", "none");
+    $("#tab-" + showTab).css("display", "block");
+
+    if (showTab === 2) {
+        initMap(
+            $("#Ladresse_de_Depart").val(),
+            $("#Ladresse_de_Destination").val()
+        );
+
+        var targetElement = document.getElementById("myForm");
+        targetElement.style.width = "624px";
+        targetElement.style.height = "837px";
+    } else {
+        var targetElement = document.getElementById("myForm");
+        targetElement.style.width = "550px";
+        targetElement.style.height = "500px";
+    }
+
+    if (showTab === 5) {
+        // Perform additional validation before submitting the form
+
+        // Check if the price is a valid number
+        var priceInput = $("#prix");
+        var priceValue = parseFloat(priceInput.val());
+        if (isNaN(priceValue) || priceValue <= 0) {
+            priceInput.css("background", "#ffdddd");
+            return false; // Prevent submitting the form
+        } else {
+            priceInput.css("background", "#fff");
+        }
+
+        // Add your additional validation checks here
+        if (showTab === 5) {
+            // Perform additional validation before submitting the form
+    
+            // Check if the price is a valid number
+            var priceInput = $("#prix");
+            var priceValue = parseFloat(priceInput.val());
+            if (isNaN(priceValue) || priceValue <= 0) {
+                priceInput.css("background", "#ffdddd");
+                return false; // Prevent submitting the form
+            } else {
+                priceInput.css("background", "#fff");
+            }
+    
+            // Add your additional validation checks here
+        }
+    }   
 
     // Progress bar
     for (i = 1; i < showTab; i++) {
