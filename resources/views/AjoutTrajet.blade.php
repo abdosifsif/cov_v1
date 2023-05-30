@@ -101,7 +101,7 @@
                 <div class="error-message" style="color: red; font-size: 14px;text-align: center;"></div>
                 <div class="index-btn-wrapper">
                     <div class="index-btn" onclick="run(5, 4);">Précédant</div>
-                    <button class="index-btn" type="submit" name="submit" style="background:#184646;" onclick="return validateForm();">Ajouter trajet</button>
+                    <button class="index-btn" type="submit" name="submit" onclick="return validateForm();">Ajouter</button>
                 </div>
             </div>
             
