@@ -204,3 +204,38 @@ footer{
     background-color: gainsboro;
     transition: 2s;
 }
+.user-pic {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  .sub-menu-wrap {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    display: none;
+    background: #fff;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.sub-menu-wrap.show {
+    display: block;
+}
+
+.sub-menu {
+    margin: 0;
+    padding: 0;
+}
+
+.sub-menu-links {
+    display: block;
+    padding: 8px 0;
+    text-decoration: none;
+    color: #000;
+}
+
+.sub-menu-links:hover {
+    background: #f9f9f9;
+}
