@@ -1,0 +1,27 @@
+To create an admin user, you can follow these steps:
+
+Make sure you have already set up the authentication system using php artisan make:auth.
+
+Open your terminal and navigate to the root directory of your Laravel project.
+
+Run the following command to open the interactive Tinker shell:
+
+bash
+Copy code
+php artisan tinker
+In the Tinker shell, create a new admin user by executing the following code:
+
+php
+Copy code
+$admin = new \App\Models\Admin;
+$admin->name = 'Admin Name';
+$admin->email = 'admin@example.com';
+$admin->password = bcrypt('password');
+$admin->save();
+Replace 'Admin Name', 'admin@example.com', and 'password' with the actual name, email, and password for your admin user.
+
+Exit the Tinker shell by typing exit.
+
+Now you have manually created an admin user. You can use these credentials to log in to the admin panel.
+
+Please note that you may need to adjust the code according to your specific setup, such as the namespace and location of your Admin model.
