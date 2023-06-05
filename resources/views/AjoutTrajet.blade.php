@@ -17,12 +17,39 @@
     <header class="main-head">
         <nav>
             <h2 id="logo">Covoiturage</h2>
-            <ul class="hover_cont">
-                <li><a href="/login""><strong>Se Connecter</strong></a></li>
-                <li><a href="/register"><strong> S'inscrire</strong></a></li>
+            <ul>
+                <li><a href="/ajouter-trajet">Ajouter Trajet</a></li>
+                <li><a href="/recherche">Recherche</a></li>
+                <li>
+                    <img src="{{ app('App\Http\Controllers\UserController')->getUserPic() }}" class="user-pic" onclick="showMenu()">
+                    <div class="sub-menu-wrap" id="subMenu">
+                        <div class="sub-menu">
+                            <a href="Registre" class="sub-menu-links">
+                                <p>Profil</p>
+                                <span>></span>  
+                            </a>
+                            <hr>
+                            <a href="Registre" class="sub-menu-links">
+                                <p>Messages</p>
+                                <span>></span>
+                            </a>
+
+                            <hr>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <a href="#" class="sub-menu-links"
+                                    onclick="event.preventDefault(); this.closest('form').submit();">
+                                    <p>Déconnexion</p>
+                                    <span>></span>
+                                </a>
+                            </form>
+                            </form>
+                        </div>
+                    </div>
+                </li>
             </ul>
         </nav>
-    </header>
+    </header> </header>
     <article>
         <form id="myForm" action="{{ route('trajet.store') }}" method="post" autocomplete="off">
             @csrf

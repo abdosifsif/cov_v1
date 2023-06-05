@@ -197,6 +197,7 @@ function initMap(start, end) {
             }
         }
     );
+
     var request = {
         origin: start,
         destination: end,
@@ -222,6 +223,9 @@ function initMap(start, end) {
                 }
             }
 
+            // Clear previous options from select element
+            selectElement.innerHTML = "";
+
             // Populate the select element with route options in French
             for (var i = 0; i < routes.length; i++) {
                 var option = document.createElement("option");
@@ -234,9 +238,7 @@ function initMap(start, end) {
                     "Route " +
                     (i + 1) +
                     ": Durée - " +
-                    duration
-                        .replace("hours", "heures")
-                        .replace("mins", "minutes") +
+                    duration.replace("hours", "heures").replace("mins", "minutes") +
                     ", Distance - " +
                     distance.replace("km", "km");
 
@@ -264,51 +266,8 @@ function initMap(start, end) {
                 directionsRenderers.push(directionsRenderer);
             }
 
-            // Create a new marker for the start location
-            geocoder.geocode(
-                {
-                    address: start,
-                },
-                function (results, status) {
-                    if (status === google.maps.GeocoderStatus.OK) {
-                        var startLatLng = results[0].geometry.location;
-                        var startMarker = new google.maps.Marker({
-                            position: startLatLng,
-                            map: map,
-                            title: "Start",
-                        });
-                    }
-                }
-            );
-
-            // Create a new marker for the end location
-            geocoder.geocode(
-                {
-                    address: end,
-                },
-                function (results, status) {
-                    if (status === google.maps.GeocoderStatus.OK) {
-                        var endLatLng = results[0].geometry.location;
-                        var endMarker = new google.maps.Marker({
-                            position: endLatLng,
-                            map: map,
-                            title: "End",
-                        });
-                    }
-                }
-            );
-
             // Set the default selection to the fastest route
-            selectElement.value = "Route " + (fastestRouteIndex + 1);
-
-            // Update the polyline options for the default selection
-            directionsRenderers[fastestRouteIndex].setOptions({
-                polylineOptions: {
-                    strokeColor: "blue",
-                    strokeOpacity: 1.0,
-                    strokeWeight: 6,
-                },
-            });
+            selectElement.selectedIndex = fastestRouteIndex;
 
             // Event listener for route selection
             selectElement.addEventListener("change", function () {
@@ -338,17 +297,8 @@ function initMap(start, end) {
 
                 directionsRenderers[selectedIndex].setMap(map); // Update the selected renderer on the map
             });
-            // Set the default selection to the fastest route
-            selectElement.selectedIndex = fastestRouteIndex;
-
-            // Mark the fastest route option as selected
-            var fastestOption = selectElement.options[fastestRouteIndex];
-            if (fastestOption) {
-                fastestOption.selected = true;
-            }
         }
     });
-    
 }
 
 // Add an event listener to the "Next" button on the first tab to update the map with the entered addresses:
