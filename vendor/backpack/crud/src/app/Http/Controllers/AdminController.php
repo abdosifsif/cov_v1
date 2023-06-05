@@ -31,15 +31,19 @@ class AdminController extends Controller
             trans('backpack::crud.admin')     => backpack_url('dashboard'),
             trans('backpack::base.dashboard') => false,
         ];
-
+    
         $this->data['registeredUsers'] = User::count();
-        $this->data['remainingMilestone'] = 1000 - $this->data['registeredUsers'];
         $this->data['trajetCount'] = Trajet::count();
-        $this->data['villeCount'] = ville::count();
-
+        $this->data['newUserCount'] = User::whereDate('created_at', '>=', now()->subDays(7))->count();
+        
+        $lastTrajet = Trajet::latest('created_at')->first();
+        $daysSinceLastTrajet = $lastTrajet ? now()->diffInDays($lastTrajet->created_at) : null;
+        $this->data['daysSinceLastTrajet'] = $daysSinceLastTrajet;
+    
         return view(backpack_view('dashboard'), $this->data);
     }
-
+    
+    
     /**
      * Redirect to the dashboard.
      *
