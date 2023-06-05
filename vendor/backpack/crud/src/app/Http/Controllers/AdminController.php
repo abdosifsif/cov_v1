@@ -2,6 +2,9 @@
 
 namespace Backpack\CRUD\app\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Trajet;
+use App\Models\ville;
 use Illuminate\Routing\Controller;
 
 class AdminController extends Controller
@@ -28,6 +31,11 @@ class AdminController extends Controller
             trans('backpack::crud.admin')     => backpack_url('dashboard'),
             trans('backpack::base.dashboard') => false,
         ];
+
+        $this->data['registeredUsers'] = User::count();
+        $this->data['remainingMilestone'] = 1000 - $this->data['registeredUsers'];
+        $this->data['trajetCount'] = Trajet::count();
+        $this->data['villeCount'] = ville::count();
 
         return view(backpack_view('dashboard'), $this->data);
     }
