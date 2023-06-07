@@ -52,6 +52,7 @@ h4,h5{
   padding: 2px 5px 0px 5px;
 }
 .mail input{
+  width: 520px;
   border: none;
   outline: none;
   background: none;

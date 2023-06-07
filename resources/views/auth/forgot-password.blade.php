@@ -26,21 +26,26 @@
             @error('email')
             <div class="error-message"><h4>Nous ne trouvons pas d'utilisateur avec cette adresse e-mail.</h4></div>
         @enderror
-            <form method="POST" action="{{ route('password.email') }}">
-                @csrf
-                <div class="mail">
-                    <div class="username">
-                        <span class="glyphicon glyphicon-user"></span>
-                        <input type="email" name="email" value="{{ old('email') }}" placeholder="Votre email"
-                            required>
-
-                    </div>
+        <form method="POST" action="{{ route('password.email') }}">
+            @csrf
+            <div class="mail">
+                <div class="username">
+                    <span class="glyphicon glyphicon-user"></span>
+                    <input type="email" name="email" value="{{ old('email') }}" placeholder="Votre email" required>
                 </div>
-                <<button class="submit"> <a href="{{ url('/login') }}" class="submit">Annuler</a> </button>
-                    <button class="submit">Envoyer</button>
-            </form>
+            </div>
+            <button class="submit" onclick="goToLogin(event)">Annuler</button>
+            <button type="submit" name="submit" class="submit">Envoyer</button>
+        </form>
         </div>
     </div>
 </body>
-
+<script>
+    function goToLogin(event) {
+        event.preventDefault();
+        if (event.target.name !== 'submit') {
+            window.location.href = "{{ url('/login') }}";
+        }
+    }
+</script>
 </html>
