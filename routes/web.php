@@ -29,12 +29,12 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-
+Route::middleware('auth')->group(function () {
 Route::get('/recherche', function () {
     return view('Recherche');
 });
 Route::post('/recherche', [TrajetController::class, 'search'])->name('recherche');
-
+});
 Route::get('/autocomplete-search', [TypeaheadController::class, 'autocompleteSearch']);
 
 

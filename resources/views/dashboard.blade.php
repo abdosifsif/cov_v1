@@ -13,9 +13,9 @@
     <header class="main-head">
         <nav>
             <h2 id="logo">Covoiturage</h2>
-            <ul>
-                <li><a href="/ajouter-trajet">Ajouter Trajet</a></li>
-                <li><a href="/recherche">Recherche</a></li>
+            <ul class="hover_cont">
+                <li><a href="/ajouter-trajet"><strong>Ajouter Trajet</strong></a></li>
+                <li><a href="/recherche"><strong>Recherche</strong></a></li>
                 <li>
                     <img src="{{ app('App\Http\Controllers\UserController')->getUserPic() }}" class="user-pic" onclick="showMenu()">
                     <div class="sub-menu-wrap" id="subMenu">
