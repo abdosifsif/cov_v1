@@ -210,4 +210,22 @@ submitButton.addEventListener('click', function(event) {
   xhr.send();
 });
 
+var profileImage = document.getElementById('profile-image');
+var imageInput = document.getElementById('image-input');
+var previewImage = document.getElementById('preview-image');
 
+profileImage.addEventListener('click', function() {
+  imageInput.click();
+});
+
+imageInput.addEventListener('change', function() {
+  if (imageInput.files && imageInput.files[0]) {
+    var reader = new FileReader();
+
+    reader.onload = function(e) {
+      previewImage.src = e.target.result;
+    };
+
+    reader.readAsDataURL(imageInput.files[0]);
+  }
+});

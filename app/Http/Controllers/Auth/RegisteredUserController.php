@@ -30,41 +30,43 @@ class RegisteredUserController extends Controller
      * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request $request)//: RedirectResponse
-    {
+{
+    $request->validate([
+        'nom' => ['required', 'string', 'max:255'],
+        'prenom' => ['required', 'string', 'max:255'],
+        'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+        'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        'date' => ['required', 'date'],
+        'sexe' => ['required', 'string'],
+        'ville' => ['required', 'string', 'max:255'],
+        'telephone' => ['required', 'string', 'max:255'],
+        'picture' => ['image', 'max:2048'],
+    ]);
 
-        $request->validate([
-            'nom' => ['required', 'string', 'max:255'],
-            'prenom' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'date' => ['required', 'date'],
-            'sexe' => ['required', 'string'],
-            'ville' => ['required', 'string', 'max:255'],
-            'telephone' => ['required', 'string', 'max:255'],
-            'picture' => ['image', 'max:2048'],
-        ]);
-
-        
-        $picturePath = null;
-        if ($request->hasFile('picture')) {
-            $picturePath = $request->file('picture')->storePublicly('public/pictures');
-        }
-        $user = User::create([
-            'nom' => $request->nom,
-            'prenom' => $request->prenom,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'date' => $request->date,
-            'sexe' => $request->sexe,
-            'ville' => $request->ville,
-            'telephone' => $request->telephone,
-            'picture' => $picturePath ? Storage::url($picturePath) : null,
-        ]);
-
-        event(new Registered($user));
-
-        Auth::login($user);
-        return redirect(RouteServiceProvider::HOME);
+    $picturePath = null;
+    if ($request->hasFile('picture')) {
+        $picturePath = $request->file('picture')->storePublicly('public/pictures');
     }
+
+    $picture = $picturePath ? Storage::url($picturePath) : 'images/Default_pfp.svg.png';
+
+    $user = User::create([
+        'nom' => $request->nom,
+        'prenom' => $request->prenom,
+        'email' => $request->email,
+        'password' => Hash::make($request->password),
+        'date' => $request->date,
+        'sexe' => $request->sexe,
+        'ville' => $request->ville,
+        'telephone' => $request->telephone,
+        'picture' => $picture,
+    ]);
+
+    event(new Registered($user));
+
+    Auth::login($user);
+    return redirect(RouteServiceProvider::HOME);
+}
+
 }
 
