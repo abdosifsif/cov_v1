@@ -1,121 +1,217 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+  }
+  body{
+    color: #0A2B19;
+  }
+.navv ul{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    list-style: none;
+    color: #fff;
+    padding: 30px 8px;
+    gap: 60px;
+    cursor: pointer;
+}
+.navv a{
+    outline: none;
+    border: none;
+    width: 100%;
+    height: 100px;
+    border-radius: 30px;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 700;
+    text-align: center;
+    transition: .5s;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+}
+.navv a:hover{
+    background-color: gainsboro;
+    border-radius: 25px;
+    padding: 15px;
+    color: #0A2B19;
+}
+.navv{
+    display: flex;
+    justify-content: center;
+    gap: 2px;
 }
 .frst{
-  min-height: 90vh;
+  min-height: 100vh;
   display: flex;
-  justify-content: space-around;
-  gap: 10px;
+  align-items: center;
+  flex-direction: column;
   padding: 20px;
   background-color: #0A2B19;
   background-image: linear-gradient(rgb(0,0,0,0.6),transparent),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25'%3E%3Cdefs%3E%3ClinearGradient id='a' gradientUnits='userSpaceOnUse' x1='0' x2='0' y1='0' y2='100%25' gradientTransform='rotate(0,768,357)'%3E%3Cstop offset='0' stop-color='%230A2B19'/%3E%3Cstop offset='1' stop-color='%230A2C19'/%3E%3C/linearGradient%3E%3Cpattern patternUnits='userSpaceOnUse' id='b' width='300' height='250' x='0' y='0' viewBox='0 0 1080 900'%3E%3Cg fill-opacity='0.07'%3E%3Cpolygon fill='%23444' points='90 150 0 300 180 300'/%3E%3Cpolygon points='90 150 180 0 0 0'/%3E%3Cpolygon fill='%23AAA' points='270 150 360 0 180 0'/%3E%3Cpolygon fill='%23DDD' points='450 150 360 300 540 300'/%3E%3Cpolygon fill='%23999' points='450 150 540 0 360 0'/%3E%3Cpolygon points='630 150 540 300 720 300'/%3E%3Cpolygon fill='%23DDD' points='630 150 720 0 540 0'/%3E%3Cpolygon fill='%23444' points='810 150 720 300 900 300'/%3E%3Cpolygon fill='%23FFF' points='810 150 900 0 720 0'/%3E%3Cpolygon fill='%23DDD' points='990 150 900 300 1080 300'/%3E%3Cpolygon fill='%23444' points='990 150 1080 0 900 0'/%3E%3Cpolygon fill='%23DDD' points='90 450 0 600 180 600'/%3E%3Cpolygon points='90 450 180 300 0 300'/%3E%3Cpolygon fill='%23666' points='270 450 180 600 360 600'/%3E%3Cpolygon fill='%23AAA' points='270 450 360 300 180 300'/%3E%3Cpolygon fill='%23DDD' points='450 450 360 600 540 600'/%3E%3Cpolygon fill='%23999' points='450 450 540 300 360 300'/%3E%3Cpolygon fill='%23999' points='630 450 540 600 720 600'/%3E%3Cpolygon fill='%23FFF' points='630 450 720 300 540 300'/%3E%3Cpolygon points='810 450 720 600 900 600'/%3E%3Cpolygon fill='%23DDD' points='810 450 900 300 720 300'/%3E%3Cpolygon fill='%23AAA' points='990 450 900 600 1080 600'/%3E%3Cpolygon fill='%23444' points='990 450 1080 300 900 300'/%3E%3Cpolygon fill='%23222' points='90 750 0 900 180 900'/%3E%3Cpolygon points='270 750 180 900 360 900'/%3E%3Cpolygon fill='%23DDD' points='270 750 360 600 180 600'/%3E%3Cpolygon points='450 750 540 600 360 600'/%3E%3Cpolygon points='630 750 540 900 720 900'/%3E%3Cpolygon fill='%23444' points='630 750 720 600 540 600'/%3E%3Cpolygon fill='%23AAA' points='810 750 720 900 900 900'/%3E%3Cpolygon fill='%23666' points='810 750 900 600 720 600'/%3E%3Cpolygon fill='%23999' points='990 750 900 900 1080 900'/%3E%3Cpolygon fill='%23999' points='180 0 90 150 270 150'/%3E%3Cpolygon fill='%23444' points='360 0 270 150 450 150'/%3E%3Cpolygon fill='%23FFF' points='540 0 450 150 630 150'/%3E%3Cpolygon points='900 0 810 150 990 150'/%3E%3Cpolygon fill='%23222' points='0 300 -90 450 90 450'/%3E%3Cpolygon fill='%23FFF' points='0 300 90 150 -90 150'/%3E%3Cpolygon fill='%23FFF' points='180 300 90 450 270 450'/%3E%3Cpolygon fill='%23666' points='180 300 270 150 90 150'/%3E%3Cpolygon fill='%23222' points='360 300 270 450 450 450'/%3E%3Cpolygon fill='%23FFF' points='360 300 450 150 270 150'/%3E%3Cpolygon fill='%23444' points='540 300 450 450 630 450'/%3E%3Cpolygon fill='%23222' points='540 300 630 150 450 150'/%3E%3Cpolygon fill='%23AAA' points='720 300 630 450 810 450'/%3E%3Cpolygon fill='%23666' points='720 300 810 150 630 150'/%3E%3Cpolygon fill='%23FFF' points='900 300 810 450 990 450'/%3E%3Cpolygon fill='%23999' points='900 300 990 150 810 150'/%3E%3Cpolygon points='0 600 -90 750 90 750'/%3E%3Cpolygon fill='%23666' points='0 600 90 450 -90 450'/%3E%3Cpolygon fill='%23AAA' points='180 600 90 750 270 750'/%3E%3Cpolygon fill='%23444' points='180 600 270 450 90 450'/%3E%3Cpolygon fill='%23444' points='360 600 270 750 450 750'/%3E%3Cpolygon fill='%23999' points='360 600 450 450 270 450'/%3E%3Cpolygon fill='%23666' points='540 600 630 450 450 450'/%3E%3Cpolygon fill='%23222' points='720 600 630 750 810 750'/%3E%3Cpolygon fill='%23FFF' points='900 600 810 750 990 750'/%3E%3Cpolygon fill='%23222' points='900 600 990 450 810 450'/%3E%3Cpolygon fill='%23DDD' points='0 900 90 750 -90 750'/%3E%3Cpolygon fill='%23444' points='180 900 270 750 90 750'/%3E%3Cpolygon fill='%23FFF' points='360 900 450 750 270 750'/%3E%3Cpolygon fill='%23AAA' points='540 900 630 750 450 750'/%3E%3Cpolygon fill='%23FFF' points='720 900 810 750 630 750'/%3E%3Cpolygon fill='%23222' points='900 900 990 750 810 750'/%3E%3Cpolygon fill='%23222' points='1080 300 990 450 1170 450'/%3E%3Cpolygon fill='%23FFF' points='1080 300 1170 150 990 150'/%3E%3Cpolygon points='1080 600 990 750 1170 750'/%3E%3Cpolygon fill='%23666' points='1080 600 1170 450 990 450'/%3E%3Cpolygon fill='%23DDD' points='1080 900 1170 750 990 750'/%3E%3C/g%3E%3C/pattern%3E%3C/defs%3E%3Crect x='0' y='0' fill='url(%23a)' width='100%25' height='100%25'/%3E%3Crect x='0' y='0' fill='url(%23b)' width='100%25' height='100%25'/%3E%3C/svg%3E");
   background-attachment: fixed;
   background-size: cover;
-  color: gainsboro;
 }
-.container{
-    display: flex;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+#profile {
+  position: relative;
+  max-width: 700px;
+  width: 100%;
+  background: #fff;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
 }
-.search-bar{
-    background-color: #fff;
-    width: 100%;
-    margin: 30px auto;
-    padding: 6px 10px 6px 30px;
-    border-radius: 50px;
+#profile header {
+  font-size: 3rem;
+  color: #0A2B19;
+  font-weight: 700;
+  text-align: center;
 }
-.search-bar form{
-    display: flex;
-    align-items: center;
+#profile .form {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center ;
+  flex-direction: column;
+}
+.form .input-box {
+  width: 100%;
+  margin-top: 20px;
+}
+.input-box label {
+  color: #333;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+.form :where(.input-box input, .select-box, .DH input ) {
+  position: relative;
+  height: 50px;
+  width: 100%;
+  outline: none;
+  font-size: 1.5rem;
+  color: #707070;
+  margin-top: 8px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 0 15px;
+}
+.input-box input:focus {
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+}
+.form .column {
+  display: flex;
+  column-gap: 15px;
+}
+
+.gender input {
+  accent-color:  #0A2B19;
+
+}
+.form :where(.gender input, .gender label) {
+  cursor: pointer;
+}
+.gender label {
+  color: #707070;
+  font-size: 1.8rem;
+}
+.address :where(input, .select-box) {
+  margin-top: 15px;
+}
+.select-box select {
+  height: 100%;
+  width: 100%;
+  outline: none;
+  border: none;
+  color: #707070;
+  font-size: 1.5rem;
+}
+.form button {
+  height: 55px;
+  width: 90%;
+  border-radius: 15px;
+  color: #fff;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-top: 30px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background:  #0A2B19;
+}
+.form button:hover {
+  background:  gainsboro;
+  color: #0A2B19;
+}
+/*Responsive*/
+@media screen and (max-width: 521px) {
+  .form .column {
     flex-wrap: wrap;
-    position: relative;
-}
-.search-bar form input{
+  }
+  .form :where(.gender-option, .gender) {
+    row-gap: 15px;
+  }
+  .vertical-line{
     display: block;
-    border: 0;
-    outline: none;
-    background: transparent;
-}
-.search-bar form button{
-    background: #0A2B19;
-    color: #fff;
-    width: 100px;
-    height: 50px;
-    border-radius: 25px;
-    border: 0;
-    outline: none;
-    cursor: pointer;
-    margin-top: 2px;
+  }
 
 }
-.search-bar form button:hover{
-    background-color: gainsboro;
-    color: #0A2B19;
+.link{
+  margin: 10px;
+  text-align: center;
 }
-.depart-input, .destination-input, .date-input, .nbr-input, button {
-    position: relative;
-    height: 100%;
-    width: 18%;
-    outline: none;
-    font-size: 1.5rem;
-    color: #707070;
-    margin-top: 8px;
-    border-radius: 6px;
-    padding: 0 15px;
-    display: flex;
-   justify-content:  center;
-    flex-direction: column;
-    align-items: stretch;
-  }
-  .vertical-line{
-    border-left: 2px solid  #707070;
-    display: inline-block;
-    height:30px;
-    margin: 0 20px;
-  }
-  @media screen and (max-width:900px){
-    .search-bar form{
-      display: flex;
-      align-items: center;
-      flex-direction: column;
-  }
-  .search-bar{
-    width: 90%;
-    border-radius: 15px;
-  }
-  .depart-input, .destination-input, .date-input, .nbr-input, button {
-    position: relative;
-    height: 100%;
-    width: 100%;
-    
-  }
-  .search-bar form button{
-    display: flex;
-    border-radius: 10px;
-    width: 90px;
-    justify-content:  center;
-    align-items: center;
-  }
-  .vertical-line{
+/*.profile{
     display: none;
-  }
-  .tst{
-    width: 114px;
-  }
+}*/
+.DH label {
+    color: #333;
+    font-size: 1.8rem;
+    font-weight: 700;
 }
-
-
-
-
-
-
+.form .column1 {
+    display: flex;
+    column-gap: 15px;
+  }
+#preferences{
+  position: relative;
+  max-width: 600px;
+  width: 100%;
+  background: #fff;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+#preferences h3{
+  color: #0A2B19;
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+#preferences .option{
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  column-gap: 50px;
+  flex-wrap: wrap;
+  padding: 0px 90px;
+  font-size: 1.5rem;
+  color: #0A2B19;
+}
+.option1{
+  column-gap: 5px;
+}
+#preferences input{
+  accent-color:  #0A2B19;
+}
+/*.preferences{
+  display: none;
+}*/
 #trajets{
   position: relative;
   max-width: 600px;
@@ -184,19 +280,104 @@
   font-weight: 900;
   font-size: 20px;
 }
-ul li a.active {
-  background-color: gainsboro;
-  border-radius: 25px;
-  padding: 15px;
+#pressedbtn{
+  height: 55px;
+  width: 100%;
+  border-radius: 15px;
+  color: #fff;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-top: 30px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background:  #0A2B19;
+}
+#pressedbtn:hover {
+  background:  gainsboro;
   color: #0A2B19;
 }
-.trier{
-  border: solid;
-  min-width: 334px;
-  min-height: 596px;
+#voiture{
+  position: relative;
+  max-width: 700px;
+  width: 100%;
+  background: #fff;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+    
 }
-.error{
-  margin-bottom: 244px;
-  min-width: 601px;
-  min-height: 200px;
+#voiture header {
+  font-size: 3rem;
+  color: #0A2B19;
+  font-weight: 700;
+  text-align: center;
 }
+#voiture .form {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center ;
+  flex-direction: column;
+}
+.input-box select{
+  width: 100%;
+  margin-top: 20px;
+}
+.form :where(.input-box input, select ) {
+  position: relative;
+  height: 50px;
+  width: 100%;
+  outline: none;
+  font-size: 1.5rem;
+  color: #707070;
+  margin-top: 8px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 0 15px;
+}
+.input-box input:focus {
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+}
+
+ul li a.active {
+    background-color: gainsboro;
+    border-radius: 25px;
+    padding: 15px;
+    color: #0A2B19;
+  }
+ /* Style for radio buttons */
+ .option input[type="radio"] {
+  display: none;
+}
+
+/* Default style for radio button labels */
+.option label {
+  display: inline-block;
+  padding: 5px 10px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Style for selected radio button label */
+.option input[type="radio"]:checked + label {
+  background-color: gainsboro;
+  color: white;
+}
+
+
+
+
+
+
+
+
+
+
+
+
