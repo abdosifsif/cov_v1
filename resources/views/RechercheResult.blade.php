@@ -121,58 +121,68 @@
             </form>
 
 
-
-        @foreach ($trajets as $trajet)
-            <section id="trajets">
-                <div class="personnels">
-                    <img src="{{ app('App\Http\Controllers\UserController')->getUserPic() }}" alt="carpool image">
-                    <p><strong>MAJIDA </strong></p>
-                </div>
-                <span class="vertical-line"></span>
-                <div class="container">
-                    <div class="infodh">
-                        <h5>{{ $trajet->departure_date }}</h5>
-                        <h5>&nbsp;A&nbsp;</h5>
-                        <h5>{{ $trajet->departure_time }}</h5>
-                    </div><br>
-                    <div class="infdepdes">
-                        <p><strong>{{ $trajet->{"L'adresse_de_Départ"} }}</strong></p>&nbsp;&nbsp;
-                        <img src="images/arrow-right-svgrepo-com (1).svg" alt="">&nbsp;&nbsp;
-                        <p><strong>{{ $trajet->{"L'adresse_de_Destination"} }}</strong></p>
-                    </div><br>
-                    <div class="autre">
-                        <div class="depart">
-                            <img src="images/location-svgrepo-com.svg" alt="">&nbsp;&nbsp;
-                            <p><strong>{{ $trajet->{"L'adresse_de_Départ"} }}</strong></p>
+            
+            @foreach ($trajets as $trajet)
+                <section id="trajets">
+                    <div class="personnels">
+                        <img src="{{ app('App\Http\Controllers\UserController')->getUserPic() }}" alt="carpool image">
+                        <p><strong>MAJIDA </strong></p>
+                    </div>
+                    <span class="vertical-line"></span>
+                    <div class="container">
+                        <div class="infodh">
+                            <h5>{{ $trajet->departure_date }}</h5>
+                            <h5>&nbsp;A&nbsp;</h5>
+                            <h5>{{ $trajet->departure_time }}</h5>
                         </div><br>
-                        <div class="destination">
-                            <img src="images/location-svgrepo-com.svg" alt="">&nbsp;&nbsp;
+                        <div class="infdepdes">
+                            <p><strong>{{ $trajet->{"L'adresse_de_Départ"} }}</strong></p>&nbsp;&nbsp;
+                            <img src="images/arrow-right-svgrepo-com (1).svg" alt="">&nbsp;&nbsp;
                             <p><strong>{{ $trajet->{"L'adresse_de_Destination"} }}</strong></p>
                         </div><br>
-                        <div class="passaget">
-                            <img src="images/person-team-svgrepo-com.svg" alt="">&nbsp;&nbsp;
-                            <p><strong>{{ $trajet->nbr_passager }}</strong></p>
-                        </div><br>
+                        <div class="autre">
+                            <div class="depart">
+                                <img src="images/location-svgrepo-com.svg" alt="">&nbsp;&nbsp;
+                                <p><strong>{{ $trajet->{"L'adresse_de_Départ"} }}</strong></p>
+                            </div><br>
+                            <div class="destination">
+                                <img src="images/location-svgrepo-com.svg" alt="">&nbsp;&nbsp;
+                                <p><strong>{{ $trajet->{"L'adresse_de_Destination"} }}</strong></p>
+                            </div><br>
+                            <div class="passaget">
+                                <img src="images/person-team-svgrepo-com.svg" alt="">&nbsp;&nbsp;
+                                <p><strong>{{ $trajet->nbr_passager }}</strong></p>
+                            </div><br>
+                        </div>
+                        <div class="prix">
+                            <p><strong>{{ $trajet->prix }}</strong></p>
+                        </div>
                     </div>
-                    <div class="prix">
-                        <p><strong>{{ $trajet->prix }}</strong></p>
-                    </div>
-                </div>
-            </section>
+                </section>
             @endforeach
             <section class="trajets">
                 @if (count($trajets) == 0)
-                    <section id="trajets" class="error">
-                        <div class="personnels"></div>
+                    <section class="trajets-error">
                         <div class="no-trajets-message">
-                            <h4 id="dynamic-date">Il n'y a pas encore de trajets pour <span id="date-placeholder">{{ $selectedDate ?? '' }}</span> entre ces villes.</h4>
+                            <h4 id="dynamic-date">
+                                @if ($selectedDate && \Carbon\Carbon::parse($selectedDate)->isTomorrow())
+                                    Il n'y a pas encore de trajets pour demain entre ces villes.
+                                @else
+                                    Il n'y a pas encore de trajets pour
+                                    <span id="date-placeholder">{{ $selectedDate ?? '' }}</span> entre ces villes.
+                                @endif
+                            </h4>
+                            <div id="btn-div">
+                                <button id="btn" onclick="redirectToURL('/ajouter-trajet')">Publier un
+                                    trajet</button>
+                            </div>
                         </div>
                     </section>
                 @endif
             </section>
-            
-            
-            
+
+
+
         </section>
     </div>
 </body>
@@ -194,6 +204,10 @@
         },
         minLength: 1
     });
+
+    function redirectToURL(url) {
+        window.location.href = url;
+    }
 </script>
 
 </html>
