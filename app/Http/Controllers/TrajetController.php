@@ -48,26 +48,26 @@ class TrajetController extends Controller
     }
 
     public function search(Request $request)
-    {
-        // Get the search query from the request
-        $depart = $request->input('depart');
-        $destination = $request->input('destination');
-        $date = $request->input('date');
-        $passagers = $request->input('passagers');
-        
-        
-        
-        // Perform the search using the Trajet model
-        $trajets = Trajet::where('L\'adresse_de_Départ', 'like', '%' . $depart . '%')
+{
+    // Get the search query from the request
+    $depart = $request->input('depart');
+    $destination = $request->input('destination');
+    $date = $request->input('date');
+    $passagers = $request->input('passagers');
+    
+    // Convert the date format to match the expected format in the database
+    $selectedDate = date('F j', strtotime($date));
+
+    // Perform the search using the Trajet model
+    $trajets = Trajet::where('L\'adresse_de_Départ', 'like', '%' . $depart . '%')
         ->where("L'adresse_de_Destination", 'like', '%' . $destination . '%')
         ->where('departure_date', '=', $date)
         ->where('nbr_passager', '>=', $passagers)
         ->get();
-    
-        // Pass the search results to the searchResults view
-        // dd($trajets);
-        return view('RechercheResult', ['trajets' => $trajets]);
-        
-    }
+
+    // Pass the search results and selected date to the searchResults view
+    return view('RechercheResult', ['trajets' => $trajets, 'selectedDate' => $selectedDate]);
+}
+
     
 }

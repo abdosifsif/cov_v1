@@ -162,14 +162,15 @@
             @endforeach
             <section class="trajets">
                 @if (count($trajets) == 0)
-                <section id="trajets" class="error">
-                    <div class="personnels"></div>
-                    <div class="no-trajets-message">
-                        <h4 id="dynamic-date">Il n'y a pas encore de trajets pour <span id="date-placeholder"></span> entre ces villes.</h4>
-                    </div>
-                </section>
+                    <section id="trajets" class="error">
+                        <div class="personnels"></div>
+                        <div class="no-trajets-message">
+                            <h4 id="dynamic-date">Il n'y a pas encore de trajets pour <span id="date-placeholder">{{ $selectedDate ?? '' }}</span> entre ces villes.</h4>
+                        </div>
+                    </section>
                 @endif
             </section>
+            
             
             
         </section>
@@ -192,20 +193,6 @@
             });
         },
         minLength: 1
-    });
-    document.addEventListener('DOMContentLoaded', function() {
-        const dateInput = document.querySelector('.tst');
-        const datePlaceholder = document.getElementById('date-placeholder');
-
-        dateInput.addEventListener('change', function() {
-            const selectedDate = new Date(dateInput.value);
-            const formattedDate = selectedDate.toLocaleDateString('fr', {
-                month: 'long',
-                day: 'numeric'
-            });
-
-            datePlaceholder.textContent = formattedDate;
-        });
     });
 </script>
 
