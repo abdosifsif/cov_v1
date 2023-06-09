@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use App\Models\Preference;
 use Illuminate\Support\Facades\DB;
+use App\Models\Voiture;
+
+
 
 
 
@@ -22,10 +25,13 @@ class ProfileController extends Controller
     {
         $user = $request->user();
         $preferences = $user->preferences;
+        $voiture = $user->voitures;
+
 
         return view('profile.edit', [
             'user' => $user,
             'preferences' => $preferences,
+            'voiture' => $voiture,
         ]);
     }
 
@@ -106,6 +112,52 @@ class ProfileController extends Controller
 
     return redirect()->route('profile.edit')->with('status', 'preferences-updated');
 }
+
+public function saveVoiture(Request $request)
+{
+    $validatedData = $request->validate([
+        'marque' => ['required', 'string'],
+        'confort' => ['required', 'string'],
+        'nombre_de_place' => ['required', 'integer'],
+        'modele' => ['nullable', 'string'],
+    ]);
+
+    $user = $request->user();
+    $userId = $user->id;
+
+    // Check if the user already has a car
+    $carExists = DB::table('voitures')->where('user_id', $userId)->exists();
+
+    if ($carExists) {
+        // Update the existing car information
+        $modele = $validatedData['modele'] ?? ''; // Set default value if 'modele' is not provided
+        DB::table('voitures')
+            ->where('user_id', $userId)
+            ->update([
+                'marque' => $validatedData['marque'],
+                'modele' => $modele,
+                'confort' => $validatedData['confort'],
+                'nombre_de_place' => $validatedData['nombre_de_place'],
+                'updated_at' => now(),
+            ]);
+    } else {
+        // Create a new car entry for the user
+        DB::table('voitures')->insert([
+            'user_id' => $userId,
+            'marque' => $validatedData['marque'],
+            'modele' => $validatedData['modele'] ?? '', // Set default value if 'modele' is not provided
+            'confort' => $validatedData['confort'],
+            'nombre_de_place' => $validatedData['nombre_de_place'],
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+    }
+
+    return redirect()->route('profile.edit')->with('status', 'voiture-saved');
+}
+
+
+
 
 
 }

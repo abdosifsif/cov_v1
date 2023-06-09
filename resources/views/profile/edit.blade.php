@@ -57,7 +57,7 @@
                     <li><a href="#profile" id="btnprofile">Profile</a></li>
                     <li><a href="#" id="btntrajets">Mes trajets</a></li>
                     <li><a href="#preference" id="btnpreferences">Mes préferences</a></li>
-                    <li><a href="#" id="btnvoiture">Ma véhicule</a></li>
+                    <li><a href="#voiture" id="btnvoiture">Ma véhicule</a></li>
                 </ul>
             </div>
         </section>
@@ -194,43 +194,43 @@
       
           
           
-        <section id="voiture">
-            <header>Ma véhicule</header>
-            <form action="#" class="form">
+      <section id="voiture">
+        <header>Ma voiture</header>
+        <form action="{{ route('profile.voiture') }}" method="POST" class="form">
+            @csrf
+            <div class="input-box">
+                <label>Marque</label>
+                <input type="text" name="marque" placeholder="Ex: Renault" value="{{ $voiture ? $voiture->marque : '' }}" />
+            </div>
+            <div class="input-box">
+                <label>Modèle</label>
+                <input type="text" name="modele" placeholder="Ex: Clio" value="{{ $voiture ? $voiture->modele : '' }}" />
+            </div>
+            <div class="column">
                 <div class="input-box">
-                    <label>Marque</label>
-                    <input type="text" placeholder="Ex:Renault" />
+                    <label>Confort</label>
+                    <select name="confort">
+                        <option value="" selected>Choisissez</option>
+                        <option value="Basique" {{ $voiture && $voiture->confort === 'Basique' ? 'selected' : '' }}>Basique</option>
+                        <option value="Normal" {{ $voiture && $voiture->confort === 'Normal' ? 'selected' : '' }}>Normal</option>
+                        <option value="Confortable" {{ $voiture && $voiture->confort === 'Confortable' ? 'selected' : '' }}>Confortable</option>
+                        <option value="Luxe" {{ $voiture && $voiture->confort === 'Luxe' ? 'selected' : '' }}>Luxe</option>
+                    </select>
                 </div>
                 <div class="input-box">
-                    <label>Modèle</label>
-                    <input type="text" placeholder="Ex:clio" />
+                    <label>Nombre de places</label>
+                    <select name="nombre_de_place">
+                        <option value="1" {{ $voiture && $voiture->nombre_de_place === 1 ? 'selected' : '' }}>1</option>
+                        <option value="2" {{ $voiture && $voiture->nombre_de_place === 2 ? 'selected' : '' }}>2</option>
+                        <option value="3" {{ $voiture && $voiture->nombre_de_place === 3 ? 'selected' : '' }}>3</option>
+                        <option value="4" {{ $voiture && $voiture->nombre_de_place === 4 ? 'selected' : '' }}>4</option>
+                    </select>
                 </div>
-                <div class="column">
-                    <div class="input-box">
-                        <label>Confort</label>
-                        <select>
-                            <option value="" selected>Choisissez</option>
-                            <option value="">Basique</option>
-                            <option value="">Normal</option>
-                            <option value="">Confortable</option>
-                            <option value="">Luxe</option>
-                        </select>
-                    </div>
-                    <div class="input-box">
-                        <label>Nombre de place</label>
-                        <select>
-                            <option value="">1</option>
-                            <option value="">2</option>
-                            <option value="">3</option>
-                            <option value="">4</option>
-                        </select>
-                    </div>
-                </div>
-
-
-                <button>Enregistrer les modifications</button>
-            </form>
-        </section>
+            </div>
+            <button type="submit">Enregistrer les modifications</button>
+        </form>
+    </section>
+    
     </div>
 </body>
 <script>

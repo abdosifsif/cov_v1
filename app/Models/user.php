@@ -38,4 +38,8 @@ class User extends Authenticatable
 {
     return $this->hasOne(Preference::class);
 }
+public function voitures()
+{
+    return $this->hasOne(Voiture::class);
+}
 }

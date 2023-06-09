@@ -27,6 +27,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('profile/preference', [ProfileController::class, 'edit'])->name('profile.preference');
     Route::post('/profile/preferences', [ProfileController::class, 'updatePreferences'])->name('profile.preferences');
+    Route::post('/profile/voiture', [ProfileController::class, 'saveVoiture'])->name('profile.voiture');
+    Route::get('/profile/voiture/edit', [ProfileController::class, 'editVoiture'])->name('profile.edit.voiture');
+
+    
 
 
 });
