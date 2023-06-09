@@ -63,36 +63,58 @@
         </section>
         <section id="profile">
             <header>Informations personnelles</header>
-            <form action="#" class="form">
-              <div class="input-box">
-                <label>Nom</label>
-                <input type="text" placeholder="Votre nom" value="{{ $user->nom }}" />
-              </div>
-              <div class="input-box">
-                <label>Prénom</label>
-                <input type="text" placeholder="Votre Prénom" value="{{ $user->prenom }}" />
-              </div>
-              <div class="column">
+            <form action="{{ route('profile.update') }}" method="POST" class="form">
+                @csrf
+                @method('PATCH') <!-- Add this line to specify the form method as PATCH -->
                 <div class="input-box">
-                  <label>Numéro de téléphone</label>
-                  <input type="number" placeholder="Votre numéro de téléphone" value="{{ $user->telephone }}" />
+                    <label>Nom</label>
+                    <input type="text" name="nom" placeholder="Votre nom" value="{{ $user->nom }}" />
                 </div>
                 <div class="input-box">
-                  <label>Date de naissance</label>
-                  <input type="date" placeholder="Enter birth date" value="{{ $user->date}}" />
+                    <label>Prénom</label>
+                    <input type="text" name="prenom" placeholder="Votre Prénom" value="{{ $user->prenom }}" />
                 </div>
-              </div>
-              <div class="input-box address">
-                <label>Ville</label>
-                <input type="text" placeholder="Votre ville" value="{{ $user->ville }}" />
-                <label>Email</label>
-                <input type="text" placeholder="Votre adresse" value="{{ $user->email }}" />
-                <label>Mot de passe</label>
-                <input type="password" placeholder="Votre mot de passe"/>
-              </div>
-              <button>Enregistrer les modifications</button>
+                <div class="column">
+                    <div class="input-box">
+                        <label>Numéro de téléphone</label>
+                        <input type="number" name="telephone" placeholder="Votre numéro de téléphone" value="{{ $user->telephone }}" />
+                    </div>
+                    <div class="input-box">
+                        <label>Date de naissance</label>
+                        <input type="date" name="date" placeholder="Enter birth date" value="{{ $user->date }}" />
+                    </div>
+                </div>
+                <div class="gender-box">
+                    <h3>Sexe</h3>
+                    <div class="gender-option">
+                        <div class="gender">
+                            <input type="radio" id="check-male" name="sexe" value="Homme" {{ $user->sexe === 'Homme' ? 'checked' : '' }} />
+                            <label for="check-male">Homme</label>
+                        </div>
+                        <div class="gender">
+                            <input type="radio" id="check-female" name="sexe" value="Femme" {{ $user->sexe === 'Femme' ? 'checked' : '' }} />
+                            <label for="check-female">Femme</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-box address">
+                    <label for="ville">Ville</label>
+                    <div class="select-box">
+                        <select name="ville" id="ville">
+                            <option value="" selected disabled hidden>Ville</option>
+                            @foreach ($villes as $ville)
+                                <option value="{{ $ville->id }}" {{ $ville->id == $user->ville_id ? 'selected' : '' }}>{{ $ville->ville }}</option>
+                            @endforeach
+                        </select>
+                        <span class="error-message"></span>
+                    </div>
+                </div>
+                
+                <button type="submit">Enregistrer les modifications</button>
             </form>
-          </section>
+        </section>
+        
+        
           
         <section id="trajets">
             <div class="personnels">
@@ -310,7 +332,26 @@ function updateRadioStyle(groupName) {
       }
     });
   }
-  
+  $(document).ready(function () {
+    $("#ville-input").autocomplete({
+        source: function (request, response) {
+            $.ajax({
+                url: "/autocomplete-search",
+                data: "query=" + request.term,
+                dataType: "json",
+                type: "GET",
+                success: function (data) {
+                    response(
+                        $.map(data, function (item) {
+                            return item.ville; // map to array of labels
+                        })
+                    );
+                },
+            });
+        },
+        minLength: 1,
+    });
+});
 
 </script>
 

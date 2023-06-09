@@ -8,9 +8,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
-use App\Models\Preference;
 use Illuminate\Support\Facades\DB;
-use App\Models\Voiture;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
+use App\Models\Ville;
+
 
 
 
@@ -21,34 +23,41 @@ class ProfileController extends Controller
     /**
      * Display the user's profile form.
      */
-    public function edit(Request $request): View
+
+    public function edit(Request $request)
     {
         $user = $request->user();
         $preferences = $user->preferences;
         $voiture = $user->voitures;
-
-
-        return view('profile.edit', [
-            'user' => $user,
-            'preferences' => $preferences,
-            'voiture' => $voiture,
-        ]);
+        $villes = Ville::all();
+    
+        return view('profile.edit', compact('user', 'preferences', 'voiture', 'villes'));
     }
+    
 
     /**
      * Update the user's profile information.
      */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    public function update(Request $request)
     {
-        $request->user()->fill($request->validated());
-
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        $user = $request->user();
+        $user->nom = $request->input('nom');
+        $user->prenom = $request->input('prenom');
+        $user->email = $request->input('email');
+        $user->telephone = $request->input('telephone');
+        $user->date = $request->input('date');
+        $user->sexe = $request->input('sexe');
+        $user->ville = $request->input('ville');
+    
+        $currentPassword = DB::table('users')->where('id', $user->id)->value('password');
+    
+        if ($request->filled('current_password') && Hash::check($request->input('current_password'), $currentPassword)) {
+            $user->password = Hash::make($request->input('new_password'));
         }
-
-        $request->user()->save();
-
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+    
+        $user->save();
+    
+        return redirect()->route('profile.edit')->with('status', 'profile-updated');
     }
 
     /**

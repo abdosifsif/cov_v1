@@ -29,6 +29,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/profile/preferences', [ProfileController::class, 'updatePreferences'])->name('profile.preferences');
     Route::post('/profile/voiture', [ProfileController::class, 'saveVoiture'])->name('profile.voiture');
     Route::get('/profile/voiture/edit', [ProfileController::class, 'editVoiture'])->name('profile.edit.voiture');
+    Route::patch('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+
 
     
 
