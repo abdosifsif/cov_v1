@@ -43,6 +43,7 @@ return array(
     'App\\Http\\Requests\\UserRequest' => $baseDir . '/app/Http/Requests/UserRequest.php',
     'App\\Http\\Requests\\VilleRequest' => $baseDir . '/app/Http/Requests/VilleRequest.php',
     'App\\Models\\Admin' => $baseDir . '/app/Models/Admin.php',
+    'App\\Models\\Preference' => $baseDir . '/app/Models/Preference.php',
     'App\\Models\\ville' => $baseDir . '/app/Models/ville.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
     'App\\Providers\\AuthServiceProvider' => $baseDir . '/app/Providers/AuthServiceProvider.php',

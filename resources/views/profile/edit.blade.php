@@ -54,9 +54,9 @@
         <section class="pre">
             <div class="navv">
                 <ul>
-                    <li><a href="#" id="btnprofile">Profile</a></li>
+                    <li><a href="#profile" id="btnprofile">Profile</a></li>
                     <li><a href="#" id="btntrajets">Mes trajets</a></li>
-                    <li><a href="#" id="btnpreferences">Mes préferences</a></li>
+                    <li><a href="#preference" id="btnpreferences">Mes préferences</a></li>
                     <li><a href="#" id="btnvoiture">Ma véhicule</a></li>
                 </ul>
             </div>
@@ -132,60 +132,66 @@
 
         </section>
         <section id="preferences">
-            <div class="music-box">
-              <h3><i class="fas fa-music fa-lg" style="color: green;"></i> Musique</h3>
-              <div class="option">
-                <div class="music">
-                  <input type="radio" id="check-music" name="music" onclick="updateRadioStyle('music')" />
-                  <label for="check-music">Oui</label>
+          <form action="{{ route('profile.preferences') }}" method="POST">
+              @csrf
+              <div class="music-box">
+                <h3><i class="fas fa-music fa-lg" style="color: green;"></i> Musique</h3>
+                <div class="option">
+                    <div class="music">
+                        <input type="radio" id="check-music" name="music" value="1" onclick="updateRadioStyle('music')" {{ $preferences && $preferences->music ? 'checked' : '' }} />
+                        <label for="check-music">Oui</label>
+                    </div>
+                    <div class="option1">
+                        <input type="radio" id="check-music1" name="music" value="0" onclick="updateRadioStyle('music')" {{ $preferences && !$preferences->music ? 'checked' : '' }} />
+                        <label for="check-music1">Non</label>
+                    </div>
                 </div>
-                <div class="option1">
-                  <input type="radio" id="check-music1" name="music" onclick="updateRadioStyle('music')" />
-                  <label for="check-music1">Non</label>
-                </div>
-              </div>
             </div>
-            <div class="animaux-box">
-              <h3><i class="fas fa-paw fa-lg" style="color: green;"></i> Animal</h3>
-              <div class="option">
-                <div class="animal">
-                  <input type="radio" id="check-animal" name="animal" onclick="updateRadioStyle('animal')" />
-                  <label for="check-animal">Oui</label>
-                </div>
-                <div class="option1">
-                  <input type="radio" id="check-animal1" name="animal" onclick="updateRadioStyle('animal')" />
-                  <label for="check-animal1">Non</label>
-                </div>
+              <div class="animaux-box">
+                  <h3><i class="fas fa-paw fa-lg" style="color: green;"></i> Animal</h3>
+                  <div class="option">
+                      <div class="animal">
+                          <input type="radio" id="check-animal" name="animal" value="1" onclick="updateRadioStyle('animal')" {{ $preferences && $preferences->animal ? 'checked' : '' }} />
+                          <label for="check-animal">Oui</label>
+                      </div>
+                      <div class="option1">
+                          <input type="radio" id="check-animal1" name="animal" value="0" onclick="updateRadioStyle('animal')" {{ $preferences && !$preferences->animal ? 'checked' : '' }} />
+                          <label for="check-animal1">Non</label>
+                      </div>
+                  </div>
               </div>
-            </div>
-            <div class="fumeur-box">
-              <h3><i class="fas fa-smoking fa-lg" style="color: green;"></i> Fumeur</h3>
-              <div class="option">
-                <div class="fumeur">
-                  <input type="radio" id="check-fumeur" name="fumeur" onclick="updateRadioStyle('fumeur')" />
-                  <label for="check-fumeur">Oui</label>
-                </div>
-                <div class="option1">
-                  <input type="radio" id="check-fumeur1" name="fumeur" onclick="updateRadioStyle('fumeur')" />
-                  <label for="check-fumeur1">Non</label>
-                </div>
+              <div class="fumeur-box">
+                  <h3><i class="fas fa-smoking fa-lg" style="color: green;"></i> Fumeur</h3>
+                  <div class="option">
+                      <div class="fumeur">
+                          <input type="radio" id="check-fumeur" name="fumeur" value="1" onclick="updateRadioStyle('fumeur')" {{ $preferences && $preferences->fumeur ? 'checked' : '' }} />
+                          <label for="check-fumeur">Oui</label>
+                      </div>
+                      <div class="option1">
+                          <input type="radio" id="check-fumeur1" name="fumeur" value="0" onclick="updateRadioStyle('fumeur')" {{ $preferences && !$preferences->fumeur ? 'checked' : '' }} />
+                          <label for="check-fumeur1">Non</label>
+                      </div>
+                  </div>
               </div>
-            </div>
-            <div class="discussion-box">
-              <h3><i class="fas fa-comment fa-lg" style="color: green;"></i> Discussion</h3>
-              <div class="option">
-                <div class="discussion">
-                  <input type="radio" id="check-discussion" name="discussion" onclick="updateRadioStyle('discussion')" />
-                  <label for="check-discussion">Oui</label>
-                </div>
-                <div class="option1">
-                  <input type="radio" id="check-discussion1" name="discussion" onclick="updateRadioStyle('discussion')" />
-                  <label for="check-discussion1">Non</label>
-                </div>
+              <div class="discussion-box">
+                  <h3><i class="fas fa-comment fa-lg" style="color: green;"></i> Discussion</h3>
+                  <div class="option">
+                      <div class="discussion">
+                          <input type="radio" id="check-discussion" name="discussion" value="1" onclick="updateRadioStyle('discussion')" {{ $preferences && $preferences->discussion ? 'checked' : '' }} />
+                          <label for="check-discussion">Oui</label>
+                      </div>
+                      <div class="option1">
+                          <input type="radio" id="check-discussion1" name="discussion" value="0" onclick="updateRadioStyle('discussion')" {{ $preferences && !$preferences->discussion ? 'checked' : '' }} />
+                          <label for="check-discussion1">Non</label>
+                      </div>
+                  </div>
               </div>
-              <button id="pressedbtn">Enregistrer les modifications</button>
-            </div>
-          </section>
+              <button id="pressedbtn" type="submit">Enregistrer les modifications</button>
+          </form>
+      </section>
+      
+      
+      
           
           
         <section id="voiture">
@@ -304,6 +310,7 @@ function updateRadioStyle(groupName) {
       }
     });
   }
+  
 
 </script>
 

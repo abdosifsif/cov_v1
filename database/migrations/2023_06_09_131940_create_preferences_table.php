@@ -13,11 +13,14 @@ return new class extends Migration
     {
         Schema::create('preferences', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
             $table->boolean('music');
             $table->boolean('animal');
             $table->boolean('fumeur');
             $table->boolean('discussion');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

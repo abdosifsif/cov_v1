@@ -656,6 +656,7 @@ class ComposerStaticInitcf91637ccb93668e3d0e7a5094e7722c
         'App\\Http\\Requests\\UserRequest' => __DIR__ . '/../..' . '/app/Http/Requests/UserRequest.php',
         'App\\Http\\Requests\\VilleRequest' => __DIR__ . '/../..' . '/app/Http/Requests/VilleRequest.php',
         'App\\Models\\Admin' => __DIR__ . '/../..' . '/app/Models/Admin.php',
+        'App\\Models\\Preference' => __DIR__ . '/../..' . '/app/Models/Preference.php',
         'App\\Models\\ville' => __DIR__ . '/../..' . '/app/Models/ville.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
