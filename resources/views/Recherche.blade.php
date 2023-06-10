@@ -12,6 +12,9 @@
     <script src="{{ asset('scripts/jquery.min.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('css/jquery-ui.min.css') }}">
     <script src="{{ asset('scripts/jquery-ui.min.js') }}"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        crossorigin="anonymous" />
 </head>
 
 <body onclick="hidMenu()">
@@ -19,6 +22,7 @@
         <nav>
             <h2 id="logo">Covoiturage</h2>
             <ul class="hover_cont">
+                <li><a href="/dashboard"><strong>Accueil</strong></a></li>
                 <li><a href="/ajouter-trajet"><strong>Ajouter Trajet</strong></a></li>
                 <li><a href="/recherche"><strong>Recherche</strong></a></li>
                 <li>
@@ -27,17 +31,18 @@
                     <div class="sub-menu-wrap" id="subMenu">
                         <div class="sub-menu">
                             <a href="/profile" class="sub-menu-links">
-                                <p>Profile</p>
-
+                                <i class="fas fa-user"></i> 
+                                <div>
+                                <p id="pp">Profile</p>
+                            </div>
                             </a>
                             <hr>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
-                                <a href="#" class="sub-menu-links"
-                                    onclick="event.preventDefault(); this.closest('form').submit();">
+                                <a href="#" class="sub-menu-links" onclick="event.preventDefault(); this.closest('form').submit();">
+                                    <i class="fas fa-lock"></i>
                                     <p>Déconnexion</p>
                                 </a>
-                            </form>
                             </form>
                         </div>
                     </div>

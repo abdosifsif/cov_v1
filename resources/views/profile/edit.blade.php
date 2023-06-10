@@ -19,6 +19,7 @@
         <nav>
             <h2 id="logo">Covoiturage</h2>
             <ul class="hover_cont">
+                <li><a href="/dashboard"><strong>Accueil</strong></a></li>
                 <li><a href="/ajouter-trajet"><strong>Ajouter Trajet</strong></a></li>
                 <li><a href="/recherche"><strong>Recherche</strong></a></li>
                 <li>
@@ -27,17 +28,18 @@
                     <div class="sub-menu-wrap" id="subMenu">
                         <div class="sub-menu">
                             <a href="/profile" class="sub-menu-links">
-                                <p>Profile</p>
-
+                                <i class="fas fa-user"></i> 
+                                <div>
+                                <p id="pp">Profile</p>
+                            </div>
                             </a>
                             <hr>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
-                                <a href="#" class="sub-menu-links"
-                                    onclick="event.preventDefault(); this.closest('form').submit();">
+                                <a href="#" class="sub-menu-links" onclick="event.preventDefault(); this.closest('form').submit();">
+                                    <i class="fas fa-lock"></i>
                                     <p>Déconnexion</p>
                                 </a>
-                            </form>
                             </form>
                         </div>
                     </div>

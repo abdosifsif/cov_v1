@@ -7,8 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Covoiturage</title>
     <link rel="stylesheet" href="{{ asset('css/styleHeader.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-    crossorigin="anonymous" />
+        crossorigin="anonymous" />
 </head>
 
 <body>
@@ -24,14 +25,16 @@
                     <div class="sub-menu-wrap" id="subMenu">
                         <div class="sub-menu">
                             <a href="/profile" class="sub-menu-links">
-                                <p><i class="la la-user"></i>Profile</p>
-
+                                <i class="fas fa-user"></i> 
+                                <div>
+                                <p id="pp">Profile</p>
+                            </div>
                             </a>
                             <hr>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
-                                <a href="#" class="sub-menu-links"
-                                    onclick="event.preventDefault(); this.closest('form').submit();">
+                                <a href="#" class="sub-menu-links" onclick="event.preventDefault(); this.closest('form').submit();">
+                                    <i class="fas fa-lock"></i>
                                     <p>Déconnexion</p>
                                 </a>
                             </form>

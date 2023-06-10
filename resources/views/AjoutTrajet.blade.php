@@ -11,6 +11,9 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/styleAjout.css') }}">
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsfmS_4d2jJl_g4cs3T4A42f-DldHf7xQ&callback=initMap" async
         defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        crossorigin="anonymous" />
 </head>
 
 <body>
@@ -18,6 +21,7 @@
         <nav>
             <h2 id="logo">Covoiturage</h2>
             <ul class="hover_cont">
+                <li><a href="/dashboard"><strong>Accueil</strong></a></li>
                 <li><a href="/ajouter-trajet"><strong>Ajouter Trajet</strong></a></li>
                 <li><a href="/recherche"><strong>Recherche</strong></a></li>
                 <li>
@@ -26,14 +30,16 @@
                     <div class="sub-menu-wrap" id="subMenu">
                         <div class="sub-menu">
                             <a href="/profile" class="sub-menu-links">
-                                <p>Profile</p>
-
+                                <i class="fas fa-user"></i> 
+                                <div>
+                                <p id="pp">Profile</p>
+                            </div>
                             </a>
                             <hr>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
-                                <a href="#" class="sub-menu-links"
-                                    onclick="event.preventDefault(); this.closest('form').submit();">
+                                <a href="#" class="sub-menu-links" onclick="event.preventDefault(); this.closest('form').submit();">
+                                    <i class="fas fa-lock"></i>
                                     <p>Déconnexion</p>
                                 </a>
                             </form>
@@ -71,7 +77,7 @@
                 <div id="map" style="height: 400px;"></div>
                 <p>Quelle est votre route ?</p>
                 <div class="select-box">
-                    <select name="route_details" id="routeSelect" >
+                    <select name="route_details" id="routeSelect">
 
                     </select><br>
                 </div>
@@ -99,20 +105,20 @@
             <div class="tab" id="tab-4">
                 <p>Combien de passagers pouvez-vous accepter ?</p>
                 <div class="select-box">
-                  <select name="nbr_passager">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                  </select><br>
+                    <select name="nbr_passager">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select><br>
                 </div>
                 <p>Fixez votre prix par place</p>
                 <input type="text" placeholder="Calculating..." id="prix" name="prix" class="your-class">
                 <div class="index-btn-wrapper">
-                  <div class="index-btn" onclick="run(4, 3);">Précédant</div>
-                  <div class="index-btn" onclick="run(4, 5);">Suivant</div>
+                    <div class="index-btn" onclick="run(4, 3);">Précédant</div>
+                    <div class="index-btn" onclick="run(4, 5);">Suivant</div>
                 </div>
-              </div>
+            </div>
 
             <div class="tab" id="tab-5">
                 <h3>Tu es presque là !</h3>
@@ -121,10 +127,11 @@
                 <div class="error-message" style="color: red; font-size: 14px;text-align: center;"></div>
                 <div class="index-btn-wrapper">
                     <div class="index-btn" onclick="run(5, 4);">Précédant</div>
-                    <button class="index-btn" type="submit" name="submit" onclick="return validateForm();">Ajouter</button>
+                    <button class="index-btn" type="submit" name="submit"
+                        onclick="return validateForm();">Ajouter</button>
                 </div>
             </div>
-            
+
 
 
         </form>
