@@ -11,7 +11,7 @@
     background-attachment: fixed;
     background-size: cover;
   }
-  form{
+  #myForm{
     width: 550px;
     height: 500px;
     padding: 60px 35px 35px 35px;

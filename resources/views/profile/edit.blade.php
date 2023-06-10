@@ -8,7 +8,8 @@
     <link rel="stylesheet" href="{{ asset('css/styleHeader.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/styleProfile.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        crossorigin="anonymous" />
 
     <title>Document</title>
 </head>
@@ -21,26 +22,20 @@
                 <li><a href="/ajouter-trajet"><strong>Ajouter Trajet</strong></a></li>
                 <li><a href="/recherche"><strong>Recherche</strong></a></li>
                 <li>
-                    <img src="{{ app('App\Http\Controllers\UserController')->getUserPic() }}" class="user-pic" onclick="showMenu()">
+                    <img src="{{ app('App\Http\Controllers\UserController')->getUserPic() }}" class="user-pic"
+                        onclick="showMenu()">
                     <div class="sub-menu-wrap" id="subMenu">
                         <div class="sub-menu">
-                            <a href="Registre" class="sub-menu-links">
-                                <p>Profil</p>
-                                <span>></span>  
-                            </a>
-                            <hr>
-                            <a href="Registre" class="sub-menu-links">
-                                <p>Messages</p>
-                                <span>></span>
-                            </a>
+                            <a href="/profile" class="sub-menu-links">
+                                <p>Profile</p>
 
+                            </a>
                             <hr>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <a href="#" class="sub-menu-links"
                                     onclick="event.preventDefault(); this.closest('form').submit();">
                                     <p>Déconnexion</p>
-                                    <span>></span>
                                 </a>
                             </form>
                             </form>
@@ -65,7 +60,8 @@
             <header>Informations personnelles</header>
             <form action="{{ route('profile.update') }}" method="POST" class="form">
                 @csrf
-                @method('PATCH') <!-- Add this line to specify the form method as PATCH -->
+                @method('PATCH')
+                <!-- Add this line to specify the form method as PATCH -->
                 <div class="input-box">
                     <label>Nom</label>
                     <input type="text" name="nom" placeholder="Votre nom" value="{{ $user->nom }}" />
@@ -77,22 +73,26 @@
                 <div class="column">
                     <div class="input-box">
                         <label>Numéro de téléphone</label>
-                        <input type="number" name="telephone" placeholder="Votre numéro de téléphone" value="{{ $user->telephone }}" />
+                        <input type="number" name="telephone" placeholder="Votre numéro de téléphone"
+                            value="{{ $user->telephone }}" />
                     </div>
                     <div class="input-box">
                         <label>Date de naissance</label>
-                        <input type="date" name="date" placeholder="Enter birth date" value="{{ $user->date }}" />
+                        <input type="date" name="date" placeholder="Enter birth date"
+                            value="{{ $user->date }}" />
                     </div>
                 </div>
                 <div class="gender-box">
                     <h3>Sexe</h3>
                     <div class="gender-option">
                         <div class="gender">
-                            <input type="radio" id="check-male" name="sexe" value="Homme" {{ $user->sexe === 'Homme' ? 'checked' : '' }} />
+                            <input type="radio" id="check-male" name="sexe" value="Homme"
+                                {{ $user->sexe === 'Homme' ? 'checked' : '' }} />
                             <label for="check-male">Homme</label>
                         </div>
                         <div class="gender">
-                            <input type="radio" id="check-female" name="sexe" value="Femme" {{ $user->sexe === 'Femme' ? 'checked' : '' }} />
+                            <input type="radio" id="check-female" name="sexe" value="Femme"
+                                {{ $user->sexe === 'Femme' ? 'checked' : '' }} />
                             <label for="check-female">Femme</label>
                         </div>
                     </div>
@@ -103,19 +103,28 @@
                         <select name="ville" id="ville">
                             <option value="" selected disabled hidden>Ville</option>
                             @foreach ($villes as $ville)
-                                <option value="{{ $ville->id }}" {{ $ville->id == $user->ville_id ? 'selected' : '' }}>{{ $ville->ville }}</option>
+                                <option value="{{ $ville->id }}"
+                                    {{ $ville->id == $user->ville_id ? 'selected' : '' }}>{{ $ville->ville }}</option>
                             @endforeach
                         </select>
                         <span class="error-message"></span>
                     </div>
                 </div>
-                
+
+
+
+                <div class="input-box address">
+                <label>Email</label>
+                <input type="text" name="email" placeholder="Votre adresse" value="{{ $user->email }}" />
+                <label>Mot de passe</label>
+                <input type="password" name="password" placeholder="Votre mot de passe" />
+                </div>
                 <button type="submit">Enregistrer les modifications</button>
             </form>
         </section>
-        
-        
-          
+
+
+
         <section id="trajets">
             <div class="personnels">
                 <img src="images/profile-circle-svgrepo-com.svg" alt="">
@@ -154,205 +163,233 @@
 
         </section>
         <section id="preferences">
-          <form action="{{ route('profile.preferences') }}" method="POST">
-              @csrf
-              <div class="music-box">
-                <h3><i class="fas fa-music fa-lg" style="color: green;"></i> Musique</h3>
-                <div class="option">
-                    <div class="music">
-                        <input type="radio" id="check-music" name="music" value="1" onclick="updateRadioStyle('music')" {{ $preferences && $preferences->music ? 'checked' : '' }} />
-                        <label for="check-music">Oui</label>
+            <form action="{{ route('profile.preferences') }}" method="POST">
+                @csrf
+                <div class="music-box">
+                    <h3><i class="fas fa-music fa-lg" style="color: green;"></i> Musique</h3>
+                    <div class="option">
+                        <div class="music">
+                            <input type="radio" id="check-music" name="music" value="1"
+                                onclick="updateRadioStyle('music')"
+                                {{ $preferences && $preferences->music ? 'checked' : '' }} />
+                            <label for="check-music">Oui</label>
+                        </div>
+                        <div class="option1">
+                            <input type="radio" id="check-music1" name="music" value="0"
+                                onclick="updateRadioStyle('music')"
+                                {{ $preferences && !$preferences->music ? 'checked' : '' }} />
+                            <label for="check-music1">Non</label>
+                        </div>
                     </div>
-                    <div class="option1">
-                        <input type="radio" id="check-music1" name="music" value="0" onclick="updateRadioStyle('music')" {{ $preferences && !$preferences->music ? 'checked' : '' }} />
-                        <label for="check-music1">Non</label>
+                </div>
+                <div class="animaux-box">
+                    <h3><i class="fas fa-paw fa-lg" style="color: green;"></i> Animal</h3>
+                    <div class="option">
+                        <div class="animal">
+                            <input type="radio" id="check-animal" name="animal" value="1"
+                                onclick="updateRadioStyle('animal')"
+                                {{ $preferences && $preferences->animal ? 'checked' : '' }} />
+                            <label for="check-animal">Oui</label>
+                        </div>
+                        <div class="option1">
+                            <input type="radio" id="check-animal1" name="animal" value="0"
+                                onclick="updateRadioStyle('animal')"
+                                {{ $preferences && !$preferences->animal ? 'checked' : '' }} />
+                            <label for="check-animal1">Non</label>
+                        </div>
                     </div>
                 </div>
-            </div>
-              <div class="animaux-box">
-                  <h3><i class="fas fa-paw fa-lg" style="color: green;"></i> Animal</h3>
-                  <div class="option">
-                      <div class="animal">
-                          <input type="radio" id="check-animal" name="animal" value="1" onclick="updateRadioStyle('animal')" {{ $preferences && $preferences->animal ? 'checked' : '' }} />
-                          <label for="check-animal">Oui</label>
-                      </div>
-                      <div class="option1">
-                          <input type="radio" id="check-animal1" name="animal" value="0" onclick="updateRadioStyle('animal')" {{ $preferences && !$preferences->animal ? 'checked' : '' }} />
-                          <label for="check-animal1">Non</label>
-                      </div>
-                  </div>
-              </div>
-              <div class="fumeur-box">
-                  <h3><i class="fas fa-smoking fa-lg" style="color: green;"></i> Fumeur</h3>
-                  <div class="option">
-                      <div class="fumeur">
-                          <input type="radio" id="check-fumeur" name="fumeur" value="1" onclick="updateRadioStyle('fumeur')" {{ $preferences && $preferences->fumeur ? 'checked' : '' }} />
-                          <label for="check-fumeur">Oui</label>
-                      </div>
-                      <div class="option1">
-                          <input type="radio" id="check-fumeur1" name="fumeur" value="0" onclick="updateRadioStyle('fumeur')" {{ $preferences && !$preferences->fumeur ? 'checked' : '' }} />
-                          <label for="check-fumeur1">Non</label>
-                      </div>
-                  </div>
-              </div>
-              <div class="discussion-box">
-                  <h3><i class="fas fa-comment fa-lg" style="color: green;"></i> Discussion</h3>
-                  <div class="option">
-                      <div class="discussion">
-                          <input type="radio" id="check-discussion" name="discussion" value="1" onclick="updateRadioStyle('discussion')" {{ $preferences && $preferences->discussion ? 'checked' : '' }} />
-                          <label for="check-discussion">Oui</label>
-                      </div>
-                      <div class="option1">
-                          <input type="radio" id="check-discussion1" name="discussion" value="0" onclick="updateRadioStyle('discussion')" {{ $preferences && !$preferences->discussion ? 'checked' : '' }} />
-                          <label for="check-discussion1">Non</label>
-                      </div>
-                  </div>
-              </div>
-              <button id="pressedbtn" type="submit">Enregistrer les modifications</button>
-          </form>
-      </section>
-      
-      
-      
-          
-          
-      <section id="voiture">
-        <header>Ma voiture</header>
-        <form action="{{ route('profile.voiture') }}" method="POST" class="form">
-            @csrf
-            <div class="input-box">
-                <label>Marque</label>
-                <input type="text" name="marque" placeholder="Ex: Renault" value="{{ $voiture ? $voiture->marque : '' }}" />
-            </div>
-            <div class="input-box">
-                <label>Modèle</label>
-                <input type="text" name="modele" placeholder="Ex: Clio" value="{{ $voiture ? $voiture->modele : '' }}" />
-            </div>
-            <div class="column">
+                <div class="fumeur-box">
+                    <h3><i class="fas fa-smoking fa-lg" style="color: green;"></i> Fumeur</h3>
+                    <div class="option">
+                        <div class="fumeur">
+                            <input type="radio" id="check-fumeur" name="fumeur" value="1"
+                                onclick="updateRadioStyle('fumeur')"
+                                {{ $preferences && $preferences->fumeur ? 'checked' : '' }} />
+                            <label for="check-fumeur">Oui</label>
+                        </div>
+                        <div class="option1">
+                            <input type="radio" id="check-fumeur1" name="fumeur" value="0"
+                                onclick="updateRadioStyle('fumeur')"
+                                {{ $preferences && !$preferences->fumeur ? 'checked' : '' }} />
+                            <label for="check-fumeur1">Non</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="discussion-box">
+                    <h3><i class="fas fa-comment fa-lg" style="color: green;"></i> Discussion</h3>
+                    <div class="option">
+                        <div class="discussion">
+                            <input type="radio" id="check-discussion" name="discussion" value="1"
+                                onclick="updateRadioStyle('discussion')"
+                                {{ $preferences && $preferences->discussion ? 'checked' : '' }} />
+                            <label for="check-discussion">Oui</label>
+                        </div>
+                        <div class="option1">
+                            <input type="radio" id="check-discussion1" name="discussion" value="0"
+                                onclick="updateRadioStyle('discussion')"
+                                {{ $preferences && !$preferences->discussion ? 'checked' : '' }} />
+                            <label for="check-discussion1">Non</label>
+                        </div>
+                    </div>
+                </div>
+                <button id="pressedbtn" type="submit">Enregistrer les modifications</button>
+            </form>
+        </section>
+
+
+
+
+
+        <section id="voiture">
+            <header>Ma voiture</header>
+            <form action="{{ route('profile.voiture') }}" method="POST" class="form">
+                @csrf
                 <div class="input-box">
-                    <label>Confort</label>
-                    <select name="confort">
-                        <option value="" selected>Choisissez</option>
-                        <option value="Basique" {{ $voiture && $voiture->confort === 'Basique' ? 'selected' : '' }}>Basique</option>
-                        <option value="Normal" {{ $voiture && $voiture->confort === 'Normal' ? 'selected' : '' }}>Normal</option>
-                        <option value="Confortable" {{ $voiture && $voiture->confort === 'Confortable' ? 'selected' : '' }}>Confortable</option>
-                        <option value="Luxe" {{ $voiture && $voiture->confort === 'Luxe' ? 'selected' : '' }}>Luxe</option>
-                    </select>
+                    <label>Marque</label>
+                    <input type="text" name="marque" placeholder="Ex: Renault"
+                        value="{{ $voiture ? $voiture->marque : '' }}" />
                 </div>
                 <div class="input-box">
-                    <label>Nombre de places</label>
-                    <select name="nombre_de_place">
-                        <option value="1" {{ $voiture && $voiture->nombre_de_place === 1 ? 'selected' : '' }}>1</option>
-                        <option value="2" {{ $voiture && $voiture->nombre_de_place === 2 ? 'selected' : '' }}>2</option>
-                        <option value="3" {{ $voiture && $voiture->nombre_de_place === 3 ? 'selected' : '' }}>3</option>
-                        <option value="4" {{ $voiture && $voiture->nombre_de_place === 4 ? 'selected' : '' }}>4</option>
-                    </select>
+                    <label>Modèle</label>
+                    <input type="text" name="modele" placeholder="Ex: Clio"
+                        value="{{ $voiture ? $voiture->modele : '' }}" />
                 </div>
-            </div>
-            <button type="submit">Enregistrer les modifications</button>
-        </form>
-    </section>
-    
+                <div class="column">
+                    <div class="input-box">
+                        <label>Confort</label>
+                        <select name="confort">
+                            <option value="" selected>Choisissez</option>
+                            <option value="Basique"
+                                {{ $voiture && $voiture->confort === 'Basique' ? 'selected' : '' }}>Basique</option>
+                            <option value="Normal" {{ $voiture && $voiture->confort === 'Normal' ? 'selected' : '' }}>
+                                Normal</option>
+                            <option value="Confortable"
+                                {{ $voiture && $voiture->confort === 'Confortable' ? 'selected' : '' }}>Confortable
+                            </option>
+                            <option value="Luxe" {{ $voiture && $voiture->confort === 'Luxe' ? 'selected' : '' }}>
+                                Luxe</option>
+                        </select>
+                    </div>
+                    <div class="input-box">
+                        <label>Nombre de places</label>
+                        <select name="nombre_de_place">
+                            <option value="1"
+                                {{ $voiture && $voiture->nombre_de_place === 1 ? 'selected' : '' }}>1</option>
+                            <option value="2"
+                                {{ $voiture && $voiture->nombre_de_place === 2 ? 'selected' : '' }}>2</option>
+                            <option value="3"
+                                {{ $voiture && $voiture->nombre_de_place === 3 ? 'selected' : '' }}>3</option>
+                            <option value="4"
+                                {{ $voiture && $voiture->nombre_de_place === 4 ? 'selected' : '' }}>4</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit">Enregistrer les modifications</button>
+            </form>
+        </section>
+
     </div>
 </body>
 <script>
-   // Sélectionne les boutons
-const btnSection1 = document.getElementById('btnprofile');
-const btnSection2 = document.getElementById('btntrajets');
-const btnSection3 = document.getElementById('btnpreferences');
-const btnSection4 = document.getElementById('btnvoiture');
+    // Sélectionne les boutons
+    const btnSection1 = document.getElementById('btnprofile');
+    const btnSection2 = document.getElementById('btntrajets');
+    const btnSection3 = document.getElementById('btnpreferences');
+    const btnSection4 = document.getElementById('btnvoiture');
 
-// Sélectionne les sections correspondantes
-const section1 = document.getElementById('profile');
-const section2 = document.getElementById('trajets');
-const section3 = document.getElementById('preferences');
-const section4 = document.getElementById('voiture');
+    // Sélectionne les sections correspondantes
+    const section1 = document.getElementById('profile');
+    const section2 = document.getElementById('trajets');
+    const section3 = document.getElementById('preferences');
+    const section4 = document.getElementById('voiture');
 
-// Fonctions pour afficher/cacher les sections
-function afficherSection1() {
-  section1.style.display = 'block';
-  section2.style.display = 'none';
-  section3.style.display = 'none';
-  section4.style.display = 'none';
-  btnSection1.classList.add('active');
-  btnSection2.classList.remove('active');
-  btnSection3.classList.remove('active');
-  btnSection4.classList.remove('active');
-}
+    // Fonctions pour afficher/cacher les sections
+    function afficherSection1() {
+        section1.style.display = 'block';
+        section2.style.display = 'none';
+        section3.style.display = 'none';
+        section4.style.display = 'none';
+        btnSection1.classList.add('active');
+        btnSection2.classList.remove('active');
+        btnSection3.classList.remove('active');
+        btnSection4.classList.remove('active');
+    }
 
-function afficherSection2() {
-  section1.style.display = 'none';
-  section2.style.display = 'flex';
-  section3.style.display = 'none';
-  section4.style.display = 'none';
-  btnSection1.classList.remove('active');
-  btnSection2.classList.add('active');
-  btnSection3.classList.remove('active');
-  btnSection4.classList.remove('active');
-}
+    function afficherSection2() {
+        section1.style.display = 'none';
+        section2.style.display = 'flex';
+        section3.style.display = 'none';
+        section4.style.display = 'none';
+        btnSection1.classList.remove('active');
+        btnSection2.classList.add('active');
+        btnSection3.classList.remove('active');
+        btnSection4.classList.remove('active');
+    }
 
-function afficherSection3() {
-  section1.style.display = 'none';
-  section2.style.display = 'none';
-  section3.style.display = 'block';
-  section4.style.display = 'none';
-  btnSection1.classList.remove('active');
-  btnSection2.classList.remove('active');
-  btnSection3.classList.add('active');
-  btnSection4.classList.remove('active');
-}
+    function afficherSection3() {
+        section1.style.display = 'none';
+        section2.style.display = 'none';
+        section3.style.display = 'block';
+        section4.style.display = 'none';
+        btnSection1.classList.remove('active');
+        btnSection2.classList.remove('active');
+        btnSection3.classList.add('active');
+        btnSection4.classList.remove('active');
+    }
 
-function afficherSection4() {
-  section1.style.display = 'none';
-  section2.style.display = 'none';
-  section3.style.display = 'none';
-  section4.style.display = 'block';
-  btnSection1.classList.remove('active');
-  btnSection2.classList.remove('active');
-  btnSection3.classList.remove('active');
-  btnSection4.classList.add('active');
-}
+    function afficherSection4() {
+        section1.style.display = 'none';
+        section2.style.display = 'none';
+        section3.style.display = 'none';
+        section4.style.display = 'block';
+        btnSection1.classList.remove('active');
+        btnSection2.classList.remove('active');
+        btnSection3.classList.remove('active');
+        btnSection4.classList.add('active');
+    }
 
-// Affiche la section Profile par défaut
-afficherSection1();
+    // Affiche la section Profile par défaut
+    afficherSection1();
 
-// Associe les fonctions aux événements de clic sur les boutons
-btnSection1.addEventListener('click', afficherSection1);
-btnSection2.addEventListener('click', afficherSection2);
-btnSection3.addEventListener('click', afficherSection3);
-btnSection4.addEventListener('click', afficherSection4);
-function updateRadioStyle(groupName) {
-    var radios = document.getElementsByName(groupName);
-    radios.forEach(function(radio) {
-      var label = radio.nextElementSibling;
-      if (radio.checked) {
-        label.classList.add("selected");
-      } else {
-        label.classList.remove("selected");
-      }
+    // Associe les fonctions aux événements de clic sur les boutons
+    btnSection1.addEventListener('click', afficherSection1);
+    btnSection2.addEventListener('click', afficherSection2);
+    btnSection3.addEventListener('click', afficherSection3);
+    btnSection4.addEventListener('click', afficherSection4);
+
+    function updateRadioStyle(groupName) {
+        var radios = document.getElementsByName(groupName);
+        radios.forEach(function(radio) {
+            var label = radio.nextElementSibling;
+            if (radio.checked) {
+                label.classList.add("selected");
+            } else {
+                label.classList.remove("selected");
+            }
+        });
+    }
+    $(document).ready(function() {
+        $("#ville-input").autocomplete({
+            source: function(request, response) {
+                $.ajax({
+                    url: "/autocomplete-search",
+                    data: "query=" + request.term,
+                    dataType: "json",
+                    type: "GET",
+                    success: function(data) {
+                        response(
+                            $.map(data, function(item) {
+                                return item.ville; // map to array of labels
+                            })
+                        );
+                    },
+                });
+            },
+            minLength: 1,
+        });
     });
-  }
-  $(document).ready(function () {
-    $("#ville-input").autocomplete({
-        source: function (request, response) {
-            $.ajax({
-                url: "/autocomplete-search",
-                data: "query=" + request.term,
-                dataType: "json",
-                type: "GET",
-                success: function (data) {
-                    response(
-                        $.map(data, function (item) {
-                            return item.ville; // map to array of labels
-                        })
-                    );
-                },
-            });
-        },
-        minLength: 1,
-    });
-});
-
 </script>
-
+<script type="text/javascript" src="{{ URL::asset('scripts/myscripts.js') }}"></script>
+</body>
 </html>

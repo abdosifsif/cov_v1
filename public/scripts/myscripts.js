@@ -71,3 +71,21 @@ function resetBorderColor(inputElement) {
 function resetBorderWidth(inputElement) {
   inputElement.style.borderWidth = "1px";
 }
+
+function showMenu() {
+    var subMenu = document.getElementById("subMenu");
+    if (subMenu.style.display === "block") {
+        subMenu.style.display = "none";
+    } else {
+        subMenu.style.display = "block";
+    }
+}
+
+document.addEventListener("click", function (event) {
+    var subMenu = document.getElementById("subMenu");
+    var userPic = document.querySelector(".user-pic");
+
+    if (event.target !== userPic && !subMenu.contains(event.target)) {
+        subMenu.style.display = "none";
+    }
+});

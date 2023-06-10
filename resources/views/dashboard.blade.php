@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Covoiturage</title>
     <link rel="stylesheet" href="{{ asset('css/styleHeader.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    crossorigin="anonymous" />
 </head>
 
 <body>
@@ -17,28 +19,21 @@
                 <li><a href="/ajouter-trajet"><strong>Ajouter Trajet</strong></a></li>
                 <li><a href="/recherche"><strong>Recherche</strong></a></li>
                 <li>
-                    <img src="{{ app('App\Http\Controllers\UserController')->getUserPic() }}" class="user-pic" onclick="showMenu()">
+                    <img src="{{ app('App\Http\Controllers\UserController')->getUserPic() }}" class="user-pic"
+                        onclick="showMenu()">
                     <div class="sub-menu-wrap" id="subMenu">
                         <div class="sub-menu">
-                            <a href="Registre" class="sub-menu-links">
-                                <p>Profil</p>
-                                <span>></span>  
-                            </a>
-                            <hr>
-                            <a href="Registre" class="sub-menu-links">
-                                <p>Messages</p>
-                                <span>></span>
-                            </a>
+                            <a href="/profile" class="sub-menu-links">
+                                <p><i class="la la-user"></i>Profile</p>
 
+                            </a>
                             <hr>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <a href="#" class="sub-menu-links"
                                     onclick="event.preventDefault(); this.closest('form').submit();">
                                     <p>Déconnexion</p>
-                                    <span>></span>
                                 </a>
-                            </form>
                             </form>
                         </div>
                     </div>

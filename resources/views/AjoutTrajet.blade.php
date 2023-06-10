@@ -21,28 +21,21 @@
                 <li><a href="/ajouter-trajet"><strong>Ajouter Trajet</strong></a></li>
                 <li><a href="/recherche"><strong>Recherche</strong></a></li>
                 <li>
-                    <img src="{{ app('App\Http\Controllers\UserController')->getUserPic() }}" class="user-pic" onclick="showMenu()">
+                    <img src="{{ app('App\Http\Controllers\UserController')->getUserPic() }}" class="user-pic"
+                        onclick="showMenu()">
                     <div class="sub-menu-wrap" id="subMenu">
                         <div class="sub-menu">
-                            <a href="Registre" class="sub-menu-links">
-                                <p>Profil</p>
-                                <span>></span>  
-                            </a>
-                            <hr>
-                            <a href="Registre" class="sub-menu-links">
-                                <p>Messages</p>
-                                <span>></span>
-                            </a>
+                            <a href="/profile" class="sub-menu-links">
+                                <p>Profile</p>
 
+                            </a>
                             <hr>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <a href="#" class="sub-menu-links"
                                     onclick="event.preventDefault(); this.closest('form').submit();">
                                     <p>Déconnexion</p>
-                                    <span>></span>
                                 </a>
-                            </form>
                             </form>
                         </div>
                     </div>
@@ -138,7 +131,8 @@
     </article>
     <script defer type="text/javascript" src="{{ URL::asset('scripts/ajouttrajet.js') }}"></script>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-    
+    <script type="text/javascript" src="{{ URL::asset('scripts/myscripts.js') }}"></script>
+
 
 
 </body>
