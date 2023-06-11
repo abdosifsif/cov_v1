@@ -18,7 +18,11 @@ use App\Http\Controllers\MessagesController;
 */
 
 Route::get('/', function () {
-    return view('index');
+    if (Auth::check()) {
+        return redirect('/dashboard');
+    } else {
+        return view('index');
+    }
 });
 
 Route::middleware('auth')->group(function () {
