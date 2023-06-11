@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers;
+use Auth;
 use Illuminate\Http\Request;
 use App\Models\ville;
 use Illuminate\Support\Facades\DB;
@@ -11,8 +12,13 @@ class TypeaheadController extends Controller
 
     public function myControllerMethod()
     {
-        $villes = DB::table('villes')->get();
-        return view('auth.register', ['villes' => $villes]);
+        if (Auth::check()) {
+            return redirect('/dashboard');
+        } else {
+            $villes = DB::table('villes')->get();
+    
+            return view('auth.register', ['villes' => $villes]);
+        }
     }
     public function autocompleteSearch(Request $request)
     {

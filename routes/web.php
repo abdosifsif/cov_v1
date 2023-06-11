@@ -70,3 +70,4 @@ require __DIR__.'/auth.php';
 
 Route::get('/register', [TypeaheadController::class, 'myControllerMethod'])->name('register');
 
+
