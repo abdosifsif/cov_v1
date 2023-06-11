@@ -28,15 +28,16 @@
                     <div class="sub-menu-wrap" id="subMenu">
                         <div class="sub-menu">
                             <a href="/profile" class="sub-menu-links">
-                                <i class="fas fa-user"></i> 
+                                <i class="fas fa-user"></i>
                                 <div>
-                                <p id="pp">Profile</p>
-                            </div>
+                                    <p id="pp">Profile</p>
+                                </div>
                             </a>
                             <hr>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
-                                <a href="#" class="sub-menu-links" onclick="event.preventDefault(); this.closest('form').submit();">
+                                <a href="#" class="sub-menu-links"
+                                    onclick="event.preventDefault(); this.closest('form').submit();">
                                     <i class="fas fa-lock"></i>
                                     <p>Déconnexion</p>
                                 </a>
@@ -64,6 +65,19 @@
                 @csrf
                 @method('PATCH')
                 <!-- Add this line to specify the form method as PATCH -->
+
+                <div class="input-box">
+                    <label for="image">Photo de profil</label>
+                    <input type="file" name="picture" accept="image/*" hidden="" id="image-input">
+                    <br>
+                    <div class="image">
+                        <div class="profile-image" id="profile-image">
+                            <img src="images/Default_pfp.svg.png" alt="" id="preview-image">
+                        </div>
+                        <span class="error-message"></span>
+                    </div>
+                </div>
+
                 <div class="input-box">
                     <label>Nom</label>
                     <input type="text" name="nom" placeholder="Votre nom" value="{{ $user->nom }}" />
@@ -89,37 +103,40 @@
                     <div class="gender-option">
                         <div class="gender">
                             <input type="radio" id="check-male" name="sexe" value="Homme"
-                                {{ $user->sexe === 'Homme' ? 'checked' : '' }} />
+                                {{ $user->sexe == 'Homme' ? 'checked' : '' }} />
                             <label for="check-male">Homme</label>
                         </div>
                         <div class="gender">
                             <input type="radio" id="check-female" name="sexe" value="Femme"
-                                {{ $user->sexe === 'Femme' ? 'checked' : '' }} />
+                                {{ $user->sexe == 'Femme' ? 'checked' : '' }} />
                             <label for="check-female">Femme</label>
                         </div>
                     </div>
                 </div>
                 <div class="input-box address">
-                    <label for="ville">Ville</label>
-                    <div class="select-box">
-                        <select name="ville" id="ville">
-                            <option value="" selected disabled hidden>Ville</option>
-                            @foreach ($villes as $ville)
-                                <option value="{{ $ville->id }}"
-                                    {{ $ville->id == $user->ville_id ? 'selected' : '' }}>{{ $ville->ville }}</option>
-                            @endforeach
-                        </select>
-                        <span class="error-message"></span>
+                    <div class="column">
+                        <div class="select-box">
+                            <select name="ville" id="ville">
+                                <option value="" selected disabled hidden>Ville</option>
+                                @foreach ($villes as $ville)
+                                    <option value="{{ $ville->id }}"
+                                        {{ $ville->id == $user->ville_id ? 'selected' : '' }}>{{ $ville->ville }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            <span class="error-message"></span>
+
+                        </div>
                     </div>
                 </div>
 
 
 
                 <div class="input-box address">
-                <label>Email</label>
-                <input type="text" name="email" placeholder="Votre adresse" value="{{ $user->email }}" />
-                <label>Mot de passe</label>
-                <input type="password" name="password" placeholder="Votre mot de passe" />
+                    <label>Email</label>
+                    <input type="text" name="email" placeholder="Votre adresse" value="{{ $user->email }}" />
+                    <label>Mot de passe</label>
+                    <input type="password" name="password" placeholder="Votre mot de passe" />
                 </div>
                 <button type="submit">Enregistrer les modifications</button>
             </form>
@@ -394,4 +411,5 @@
 </script>
 <script type="text/javascript" src="{{ URL::asset('scripts/myscripts.js') }}"></script>
 </body>
+
 </html>
