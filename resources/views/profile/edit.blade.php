@@ -61,84 +61,86 @@
         </section>
         <section id="profile">
             <header>Informations personnelles</header>
-            <form action="{{ route('profile.update') }}" method="POST" class="form">
+            <form action="{{ route('profile.update') }}" method="POST" class="form" enctype="multipart/form-data">
                 @csrf
                 @method('PATCH')
                 <!-- Add this line to specify the form method as PATCH -->
 
                 <div class="input-box">
-                    <label for="image">Photo de profil</label>
-                    <input type="file" name="picture" accept="image/*" hidden="" id="image-input">
+                    <label for="image-input">Photo de profil</label>
+                    <input type="file" name="picture" accept="image/*" hidden id="image-input">
                     <br>
                     <div class="image">
-                        <div class="profile-image" id="profile-image">
-                            <img src="images/Default_pfp.svg.png" alt="" id="preview-image">
-                        </div>
+                        <label for="image-input" id="image-label">
+                            <div class="profile-image" id="profile-image">
+                                <img src="{{ asset('storage/' . $user->picture) }}" alt=""
+                                    id="preview-image">
+                            </div>
+                        </label>
                         <span class="error-message"></span>
                     </div>
                 </div>
-
-                <div class="input-box">
-                    <label>Nom</label>
-                    <input type="text" name="nom" placeholder="Votre nom" value="{{ $user->nom }}" />
-                </div>
-                <div class="input-box">
-                    <label>Prénom</label>
-                    <input type="text" name="prenom" placeholder="Votre Prénom" value="{{ $user->prenom }}" />
-                </div>
-                <div class="column">
                     <div class="input-box">
-                        <label>Numéro de téléphone</label>
-                        <input type="number" name="telephone" placeholder="Votre numéro de téléphone"
-                            value="{{ $user->telephone }}" />
+                        <label>Nom</label>
+                        <input type="text" name="nom" placeholder="Votre nom" value="{{ $user->nom }}" />
                     </div>
                     <div class="input-box">
-                        <label>Date de naissance</label>
-                        <input type="date" name="date" placeholder="Enter birth date"
-                            value="{{ $user->date }}" />
+                        <label>Prénom</label>
+                        <input type="text" name="prenom" placeholder="Votre Prénom" value="{{ $user->prenom }}" />
                     </div>
-                </div>
-                <div class="gender-box">
-                    <h3>Sexe</h3>
-                    <div class="gender-option">
-                        <div class="gender">
-                            <input type="radio" id="check-male" name="sexe" value="Homme"
-                                {{ $user->sexe == 'Homme' ? 'checked' : '' }} />
-                            <label for="check-male">Homme</label>
-                        </div>
-                        <div class="gender">
-                            <input type="radio" id="check-female" name="sexe" value="Femme"
-                                {{ $user->sexe == 'Femme' ? 'checked' : '' }} />
-                            <label for="check-female">Femme</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="input-box address">
                     <div class="column">
-                        <div class="select-box">
-                            <select name="ville" id="ville">
-                                <option value="" selected disabled hidden>Ville</option>
-                                @foreach ($villes as $ville)
-                                    <option value="{{ $ville->id }}"
-                                        {{ $ville->id == $user->ville_id ? 'selected' : '' }}>{{ $ville->ville }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            <span class="error-message"></span>
-
+                        <div class="input-box">
+                            <label>Numéro de téléphone</label>
+                            <input type="number" name="telephone" placeholder="Votre numéro de téléphone"
+                                value="{{ $user->telephone }}" />
+                        </div>
+                        <div class="input-box">
+                            <label>Date de naissance</label>
+                            <input type="date" name="date" placeholder="Enter birth date"
+                                value="{{ $user->date }}" />
                         </div>
                     </div>
-                </div>
+                    <div class="gender-box">
+                        <h3>Sexe</h3>
+                        <div class="gender-option">
+                            <div class="gender">
+                                <input type="radio" id="check-male" name="sexe" value="Homme"
+                                    {{ $user->sexe == 'Homme' ? 'checked' : '' }} />
+                                <label for="check-male">Homme</label>
+                            </div>
+                            <div class="gender">
+                                <input type="radio" id="check-female" name="sexe" value="Femme"
+                                    {{ $user->sexe == 'Femme' ? 'checked' : '' }} />
+                                <label for="check-female">Femme</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-box address">
+                        <div class="column">
+                            <div class="select-box">
+                                <select name="ville" id="ville">
+                                    <option value="" selected disabled hidden>Ville</option>
+                                    @foreach ($villes as $ville)
+                                        <option value="{{ $ville->id }}" {{ $ville->id == $user->ville ? 'selected' : '' }}>
+                                            {{ $ville->ville }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                <span class="error-message"></span>
+                            </div>
+                        </div>
+                    </div>
 
 
 
-                <div class="input-box address">
-                    <label>Email</label>
-                    <input type="text" name="email" placeholder="Votre adresse" value="{{ $user->email }}" />
-                    <label>Mot de passe</label>
-                    <input type="password" name="password" placeholder="Votre mot de passe" />
-                </div>
-                <button type="submit">Enregistrer les modifications</button>
+                    <div class="input-box address">
+                        <label>Email</label>
+                        <input type="text" name="email" placeholder="Votre adresse"
+                            value="{{ $user->email }}" />
+                        <label>Mot de passe</label>
+                        <input type="password" name="password" placeholder="Votre mot de passe" />
+                    </div>
+                    <button type="submit">Enregistrer les modifications</button>
             </form>
         </section>
 
@@ -146,7 +148,7 @@
 
         <section id="trajets">
             <div class="personnels">
-                <img src="images/profile-circle-svgrepo-com.svg" alt="">
+                <img src="" alt="">
                 <p><strong>MAJIDA EL-FADIL</strong></p>
             </div>
             <span class="vertical-line"></span>
@@ -387,29 +389,29 @@
                 label.classList.remove("selected");
             }
         });
-    }
-    $(document).ready(function() {
-        $("#ville-input").autocomplete({
-            source: function(request, response) {
-                $.ajax({
-                    url: "/autocomplete-search",
-                    data: "query=" + request.term,
-                    dataType: "json",
-                    type: "GET",
-                    success: function(data) {
-                        response(
-                            $.map(data, function(item) {
-                                return item.ville; // map to array of labels
-                            })
-                        );
-                    },
-                });
-            },
-            minLength: 1,
-        });
+    };
+
+
+
+    var input = document.getElementById('image-input');
+
+    input.addEventListener('change', function(event) {
+        console.log('File selected');
+        var file = event.target.files[0];
+
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+            var previewImage = document.getElementById('preview-image');
+
+            previewImage.src = e.target.result;
+        }
+
+        reader.readAsDataURL(file);
     });
 </script>
 <script type="text/javascript" src="{{ URL::asset('scripts/myscripts.js') }}"></script>
+
 </body>
 
 </html>

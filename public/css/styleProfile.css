@@ -323,18 +323,7 @@
   align-items: center ;
   flex-direction: column;
 }
-.form :where(.input-box input, select ) {
-  position: relative;
-  height: 50px;
-  width: 100%;
-  outline: none;
-  font-size: 1.5rem;
-  color: #707070;
-  /* margin-top: 8px; */
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  padding: 0 15px;
-}
+
 .input-box input:focus {
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
 }
@@ -384,7 +373,6 @@ ul li a.active {
 }
 .form :where(.gender-option, .gender) {
   display: flex;
-  align-items: center;
   column-gap: 50px;
   flex-wrap: wrap;
 }
@@ -415,10 +403,12 @@ ul li a.active {
   object-fit: cover;
 }
 .image {
-  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+#preview-image{
+  cursor: pointer;
 }
 
 

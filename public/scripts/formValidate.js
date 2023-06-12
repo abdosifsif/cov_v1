@@ -223,6 +223,7 @@ imageInput.addEventListener('change', function() {
     var reader = new FileReader();
 
     reader.onload = function(e) {
+      console.log(e.target.result);
       previewImage.src = e.target.result;
     };
 
