@@ -47,7 +47,7 @@
                     </div>
                     <div class="input-box">
                         <label for="date">Date de naissance</label>
-                        <input type="date" name="date" placeholder="Enter birth date" min="2005-06-11" />
+                        <input type="date" name="date" placeholder="Enter birth date" max="{{ \Carbon\Carbon::now()->subYears(18)->format('Y-m-d') }}" />
                         <span class="error-message"></span>
                     </div>
                 </div>

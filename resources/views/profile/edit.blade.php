@@ -103,7 +103,7 @@
                     </div>
                     <div class="input-box">
                         <label for="date-input">Date de naissance</label>
-                        <input type="date" id="date-input" name="date" placeholder="Date de naissance" value="{{ $user->date }}" min="{{ \Carbon\Carbon::now()->subYears(18)->format('Y-m-d') }}" />
+                        <input type="date" id="date-input" name="date" placeholder="Date de naissance" value="{{ $user->date }}" max="{{ \Carbon\Carbon::now()->subYears(18)->format('Y-m-d') }}" />
                         @error('date')
                             <span class="error-message">{{ $message }}</span>
                         @enderror
