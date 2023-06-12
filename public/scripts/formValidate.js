@@ -74,16 +74,36 @@ submitButton.addEventListener('click', function(event) {
     date.style.borderColor = 'red';
     const errorMessage = date.nextElementSibling;
     if (errorMessage !== null) {
-      errorMessage.textContent = 'Veuillez entrer votre date de naissance.';
+        errorMessage.textContent = 'Veuillez entrer votre date de naissance.';
     }
     return;
-  } else {
+} else {
     date.style.borderColor = 'initial';
     const errorMessage = date.nextElementSibling;
     if (errorMessage !== null) {
-      errorMessage.textContent = '';
+        errorMessage.textContent = '';
     }
-  }
+  
+    const currentDate = new Date();
+    const selectedDate = new Date(date.value);
+    const ageDifferenceInMilliseconds = currentDate - selectedDate;
+    const ageDifferenceInYears = ageDifferenceInMilliseconds / (1000 * 60 * 60 * 24 * 365.25);
+  
+    if (ageDifferenceInYears < 18) {
+        date.style.borderColor = 'red';
+        const errorMessage = date.nextElementSibling;
+        if (errorMessage !== null) {
+            errorMessage.textContent = 'Vous devez avoir au moins 18 ans.';
+        }
+        return;
+    } else {
+        date.style.borderColor = 'initial';
+        const errorMessage = date.nextElementSibling;
+        if (errorMessage !== null) {
+            errorMessage.textContent = '';
+        }
+    }
+}
 
   if (email.value.trim() === '') {
     email.style.borderColor = 'red';

@@ -64,8 +64,7 @@
             <form action="{{ route('profile.update') }}" method="POST" class="form" enctype="multipart/form-data">
                 @csrf
                 @method('PATCH')
-                <!-- Add this line to specify the form method as PATCH -->
-
+        
                 <div class="input-box">
                     <label for="image-input">Photo de profil</label>
                     <input type="file" name="picture" accept="image/*" hidden id="image-input">
@@ -73,74 +72,94 @@
                     <div class="image">
                         <label for="image-input" id="image-label">
                             <div class="profile-image" id="profile-image">
-                                <img src="{{ asset('storage/' . $user->picture) }}" alt=""
-                                    id="preview-image">
+                                <img src="{{ asset('storage/' . $user->picture) }}" alt="" id="preview-image">
                             </div>
                         </label>
                         <span class="error-message"></span>
                     </div>
                 </div>
+                <div class="input-box">
+                    <label>Nom</label>
+                    <input type="text" name="nom" placeholder="Votre nom" value="{{ $user->nom }}" />
+                    @error('nom')
+                        <span class="error-message"> {{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="input-box">
+                    <label>Prénom</label>
+                    <input type="text" name="prenom" placeholder="Votre Prénom" value="{{ $user->prenom }}" />
+                    @error('prenom')
+                        <span class="error-message"> {{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="column">
                     <div class="input-box">
-                        <label>Nom</label>
-                        <input type="text" name="nom" placeholder="Votre nom" value="{{ $user->nom }}" />
+                        <label>Numéro de téléphone</label>
+                        <input type="number" name="telephone" placeholder="Votre numéro de téléphone"
+                            value="{{ $user->telephone }}" />
+                        @error('telephone')
+                            <span class="error-message"> {{ $message }}</span>
+                        @enderror
                     </div>
                     <div class="input-box">
-                        <label>Prénom</label>
-                        <input type="text" name="prenom" placeholder="Votre Prénom" value="{{ $user->prenom }}" />
+                        <label for="date-input">Date de naissance</label>
+                        <input type="date" id="date-input" name="date" placeholder="Date de naissance" value="{{ $user->date }}" min="{{ \Carbon\Carbon::now()->subYears(18)->format('Y-m-d') }}" />
+                        @error('date')
+                            <span class="error-message">{{ $message }}</span>
+                        @enderror
                     </div>
+                </div>
+                <div class="gender-box">
+                    <h3>Sexe</h3>
+                    <div class="gender-option">
+                        <div class="gender">
+                            <input type="radio" id="check-male" name="sexe" value="Homme"
+                                {{ $user->sexe == 'Homme' ? 'checked' : '' }} />
+                            <label for="check-male">Homme</label>
+                        </div>
+                        <div class="gender">
+                            <input type="radio" id="check-female" name="sexe" value="Femme"
+                                {{ $user->sexe == 'Femme' ? 'checked' : '' }} />
+                            <label for="check-female">Femme</label>
+                        </div>
+                    </div>
+                    @error('sexe')
+                        <span class="error-message"> {{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="input-box address">
                     <div class="column">
-                        <div class="input-box">
-                            <label>Numéro de téléphone</label>
-                            <input type="number" name="telephone" placeholder="Votre numéro de téléphone"
-                                value="{{ $user->telephone }}" />
-                        </div>
-                        <div class="input-box">
-                            <label>Date de naissance</label>
-                            <input type="date" name="date" placeholder="Enter birth date"
-                                value="{{ $user->date }}" />
-                        </div>
-                    </div>
-                    <div class="gender-box">
-                        <h3>Sexe</h3>
-                        <div class="gender-option">
-                            <div class="gender">
-                                <input type="radio" id="check-male" name="sexe" value="Homme"
-                                    {{ $user->sexe == 'Homme' ? 'checked' : '' }} />
-                                <label for="check-male">Homme</label>
-                            </div>
-                            <div class="gender">
-                                <input type="radio" id="check-female" name="sexe" value="Femme"
-                                    {{ $user->sexe == 'Femme' ? 'checked' : '' }} />
-                                <label for="check-female">Femme</label>
-                            </div>
+                        <div class="select-box">
+                            <select name="ville" id="ville">
+                                <option value="" selected disabled hidden>Ville</option>
+                                @foreach ($villes as $ville)
+                                    <option value="{{ $ville->id }}" {{ $ville->id == $user->ville ? 'selected' : '' }}>
+                                        {{ $ville->ville }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('ville')
+                                <span class="error-message"> {{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
-                    <div class="input-box address">
-                        <div class="column">
-                            <div class="select-box">
-                                <select name="ville" id="ville">
-                                    <option value="" selected disabled hidden>Ville</option>
-                                    @foreach ($villes as $ville)
-                                        <option value="{{ $ville->id }}" {{ $ville->id == $user->ville ? 'selected' : '' }}>
-                                            {{ $ville->ville }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                <span class="error-message"></span>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-                    <div class="input-box address">
-                        <label>Email</label>
-                        <input type="text" name="email" placeholder="Votre adresse"
-                            value="{{ $user->email }}" />
-                        <label>Mot de passe</label>
-                        <input type="password" name="password" placeholder="Votre mot de passe" />
-                    </div>
-                    <button type="submit">Enregistrer les modifications</button>
+                </div>
+        
+                <div class="input-box address">
+                    <label>Email</label>
+                    <input type="text" name="email" placeholder="Votre adresse" value="{{ $user->email }}" />
+                    @error('email')
+                        <span class="error-message"> {{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="input-box address">
+                    <label>Mot de passe actuel</label>
+                    <input type="password" name="Mot_de_passe_actuel" placeholder="Votre mot de passe actuel" />
+                    @error('Mot_de_passe_actuel')
+                        <span class="error-message"> {{ $message }}</span>
+                    @enderror
+                </div>
+                <button type="submit">Enregistrer les modifications</button>
             </form>
         </section>
 
@@ -312,105 +331,8 @@
 
     </div>
 </body>
-<script>
-    // Sélectionne les boutons
-    const btnSection1 = document.getElementById('btnprofile');
-    const btnSection2 = document.getElementById('btntrajets');
-    const btnSection3 = document.getElementById('btnpreferences');
-    const btnSection4 = document.getElementById('btnvoiture');
-
-    // Sélectionne les sections correspondantes
-    const section1 = document.getElementById('profile');
-    const section2 = document.getElementById('trajets');
-    const section3 = document.getElementById('preferences');
-    const section4 = document.getElementById('voiture');
-
-    // Fonctions pour afficher/cacher les sections
-    function afficherSection1() {
-        section1.style.display = 'block';
-        section2.style.display = 'none';
-        section3.style.display = 'none';
-        section4.style.display = 'none';
-        btnSection1.classList.add('active');
-        btnSection2.classList.remove('active');
-        btnSection3.classList.remove('active');
-        btnSection4.classList.remove('active');
-    }
-
-    function afficherSection2() {
-        section1.style.display = 'none';
-        section2.style.display = 'flex';
-        section3.style.display = 'none';
-        section4.style.display = 'none';
-        btnSection1.classList.remove('active');
-        btnSection2.classList.add('active');
-        btnSection3.classList.remove('active');
-        btnSection4.classList.remove('active');
-    }
-
-    function afficherSection3() {
-        section1.style.display = 'none';
-        section2.style.display = 'none';
-        section3.style.display = 'block';
-        section4.style.display = 'none';
-        btnSection1.classList.remove('active');
-        btnSection2.classList.remove('active');
-        btnSection3.classList.add('active');
-        btnSection4.classList.remove('active');
-    }
-
-    function afficherSection4() {
-        section1.style.display = 'none';
-        section2.style.display = 'none';
-        section3.style.display = 'none';
-        section4.style.display = 'block';
-        btnSection1.classList.remove('active');
-        btnSection2.classList.remove('active');
-        btnSection3.classList.remove('active');
-        btnSection4.classList.add('active');
-    }
-
-    // Affiche la section Profile par défaut
-    afficherSection1();
-
-    // Associe les fonctions aux événements de clic sur les boutons
-    btnSection1.addEventListener('click', afficherSection1);
-    btnSection2.addEventListener('click', afficherSection2);
-    btnSection3.addEventListener('click', afficherSection3);
-    btnSection4.addEventListener('click', afficherSection4);
-
-    function updateRadioStyle(groupName) {
-        var radios = document.getElementsByName(groupName);
-        radios.forEach(function(radio) {
-            var label = radio.nextElementSibling;
-            if (radio.checked) {
-                label.classList.add("selected");
-            } else {
-                label.classList.remove("selected");
-            }
-        });
-    };
-
-
-
-    var input = document.getElementById('image-input');
-
-    input.addEventListener('change', function(event) {
-        console.log('File selected');
-        var file = event.target.files[0];
-
-        var reader = new FileReader();
-
-        reader.onload = function(e) {
-            var previewImage = document.getElementById('preview-image');
-
-            previewImage.src = e.target.result;
-        }
-
-        reader.readAsDataURL(file);
-    });
-</script>
 <script type="text/javascript" src="{{ URL::asset('scripts/myscripts.js') }}"></script>
+<script type="text/javascript" src="{{ URL::asset('scripts/profileUpdate.js') }}"></script>
 
 </body>
 

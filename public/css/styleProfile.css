@@ -410,7 +410,10 @@ ul li a.active {
 #preview-image{
   cursor: pointer;
 }
-
+.error-message{
+  font-size: 15px;
+  color: red;
+}
 
 
 

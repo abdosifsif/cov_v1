@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -42,32 +43,55 @@ class ProfileController extends Controller
      * Update the user's profile information.
      */
     public function update(Request $request)
-{
-    $user = $request->user();
-    $user->nom = $request->input('nom');
-    $user->prenom = $request->input('prenom');
-    $user->email = $request->input('email');
-    $user->telephone = $request->input('telephone');
-    $user->date = $request->input('date');
-    $user->sexe = $request->input('sexe');
-    $user->ville = $request->input('ville');
-
-    // Handle profile picture upload
-    if ($request->hasFile('picture')) {
-        $picturePath = $request->file('picture')->store('pictures', 'public');
-        $user->picture = $picturePath;
+    {
+        $user = $request->user();
+        $user->nom = $request->input('nom');
+        $user->prenom = $request->input('prenom');
+        $user->email = $request->input('email');
+        $user->telephone = $request->input('telephone');
+        $user->date = $request->input('date');
+        $user->sexe = $request->input('sexe');
+        $user->ville = $request->input('ville');
+    
+        // Handle profile picture upload
+        if ($request->hasFile('picture')) {
+            $picturePath = $request->file('picture')->store('pictures', 'public');
+            $user->picture = $picturePath;
+        }
+    
+        $currentPassword = DB::table('users')->where('id', $user->id)->value('password');
+    
+        $validatedData = $request->validate([
+            'nom' => 'required|string',
+            'prenom' => 'required|string',
+            'email' => 'required|email',
+            'telephone' => ['required', 'regex:/^(06|07)\d{8}$/'],
+            'date' => ['required', 'date', Rule::requiredIf($request->has('date')), 'before_or_equal:' . Carbon::now()->subYears(18)->format('Y-m-d')],
+            'sexe' => 'required|in:Homme,Femme',
+            'ville' => 'required',
+            'Mot_de_passe_actuel' => 'required|string',
+        ], [
+            'required' => 'Le champ :attribute est obligatoire.',
+            'string' => 'Le champ :attribute doit être une chaîne de caractères.',
+            'email' => 'Le champ :attribute doit être une adresse email valide.',
+            'regex' => 'Le champ :attribute doit commencer par 06 ou 07 et contenir 10 chiffres.',
+            'date' => 'Le champ :attribute doit être une date valide.',
+            'in' => 'Le champ :attribute doit être Homme ou Femme.',
+            'before_or_equal' => 'Vous devez avoir au moins 18 ans.',
+        ]);
+    
+        if (Hash::check($validatedData['Mot_de_passe_actuel'], $currentPassword)) {
+            // Password is correct, update the profile
+            unset($validatedData['Mot_de_passe_actuel']); // Remove the Mot_de_passe_actuel field from the validated data
+            $user->fill($validatedData);
+            $user->save();
+    
+            return redirect()->route('profile.edit')->with('status', 'profile-updated');
+        } else {
+            // Password is incorrect, show error message
+            return redirect()->route('profile.edit')->withErrors(['Mot_de_passe_actuel' => 'Mot de passe incorrect. Veuillez réessayer.']);
+        }
     }
-
-    $currentPassword = DB::table('users')->where('id', $user->id)->value('password');
-
-    if ($request->filled('current_password') && Hash::check($request->input('current_password'), $currentPassword)) {
-        $user->password = Hash::make($request->input('new_password'));
-    }
-
-    $user->save();
-
-    return redirect()->route('profile.edit')->with('status', 'profile-updated');
-}
     /**
      * Delete the user's account.
      */
