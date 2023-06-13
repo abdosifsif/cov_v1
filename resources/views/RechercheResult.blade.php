@@ -110,7 +110,7 @@
                         <div class="infodh">
                             <h5>{{ $trajet->departure_date }}&nbsp;<i class="fas fa-calendar-alt"></i></h5>
                             <h5>&nbsp;A&nbsp;</h5>
-                            <h5>{{ $trajet->Heure }}</h5>
+                            <h5>{{ $trajet->Heure }}&nbsp;<i class="far fa-clock"></i></h5>
                         </div><br>
                         <div class="infdepdes">
                             <p><strong><i class="fas fa-city"></i>&nbsp;{{ $trajet->{"L'adresse_de_Départ"} }}</strong></p>
@@ -138,9 +138,9 @@
                     <span class="line"></span>
                     <div class="prix-container">
                         <div class="prix">
-                            <p><strong>{{ $trajet->prix }}</strong></p>
+                            <p><strong>{{ $trajet->prix }}Dhs</strong></p>
                         </div>
-                        <button>select</button>
+                        <button id="card-btn">Sélectionner</button>
                     </div>
                 </section>
             @endforeach

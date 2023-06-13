@@ -172,7 +172,7 @@ button {
 
 #trajets {
   position: relative;
-  width: 96%;
+  width: 98%;
   background: #fff;
   padding: 25px;
   border-radius: 8px;
@@ -257,11 +257,27 @@ button {
   height: 45%;
   display: flex;
   justify-content: right;
-  color: red;
   font-weight: 900;
   font-size: 20px;
   align-items: center;
 }
+#card-btn{
+  display: flex;
+    height: 39%;
+    width: 99%;
+    border-radius: 15px;
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: #0A2B19;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    align-items: center;
+    justify-content: center;
+  }
 
 .prix-container button {
   width: 70%;
@@ -325,6 +341,11 @@ ul li a.active {
 }
 
 #btn:hover {
+  background-color: gainsboro;
+  color: #0A2B19;
+  transition: 1s;
+}
+#card-btn:hover {
   background-color: gainsboro;
   color: #0A2B19;
   transition: 1s;
