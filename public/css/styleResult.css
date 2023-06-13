@@ -350,6 +350,12 @@ ul li a.active {
   color: #0A2B19;
   transition: 1s;
 }
+.autre{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-size: medium;
+}
 
 .no-trajets-message {
   display: flex;

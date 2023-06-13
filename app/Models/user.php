@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Models\Preference;
+use App\Models\Voiture;
 
 
 class User extends Authenticatable
@@ -38,7 +39,7 @@ class User extends Authenticatable
 {
     return $this->hasOne(Preference::class);
 }
-public function voitures()
+public function voiture()
 {
     return $this->hasOne(Voiture::class);
 }

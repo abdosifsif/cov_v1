@@ -69,7 +69,7 @@ class TrajetController extends Controller
         $data['selectedDate'] = date('F j', strtotime($data['date']));
     
         // Perform the search using the Trajet model
-        $trajets = Trajet::with('user.preferences')
+        $trajets = Trajet::with('user.preferences','user.voiture')
             ->where('L\'adresse_de_Départ', 'like', '%' . $data['depart'] . '%')
             ->where("L'adresse_de_Destination", 'like', '%' . $data['destination'] . '%')
             ->where('departure_date', '=', $data['date'])

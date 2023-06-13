@@ -119,20 +119,18 @@
                             <span class="arrow"></span>
                             <p><strong><i class="fas fa-city"></i>&nbsp;{{ $trajet->{"L'adresse_de_Destination"} }}</strong></p>
                         </div><br>
-                        {{-- <div class="autre">
-                            <div class="depart">
-                                <img src="images/location-svgrepo-com.svg" alt="">&nbsp;&nbsp;
-                                <p><strong>{{ $trajet->{"L'adresse_de_Départ"} }}</strong></p>
-                            </div><br>
-                            <div class="destination">
-                                <img src="images/location-svgrepo-com.svg" alt="">&nbsp;&nbsp;
-                                <p><strong>{{ $trajet->{"L'adresse_de_Destination"} }}</strong></p>
-                            </div><br>
+                        <div class="autre">
                             <div class="passaget">
-                                <img src="images/person-team-svgrepo-com.svg" alt="">&nbsp;&nbsp;
-                                <p><strong>{{ $trajet->nbr_passager }}</strong></p>
-                            </div><br>
-                        </div> --}}
+                                <p><strong>{{ $trajet->nbr_passager }}&nbsp;<i class="fas fa-users"></i></strong></p>
+                            </div>
+                            
+                            <div class="passaget">
+                                <p><strong>{{ $trajet->user->voiture?->marque }}&nbsp;<i class="fas fa-car-alt"></i></strong></p>
+                            </div>
+                            <div class="passaget">
+                                <p><strong>{{ $trajet->user->voiture?->modele }}&nbsp;<i class="fas fa-car-side"></i></strong></p>
+                            </div>
+                        </div>
                         
                     </div>
                     <span class="line"></span>
