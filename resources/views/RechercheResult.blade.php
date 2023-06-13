@@ -51,42 +51,7 @@
             </ul>
         </nav>
     </header>
-    {{-- <article class="body">
-        <div class="container">
-            <h1>Où voulez-vous aller ?</h1>
-            <div class="search-bar">
-                <form action="{{ route('recherche') }}" method="post" class="search-form">
-                    @csrf
-
-                    <div class="Départ">
-                        <label>Départ</label>
-                        <input class="query" type="text" placeholder="Départ" id="a" name="depart">
-                    </div>
-
-                    <div>
-                        <label>Déstination</label>
-                        <input class="query" type="text" placeholder="Déstination" id="b"
-                            name="destination">
-                    </div>
-
-
-                    <div>
-                        <label>Date</label>
-                        <input type="date" placeholder="Ajouter la date" name="date" id="d">
-                    </div>
-
-
-
-                    <div>
-                        <label>Personne</label>
-                        <input type="number" placeholder="Personne" min="1" max="4" name="passagers">
-                    </div>
-
-
-
-                    <button type="submit"><img src="images/search-svgrepo-com (1).svg"></button>
-                </form>
-            </div> --}}
+    
     <div class="frst">
         <section class="container">
             <div class="search-bar">
@@ -95,22 +60,22 @@
 
                     <div class="depart-input">
                         <label>Départ</label>
-                        <input class="query" type="text" placeholder="Votre départ" name="depart">
+                        <input class="query" type="text" placeholder="Votre départ" name="depart" value="{{ $data['depart'] }}">
                     </div>
                     <span class="vertical-line"></span>
                     <div class="destination-input">
                         <label>Destination</label>
-                        <input class="query" type="text" placeholder="Votre destination" name="destination">
+                        <input class="query" type="text" placeholder="Votre destination" name="destination" value="{{ $data['destination'] }}">
                     </div>
                     <span class="vertical-line"></span>
                     <div class="date-input">
                         <label>Date</label>
-                        <input id="date-input" class="tst" type="date" placeholder="La date" name="date">
+                        <input id="date-input" class="tst" type="date" placeholder="La date" name="date" value="{{ $data['date'] }}">
                     </div>
                     <span class="vertical-line"></span>
                     <div class="nbr-input">
                         <label>Passagers</label>
-                        <input type="number" min="1" max="4" placeholder="Passagers" name="passagers">
+                        <input type="number" min="1" max="4" placeholder="Passagers" name="passagers" value="{{ $data['passagers'] }}">
                     </div>
                     <div>
                         <button type="submit">Chercher</button>
@@ -126,7 +91,7 @@
                         <img src="{{ app('App\Http\Controllers\UserController')->getUserPic() }}" alt="carpool image">
                         <p><strong>MAJIDA </strong></p>
                     </div>
-                    <span class="vertical-line"></span>
+                    <span class="line"></span>
                     <div class="container">
                         <div class="infodh">
                             <h5>{{ $trajet->departure_date }}</h5>

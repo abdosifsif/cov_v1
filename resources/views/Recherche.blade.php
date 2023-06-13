@@ -50,43 +50,7 @@
             </ul>
         </nav>
     </header>
-    {{-- <article class="body">
-        <div class="container">
-            <h1>Où voulez-vous aller ?</h1>
-            <div class="search-bar">
-                <form action="{{ route('recherche') }}" method="post" class="search-form">
-                    @csrf
-
-                    <div class="Départ">
-                        <label>Départ</label>
-                        <input class="query" type="text" placeholder="Départ" id="a" name="depart">
-                    </div>
-
-                    <div>
-                        <label>Déstination</label>
-                        <input class="query" type="text" placeholder="Déstination" id="b"
-                            name="destination">
-                    </div>
-
-
-                    <div>
-                        <label>Date</label>
-                        <input type="date" placeholder="Ajouter la date" name="date" id="d">
-                    </div>
-
-
-
-                    <div>
-                        <label>Personne</label>
-                        <input type="number" placeholder="Personne" min="1" max="4" name="passagers">
-                    </div>
-
-
-
-                    <button type="submit"><img src="images/search-svgrepo-com (1).svg"></button>
-                </form>
-            </div>
-    </article> --}}
+   
 
 
     <div class="frst">
