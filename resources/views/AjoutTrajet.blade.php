@@ -30,15 +30,16 @@
                     <div class="sub-menu-wrap" id="subMenu">
                         <div class="sub-menu">
                             <a href="/profile" class="sub-menu-links">
-                                <i class="fas fa-user"></i> 
+                                <i class="fas fa-user"></i>
                                 <div>
-                                <p id="pp">Profile</p>
-                            </div>
+                                    <p id="pp">Profile</p>
+                                </div>
                             </a>
                             <hr>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
-                                <a href="#" class="sub-menu-links" onclick="event.preventDefault(); this.closest('form').submit();">
+                                <a href="#" class="sub-menu-links"
+                                    onclick="event.preventDefault(); this.closest('form').submit();">
                                     <i class="fas fa-lock"></i>
                                     <p>Déconnexion</p>
                                 </a>
@@ -63,7 +64,12 @@
 
             <div class="tab" id="tab-1">
                 <p>Votre trajet:</p>
-
+                @if (session('error'))
+                    <div class="error-message" style="color: red; font-size: 14px; text-align: center;">
+                        {{ session('error') }}
+                    </div>
+                @endif
+                
                 <input class="query" type="text" placeholder="L'adresse de Départ" name="L'adresse_de_Départ"
                     id="Ladresse_de_Depart">
                 <input class="query" type="text" placeholder="L'adresse de Destination"
@@ -113,7 +119,8 @@
                     </select><br>
                 </div>
                 <p>Fixez votre prix par place</p>
-                <input type="text" placeholder="Calculating..." id="prix" name="prix" class="your-class">
+                <input type="text" placeholder="Calculating..." id="prix" name="prix"
+                    class="your-class">
                 <div class="index-btn-wrapper">
                     <div class="index-btn" onclick="run(4, 3);">Précédant</div>
                     <div class="index-btn" onclick="run(4, 5);">Suivant</div>
@@ -135,6 +142,7 @@
 
 
         </form>
+
     </article>
     <script defer type="text/javascript" src="{{ URL::asset('scripts/ajouttrajet.js') }}"></script>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>

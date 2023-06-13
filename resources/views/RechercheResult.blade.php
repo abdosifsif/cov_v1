@@ -32,15 +32,16 @@
                     <div class="sub-menu-wrap" id="subMenu">
                         <div class="sub-menu">
                             <a href="/profile" class="sub-menu-links">
-                                <i class="fas fa-user"></i> 
+                                <i class="fas fa-user"></i>
                                 <div>
-                                <p id="pp">Profile</p>
-                            </div>
+                                    <p id="pp">Profile</p>
+                                </div>
                             </a>
                             <hr>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
-                                <a href="#" class="sub-menu-links" onclick="event.preventDefault(); this.closest('form').submit();">
+                                <a href="#" class="sub-menu-links"
+                                    onclick="event.preventDefault(); this.closest('form').submit();">
                                     <i class="fas fa-lock"></i>
                                     <p>Déconnexion</p>
                                 </a>
@@ -51,7 +52,7 @@
             </ul>
         </nav>
     </header>
-    
+
     <div class="frst">
         <section class="container">
             <div class="search-bar">
@@ -60,22 +61,26 @@
 
                     <div class="depart-input">
                         <label>Départ</label>
-                        <input class="query" type="text" placeholder="Votre départ" name="depart" value="{{ $data['depart'] }}">
+                        <input class="query" type="text" placeholder="Votre départ" name="depart"
+                            value="{{ $data['depart'] }}">
                     </div>
                     <span class="vertical-line"></span>
                     <div class="destination-input">
                         <label>Destination</label>
-                        <input class="query" type="text" placeholder="Votre destination" name="destination" value="{{ $data['destination'] }}">
+                        <input class="query" type="text" placeholder="Votre destination" name="destination"
+                            value="{{ $data['destination'] }}">
                     </div>
                     <span class="vertical-line"></span>
                     <div class="date-input">
                         <label>Date</label>
-                        <input id="date-input" class="tst" type="date" placeholder="La date" name="date" value="{{ $data['date'] }}">
+                        <input id="date-input" class="tst" type="date" placeholder="La date" name="date"
+                            value="{{ $data['date'] }}">
                     </div>
                     <span class="vertical-line"></span>
                     <div class="nbr-input">
                         <label>Passagers</label>
-                        <input type="number" min="1" max="4" placeholder="Passagers" name="passagers" value="{{ $data['passagers'] }}">
+                        <input type="number" min="1" max="4" placeholder="Passagers" name="passagers"
+                            value="{{ $data['passagers'] }}">
                     </div>
                     <div>
                         <button type="submit">Chercher</button>
@@ -84,26 +89,37 @@
             </form>
 
 
-            
+
             @foreach ($trajets as $trajet)
                 <section id="trajets">
                     <div class="personnels">
-                        <img src="{{ app('App\Http\Controllers\UserController')->getUserPic() }}" alt="carpool image">
-                        <p><strong>MAJIDA </strong></p>
+                        <div>
+                            <h3><strong>{{ $trajet->user->prenom }}&nbsp;{{ $trajet->user->nom }}</strong></h1>
+                        </div>
+                        <img src="storage/{{ $trajet->user->picture }}" alt="carpool image">
+                        <div class="preference">
+                            <i class="fas fa-music fa-lg {{ $trajet->user->preferences->music == 1 ? 'green' : '' }}"></i>
+                            <i class="fas fa-paw fa-lg {{ $trajet->user->preferences->animal == 1 ? 'green' : '' }}"></i>
+                            <i class="fas fa-smoking fa-lg {{ $trajet->user->preferences->fumeur == 1 ? 'green' : '' }}"></i>
+                            <i class="fas fa-comment fa-lg {{ $trajet->user->preferences->discussion == 1 ? 'green' : '' }}"></i>
+                        </div>
+                        
                     </div>
                     <span class="line"></span>
-                    <div class="container">
+                    <div class="container-trajet">
                         <div class="infodh">
-                            <h5>{{ $trajet->departure_date }}</h5>
+                            <h5>{{ $trajet->departure_date }}&nbsp;<i class="fas fa-calendar-alt"></i></h5>
                             <h5>&nbsp;A&nbsp;</h5>
-                            <h5>{{ $trajet->departure_time }}</h5>
+                            <h5>{{ $trajet->Heure }}</h5>
                         </div><br>
                         <div class="infdepdes">
-                            <p><strong>{{ $trajet->{"L'adresse_de_Départ"} }}</strong></p>&nbsp;&nbsp;
-                            <img src="images/arrow-right-svgrepo-com (1).svg" alt="">&nbsp;&nbsp;
-                            <p><strong>{{ $trajet->{"L'adresse_de_Destination"} }}</strong></p>
+                            <p><strong><i class="fas fa-city"></i>&nbsp;{{ $trajet->{"L'adresse_de_Départ"} }}</strong></p>
+                            <span class="arrow"></span>
+                            <p>{{ $trajet->{"time"} }}</p>
+                            <span class="arrow"></span>
+                            <p><strong><i class="fas fa-city"></i>&nbsp;{{ $trajet->{"L'adresse_de_Destination"} }}</strong></p>
                         </div><br>
-                        <div class="autre">
+                        {{-- <div class="autre">
                             <div class="depart">
                                 <img src="images/location-svgrepo-com.svg" alt="">&nbsp;&nbsp;
                                 <p><strong>{{ $trajet->{"L'adresse_de_Départ"} }}</strong></p>
@@ -116,10 +132,15 @@
                                 <img src="images/person-team-svgrepo-com.svg" alt="">&nbsp;&nbsp;
                                 <p><strong>{{ $trajet->nbr_passager }}</strong></p>
                             </div><br>
-                        </div>
+                        </div> --}}
+                        
+                    </div>
+                    <span class="line"></span>
+                    <div class="prix-container">
                         <div class="prix">
                             <p><strong>{{ $trajet->prix }}</strong></p>
                         </div>
+                        <button>select</button>
                     </div>
                 </section>
             @endforeach
