@@ -57,52 +57,49 @@ class TrajetController extends Controller
     }
 
     public function search(Request $request)
-    {
-        // Get the search query from the request
-        $data = [
-            'depart' => $request->input('depart'),
-            'destination' => $request->input('destination'),
-            'date' => $request->input('date'),
-            'passagers' => $request->input('passagers')
-        ];
-        
-        $data['selectedDate'] = date('F j', strtotime($data['date']));
-    
-        // Perform the search using the Trajet model
-        $trajets = Trajet::with('user.preferences','user.voiture')
-            ->where('L\'adresse_de_Départ', 'like', '%' . $data['depart'] . '%')
-            ->where("L'adresse_de_Destination", 'like', '%' . $data['destination'] . '%')
-            ->where('departure_date', '=', $data['date'])
-            ->where('nbr_passager', '>=', $data['passagers'])
-            ->get();
-    
-        // Retrieve the route details from each Trajet record
-        $trajets->each(function ($trajet) {
-            $routeDetails = $trajet->route_details;
-            $duration = '';
-    
-            if (preg_match('/Durée - (\d+) heures (\d+) minutes/', $routeDetails, $matches)) {
-                $hours = intval($matches[1]);
-                $minutes = intval($matches[2]);
-            
-                if ($minutes > 30) {
-                    $hours++;
-                }
-            
-                $duration = $hours . ' heures';
+{
+    // Get the search query from the request
+    $data = [
+        'depart' => $request->input('depart'),
+        'destination' => $request->input('destination'),
+        'date' => $request->input('date'),
+        'passagers' => $request->input('passagers')
+    ];
+
+    $selectedDate = date('F j', strtotime($data['date'])); // Define the $selectedDate variable
+
+    // Perform the search using the Trajet model
+    $trajets = Trajet::with('user.preferences', 'user.voiture')
+    ->where('L\'adresse_de_Départ', 'like', '%' . $data['depart'] . '%')
+    ->where("L'adresse_de_Destination", 'like', '%' . $data['destination'] . '%')
+    ->where('departure_date', '=', $data['date'])
+    ->where('nbr_passager', '>=', $data['passagers'])
+    ->where('user_id', '!=', auth()->id()) // Add this condition to exclude the authenticated user's Trajets
+    ->get();
+
+    // Retrieve the route details from each Trajet record
+    $trajets->each(function ($trajet) {
+        $routeDetails = $trajet->route_details;
+        $duration = '';
+
+        if (preg_match('/Durée - (\d+) heures (\d+) minutes/', $routeDetails, $matches)) {
+            $hours = intval($matches[1]);
+            $minutes = intval($matches[2]);
+
+            if ($minutes > 30) {
+                $hours++;
             }
-    
-            $trajet->time = $duration;
-            if ($trajet->user && $trajet->user->preferences) {
-                $trajet->preferences = $trajet->user->preferences;
-            }
-        });
-    
-        // Pass the search results and selected date to the searchResults view
-        return view('RechercheResult', compact('data', 'trajets'));
-    }
 
+            $duration = $hours . ' heures';
+        }
 
+        $trajet->time = $duration;
+        if ($trajet->user && $trajet->user->preferences) {
+            $trajet->preferences = $trajet->user->preferences;
+        }
+    });
 
-    
+    // Pass the search results, selected date, and other variables to the searchResults view
+    return view('RechercheResult', compact('data', 'trajets', 'selectedDate'));
+}
 }
