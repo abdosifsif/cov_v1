@@ -189,9 +189,20 @@ button {
   width: 30%;
 
 }
+.wraper-qr{
+  display: flex;
+    align-items: center;
+    justify-content: center;
+    visibility: visible;
+}
 
 
 .personnels img {
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+}
+#popup-img {
   width: 65px;
   height: 65px;
   border-radius: 50%;
@@ -277,11 +288,56 @@ button {
     font-family: 'Poppins', sans-serif;
     align-items: center;
     justify-content: center;
+    padding: 0px 46px;
   }
-
+  .overlay {
+    visibility: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 9999;
+  }
+  
+  .popup {
+    width: 400px;
+    background-color: #fff;
+    border-radius: 6px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    padding: 0 30px 30px;
+    visibility: hidden;
+    transition: transform 0.4s, top 0.4s;
+    z-index: 10000;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  }
+.open-popup{
+  visibility: visible;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%)scale(1);  
+}
 .prix-container button {
   width: 70%;
   height: 15%;
+}
+.close-btn {
+  width: unset;
+  height: unset;
+  all: unset;
+    position: absolute;
+    top: 2px;
+    right: 10px;
+    font-size: 20px;
+    color: #000;
+    background: none;
+    border: none;
+    cursor: pointer;
 }
 
 ul li a.active {
@@ -364,7 +420,6 @@ ul li a.active {
   justify-content: space-between;
   height: 119px;
 }
-
 @media screen and (max-width:900px) {
   .search-bar form {
     display: flex;

@@ -38,7 +38,7 @@ class TrajetController extends Controller
 
     // Check if the number of passengers is within the capacity of the car
     $voiture = Voiture::where('user_id', auth()->id())->first();
-    if ($voiture && $validatedData['nbr_passager'] <= $voiture->nombre_place) {
+    if ($voiture && $validatedData['nbr_passager'] <= $voiture->nombre_de_place) {
         // Save the Trajet instance to the database
         $trajet->save();
 

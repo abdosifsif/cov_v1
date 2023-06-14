@@ -17,7 +17,7 @@
         crossorigin="anonymous" />
 </head>
 
-<body onclick="hidMenu()">
+<body>
     <header class="main-head">
         <nav>
             <h2 id="logo">Covoiturage</h2>
@@ -115,5 +115,7 @@
     });
 </script>
 <script type="text/javascript" src="{{ URL::asset('scripts/myscripts.js') }}"></script>
+<script type="text/javascript" src="{{ URL::asset('scripts/script.js') }}"></script>
+
 </body>
 </html>

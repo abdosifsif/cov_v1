@@ -280,7 +280,6 @@
 
 
 
-
         <section id="voiture">
             <header>Ma voiture</header>
             <form action="{{ route('profile.voiture') }}" method="POST" class="form">
@@ -288,12 +287,12 @@
                 <div class="input-box">
                     <label>Marque</label>
                     <input type="text" name="marque" placeholder="Ex: Renault"
-                        value="{{ $voiture ? $voiture->marque : '' }}" />
+                        value="{{ optional($user->voiture)->marque }}" />
                 </div>
                 <div class="input-box">
                     <label>Modèle</label>
                     <input type="text" name="modele" placeholder="Ex: Clio"
-                        value="{{ $voiture ? $voiture->modele : '' }}" />
+                        value="{{ optional($user->voiture)->modele }}" />
                 </div>
                 <div class="column">
                     <div class="input-box">
@@ -301,27 +300,26 @@
                         <select name="confort">
                             <option value="" selected>Choisissez</option>
                             <option value="Basique"
-                                {{ $voiture && $voiture->confort === 'Basique' ? 'selected' : '' }}>Basique</option>
-                            <option value="Normal" {{ $voiture && $voiture->confort === 'Normal' ? 'selected' : '' }}>
-                                Normal</option>
+                                {{ optional($user->voiture)->confort === 'Basique' ? 'selected' : '' }}>Basique</option>
+                            <option value="Normal"
+                                {{ optional($user->voiture)->confort === 'Normal' ? 'selected' : '' }}>Normal</option>
                             <option value="Confortable"
-                                {{ $voiture && $voiture->confort === 'Confortable' ? 'selected' : '' }}>Confortable
+                                {{ optional($user->voiture)->confort === 'Confortable' ? 'selected' : '' }}>Confortable</option>
+                            <option value="Luxe" {{ optional($user->voiture)->confort === 'Luxe' ? 'selected' : '' }}>Luxe
                             </option>
-                            <option value="Luxe" {{ $voiture && $voiture->confort === 'Luxe' ? 'selected' : '' }}>
-                                Luxe</option>
                         </select>
                     </div>
                     <div class="input-box">
                         <label>Nombre de places</label>
                         <select name="nombre_de_place">
                             <option value="1"
-                                {{ $voiture && $voiture->nombre_de_place === 1 ? 'selected' : '' }}>1</option>
+                                {{ optional($user->voiture)->nombre_de_place === 1 ? 'selected' : '' }}>1</option>
                             <option value="2"
-                                {{ $voiture && $voiture->nombre_de_place === 2 ? 'selected' : '' }}>2</option>
+                                {{ optional($user->voiture)->nombre_de_place === 2 ? 'selected' : '' }}>2</option>
                             <option value="3"
-                                {{ $voiture && $voiture->nombre_de_place === 3 ? 'selected' : '' }}>3</option>
+                                {{ optional($user->voiture)->nombre_de_place === 3 ? 'selected' : '' }}>3</option>
                             <option value="4"
-                                {{ $voiture && $voiture->nombre_de_place === 4 ? 'selected' : '' }}>4</option>
+                                {{ optional($user->voiture)->nombre_de_place === 4 ? 'selected' : '' }}>4</option>
                         </select>
                     </div>
                 </div>

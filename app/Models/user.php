@@ -36,11 +36,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
     public function preferences()
-{
-    return $this->hasOne(Preference::class);
-}
-public function voiture()
-{
-    return $this->hasOne(Voiture::class);
-}
+    {
+        return $this->hasOne(Preference::class);
+    }
+    public function voiture()
+    {
+        return $this->hasOne(Voiture::class);
+    }
 }

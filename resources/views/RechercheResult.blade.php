@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/styleResult.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <script src="{{ asset('scripts/jquery.min.js') }}"></script>
+    <script src="{{ asset('scripts/qrcode.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('css/jquery-ui.min.css') }}">
     <script src="{{ asset('scripts/jquery-ui.min.js') }}"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
@@ -18,7 +19,7 @@
 
 </head>
 
-<body onclick="hidMenu()">
+<body>
     <header class="main-head">
         <nav>
             <h2 id="logo">Covoiturage</h2>
@@ -138,9 +139,17 @@
                         <div class="prix">
                             <p><strong>{{ $trajet->prix }}Dhs</strong></p>
                         </div>
-                        <button id="card-btn">Sélectionner</button>
+                        <button id="card-btn" onclick="openPopup({{$trajet->id}}); generateQRCode({{ $trajet->id }}, '{{ $trajet->user->telephone }}')">Sélectionner</button>                        
                     </div>
                 </section>
+                <div class="overlay" id="overlay{{ $trajet->id }}">
+                    <div class="popup" id="popup{{ $trajet->id }}">
+                        <button class="close-btn" onclick="closePopup({{ $trajet->id }})">&times;</button>
+                        <img id="popup-img" src="storage/{{ $trajet->user->picture }}" alt="carpool image">
+                        <h3><strong>{{ $trajet->user->prenom }}&nbsp;{{ $trajet->user->nom }}</strong></h1>
+                        <div id="qrcode{{ $trajet->id }}" class="wraper-qr"></div>                            
+                    </div>
+                </div>
             @endforeach
             <section class="trajets">
                 @if (count($trajets) == 0)
@@ -192,5 +201,8 @@
     }
 </script>
 <script type="text/javascript" src="{{ URL::asset('scripts/myscripts.js') }}"></script>
+<script type="text/javascript" src="{{ URL::asset('scripts/script.js') }}"></script>
+<script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+
 
 </html>
