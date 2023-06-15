@@ -99,12 +99,16 @@
                         </div>
                         <img src="storage/{{ $trajet->user->picture }}" alt="carpool image">
                         <div class="preference">
-                            <i class="fas fa-music fa-lg {{ $trajet->user->preferences->music ?? 0 == 1 ? 'green' : '' }}"></i>
-                            <i class="fas fa-paw fa-lg {{ $trajet->user->preferences->animal ?? 0 == 1 ? 'green' : '' }}"></i>
-                            <i class="fas fa-smoking fa-lg {{ $trajet->user->preferences->fumeur ?? 0 == 1 ? 'green' : '' }}"></i>
-                            <i class="fas fa-comment fa-lg {{ $trajet->user->preferences->discussion ?? 0 == 1 ? 'green' : '' }}"></i>
+                            <i
+                                class="fas fa-music fa-lg {{ $trajet->user->preferences->music ?? 0 == 1 ? 'green' : '' }}"></i>
+                            <i
+                                class="fas fa-paw fa-lg {{ $trajet->user->preferences->animal ?? 0 == 1 ? 'green' : '' }}"></i>
+                            <i
+                                class="fas fa-smoking fa-lg {{ $trajet->user->preferences->fumeur ?? 0 == 1 ? 'green' : '' }}"></i>
+                            <i
+                                class="fas fa-comment fa-lg {{ $trajet->user->preferences->discussion ?? 0 == 1 ? 'green' : '' }}"></i>
                         </div>
-                        
+
                     </div>
                     <span class="line"></span>
                     <div class="container-trajet">
@@ -114,32 +118,43 @@
                             <h5>{{ $trajet->Heure }}&nbsp;<i class="far fa-clock"></i></h5>
                         </div><br>
                         <div class="infdepdes">
-                            <p><strong><i class="fas fa-city"></i>&nbsp;{{ $trajet->{"L'adresse_de_Départ"} }}</strong></p>
+                            <p><strong><i class="fas fa-city"></i>&nbsp;{{ $trajet->{"L'adresse_de_Départ"} }}</strong>
+                            </p>
                             <span class="arrow"></span>
                             <p>{{ $trajet->{"time"} }}</p>
                             <span class="arrow"></span>
-                            <p><strong><i class="fas fa-city"></i>&nbsp;{{ $trajet->{"L'adresse_de_Destination"} }}</strong></p>
+                            <p><strong><i
+                                        class="fas fa-city"></i>&nbsp;{{ $trajet->{"L'adresse_de_Destination"} }}</strong>
+                            </p>
                         </div><br>
                         <div class="autre">
                             <div class="passaget">
                                 <p><strong>{{ $trajet->nbr_passager }}&nbsp;<i class="fas fa-users"></i></strong></p>
                             </div>
-                            
+
                             <div class="passaget">
-                                <p><strong>{{ $trajet->user->voiture?->marque }}&nbsp;<i class="fas fa-car-alt"></i></strong></p>
+                                <p><strong>{{ $trajet->user->voiture?->marque }}&nbsp;<i
+                                            class="fas fa-car-alt"></i></strong></p>
                             </div>
                             <div class="passaget">
-                                <p><strong>{{ $trajet->user->voiture?->modele }}&nbsp;<i class="fas fa-car-side"></i></strong></p>
+                                <p><strong>{{ $trajet->user->voiture?->modele }}&nbsp;<i
+                                            class="fas fa-car-side"></i></strong></p>
                             </div>
                         </div>
-                        
+
                     </div>
                     <span class="line"></span>
                     <div class="prix-container">
                         <div class="prix">
                             <p><strong>{{ $trajet->prix }}Dhs</strong></p>
                         </div>
-                        <button id="card-btn" onclick="openPopup({{$trajet->id}}); generateQRCode({{ $trajet->id }}, '{{ $trajet->user->telephone }}')">Sélectionner</button>                        
+                        @if ($trajet->disponible === 'non')
+                            <div class="overlay"></div>
+                            <p id="full">Plus de places disponibles</p>
+                        @else
+                            <button id="card-btn"
+                                onclick="openPopup({{ $trajet->id }}); generateQRCode({{ $trajet->id }}, '{{ $trajet->user->telephone }}')">Sélectionner</button>
+                        @endif
                     </div>
                 </section>
                 <div class="overlay" id="overlay{{ $trajet->id }}">
@@ -147,10 +162,10 @@
                         <button class="close-btn" onclick="closePopup({{ $trajet->id }})">&times;</button>
                         <img id="popup-img" src="storage/{{ $trajet->user->picture }}" alt="carpool image">
                         <h3><strong>{{ $trajet->user->prenom }}&nbsp;{{ $trajet->user->nom }}</strong></h1>
-                        <div id="qrcode{{ $trajet->id }}" class="wraper-qr"></div>
-                        <h4>merci d'utiliser le QR Code ou le numéro pour me contacter</h4>
-                        <h4 id="phone">{{ $trajet->user->telephone }}</h4>
-                            
+                            <div id="qrcode{{ $trajet->id }}" class="wraper-qr"></div>
+                            <h4>merci d'utiliser le QR Code ou le numéro pour me contacter</h4>
+                            <h4 id="phone">{{ $trajet->user->telephone }}</h4>
+
                     </div>
                 </div>
             @endforeach
