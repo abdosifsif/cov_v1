@@ -169,39 +169,60 @@
 
 
         <section id="trajets" class="table-responsive">
+            @if ($trajets->isEmpty())
+                <div class="no-trajet">
+                    <h4> Aucun trajet n'est publié par cet utilisateur.</h4>
+                </div>
+            @else
+                <h5>Vous devez mettre à jour le nombre de passagers si vous avez accepté un ou plusieurs passagers.</h3>
+                    <table class="styled-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Heure</th>
+                                <th>Départ</th>
+                                <th>Destination</th>
+                                <th>Nombre de passagers</th>
+                                <th>Prix</th>
+                                <th>Disponible</th>
+                                <th>{{ $trajets[0]->nbr_passager == 0 ? 'Status' : 'Action' }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($trajets as $trajet)
+                                <tr>
+                                    <form action="{{ route('profile.updateTrajet', ['id' => $trajet->id]) }}"
+                                        method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                        <td>{{ $trajet->departure_date }}</td>
+                                        <td>{{ $trajet->Heure }}</td>
+                                        <td>{{ $trajet->{"L'adresse_de_Départ"} }}</td>
+                                        <td>{{ $trajet->{"L'adresse_de_Destination"} }}</td>
+                                        <td id="input-td">
+                                            @if ($trajet->nbr_passager == 0)
+                                                <input id="input" type="number" name="nbr_passager"
+                                                    max="4" value="{{ $trajet->nbr_passager }}" disabled>
+                                            @else
+                                                <input id="input" type="number" name="nbr_passager"
+                                                    max="4" value="{{ $trajet->nbr_passager }}">
+                                            @endif
+                                        </td>
+                                        <td>{{ $trajet->prix }}</td>
+                                        <td>{{ $trajet->disponible }}</td>
+                                        <td>
+                                            @if ($trajet->nbr_passager == 0)
+                                                <p><strong>Archivé</strong></p>
+                                            @else
+                                                <button id="btn" type="submit">modifier</button>
+                                            @endif
+                                        </td>
+                                    </form>
+                                </tr>
+                            @endforeach
+                        </tbody>
+            @endif
 
-            <h5>Vous devez mettre à jour le nombre de passagers si vous avez accepté un ou plusieurs passagers.</h3>
-            <table class="styled-table">
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Heure</th>
-                        <th>Départ</th>
-                        <th>Destination</th>
-                        <th>Nombre de passagers</th>
-                        <th>Prix</th>
-                        <th>Disponible</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($trajets as $trajet)
-                        <tr>
-                            <form action="{{ route('profile.updateTrajet', ['id' => $trajet->id]) }}" method="POST">
-                                 @csrf 
-                                 @method('PUT')
-                            <td>{{ $trajet->departure_date }}</td>
-                            <td>{{ $trajet->Heure }}</td>
-                            <td>{{ $trajet->{"L'adresse_de_Départ"} }}</td>
-                            <td>{{ $trajet->{"L'adresse_de_Destination"} }}</td>
-                            <td id="input-td"> <input id="input" type="number" name="nbr_passager" max="4" value="{{ $trajet->nbr_passager }}"></td>
-                            <td>{{ $trajet->prix }}</td>
-                            <td>{{ $trajet->disponible }}</td>
-                            <td><button id="btn" type="submit">modifier</button></td>
-                            </form>
-                        </tr>
-                    @endforeach
-                </tbody>
             </table>
         </section>
         <section id="preferences">

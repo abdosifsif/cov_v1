@@ -473,7 +473,10 @@ ul li a.active {
     border-radius: 3.5px;
     font-family: 'Poppins', sans-serif;
 }
-
+.no-trajet{
+  display: flex;
+  align-items: center;
+}
 
 
 
