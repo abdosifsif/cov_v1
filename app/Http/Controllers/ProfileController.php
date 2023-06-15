@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Trajet;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -34,8 +35,9 @@ class ProfileController extends Controller
         $preferences = $user->preferences;
         $voiture = $user->voitures;
         $villes = Ville::all();
-
-        return view('profile.edit', compact('user', 'preferences', 'voiture', 'villes'));
+        $userId = $request->user()->id;
+        $trajets = Trajet::where('user_id', $userId)->get();    
+        return view('profile.edit', compact('user', 'preferences', 'voiture', 'villes', 'trajets'));
     }
 
 
@@ -197,7 +199,22 @@ class ProfileController extends Controller
 
         return redirect()->route('profile.edit')->with('status', 'voiture-saved');
     }
-
+    public function updateTrajet(Request $request, $id)
+    {
+        $trajet = Trajet::findOrFail($id);
+        $nbrPassager = intval($request->input('nbr_passager'));
+    
+        if ($nbrPassager == 0) {
+            $trajet->disponible = 'non';
+        } else {
+            $trajet->disponible = 'oui';
+        }
+    
+        $trajet->nbr_passager = $nbrPassager;
+        $trajet->save();
+    
+        return redirect()->back()->with('status', 'Trajet updated successfully.');
+    }
 
 
 

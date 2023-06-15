@@ -214,8 +214,7 @@
 }*/
 #trajets{
   position: relative;
-  max-width: 600px;
-  width: 100%;
+  width: 51%;
   background: #fff;
   padding: 25px;
   border-radius: 8px;
@@ -426,8 +425,54 @@ ul li a.active {
     border-radius: 6px;
     padding: 0 15px;
 }
+.styled-table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  font-family: sans-serif;
+  width: 100%;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+.styled-table thead tr {
+  background-color: #0A2B19;
+  color: #ffffff;
+  text-align: left;
+}
+.styled-table th,
+.styled-table td {
+    padding: 12px 15px;
+}
+.styled-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
 
 
+.styled-table tbody tr.active-row {
+  font-weight: bold;
+  color: #009879;
+}
+#input{
+  border: none;
+  width: 28%;
+}
+#input-td{
+  text-align: center;
+}
+#btn{
+  all: unset;
+  padding: 0.1rem 0.5rem;
+    background: #0a2b19;
+    color: #fff;
+    font-size: 1.2rem;
+    cursor: pointer;
+    border: none;
+    border-radius: 3.5px;
+    font-family: 'Poppins', sans-serif;
+}
 
 
 

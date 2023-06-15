@@ -20,11 +20,12 @@ class Trajet extends Model
         'Heure',
         'nbr_passager',
         'prix',
-        'user_id', // Add user_id to the fillable array
+        'disponible', // Add disponible to the fillable array
+        'user_id',
     ];
-    public function user()
-{
-    return $this->belongsTo(User::class);
-}
-}
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+}

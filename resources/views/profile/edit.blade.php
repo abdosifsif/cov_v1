@@ -53,7 +53,7 @@
             <div class="navv">
                 <ul>
                     <li><a href="#profile" id="btnprofile">Profile</a></li>
-                    <li><a href="#" id="btntrajets">Mes trajets</a></li>
+                    <li><a href="#mestrajets" id="btntrajets">Mes trajets</a></li>
                     <li><a href="#preference" id="btnpreferences">Mes préferences</a></li>
                     <li><a href="#voiture" id="btnvoiture">Ma véhicule</a></li>
                 </ul>
@@ -64,7 +64,7 @@
             <form action="{{ route('profile.update') }}" method="POST" class="form" enctype="multipart/form-data">
                 @csrf
                 @method('PATCH')
-        
+
                 <div class="input-box">
                     <label for="image-input">Photo de profil</label>
                     <input type="file" name="picture" accept="image/*" hidden id="image-input">
@@ -103,7 +103,9 @@
                     </div>
                     <div class="input-box">
                         <label for="date-input">Date de naissance</label>
-                        <input type="date" id="date-input" name="date" placeholder="Date de naissance" value="{{ $user->date }}" max="{{ \Carbon\Carbon::now()->subYears(18)->format('Y-m-d') }}" />
+                        <input type="date" id="date-input" name="date" placeholder="Date de naissance"
+                            value="{{ $user->date }}"
+                            max="{{ \Carbon\Carbon::now()->subYears(18)->format('Y-m-d') }}" />
                         @error('date')
                             <span class="error-message">{{ $message }}</span>
                         @enderror
@@ -133,7 +135,8 @@
                             <select name="ville" id="ville">
                                 <option value="" selected disabled hidden>Ville</option>
                                 @foreach ($villes as $ville)
-                                    <option value="{{ $ville->id }}" {{ $ville->id == $user->ville ? 'selected' : '' }}>
+                                    <option value="{{ $ville->id }}"
+                                        {{ $ville->id == $user->ville ? 'selected' : '' }}>
                                         {{ $ville->ville }}
                                     </option>
                                 @endforeach
@@ -144,7 +147,7 @@
                         </div>
                     </div>
                 </div>
-        
+
                 <div class="input-box address">
                     <label>Email</label>
                     <input type="text" name="email" placeholder="Votre adresse" value="{{ $user->email }}" />
@@ -165,42 +168,41 @@
 
 
 
-        <section id="trajets">
-            <div class="personnels">
-                <img src="" alt="">
-                <p><strong>MAJIDA EL-FADIL</strong></p>
-            </div>
-            <span class="vertical-line"></span>
-            <div class="container">
-                <div class="infodh">
-                    <h5>15/10/2022</h5>
-                    <h5>&nbsp;A&nbsp;</h5>
-                    <h5>10:50</h5>
-                </div><br>
-                <div class="infdepdes">
-                    <p><strong>agadir</strong></p>&nbsp;&nbsp;
-                    <img src="images/arrow-right-svgrepo-com (1).svg" alt="">&nbsp;&nbsp;
-                    <p><strong>casablancacasa</strong></p>
-                </div><br>
-                <div class="autre">
-                    <div class="depart">
-                        <img src="images/location-svgrepo-com.svg" alt="">&nbsp;&nbsp;
-                        <p><strong>agadir</strong></p>
-                    </div><br>
-                    <div class="destination">
-                        <img src="images/location-svgrepo-com.svg" alt="">&nbsp;&nbsp;
-                        <p><strong>casablancacasa</strong></p>
-                    </div><br>
-                    <div class="passaget">
-                        <img src="images/person-team-svgrepo-com.svg" alt="">&nbsp;&nbsp;
-                        <p><strong>2</strong></p>
-                    </div><br>
-                </div>
-                <div class="prix">
-                    <p><strong>200DH</strong></p>
-                </div>
-            </div>
+        <section id="trajets" class="table-responsive">
 
+            <h5>Vous devez mettre à jour le nombre de passagers si vous avez accepté un ou plusieurs passagers.</h3>
+            <table class="styled-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Heure</th>
+                        <th>Départ</th>
+                        <th>Destination</th>
+                        <th>Nombre de passagers</th>
+                        <th>Prix</th>
+                        <th>Disponible</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($trajets as $trajet)
+                        <tr>
+                            <form action="{{ route('profile.updateTrajet', ['id' => $trajet->id]) }}" method="POST">
+                                 @csrf 
+                                 @method('PUT')
+                            <td>{{ $trajet->departure_date }}</td>
+                            <td>{{ $trajet->Heure }}</td>
+                            <td>{{ $trajet->{"L'adresse_de_Départ"} }}</td>
+                            <td>{{ $trajet->{"L'adresse_de_Destination"} }}</td>
+                            <td id="input-td"> <input id="input" type="number" name="nbr_passager" max="4" value="{{ $trajet->nbr_passager }}"></td>
+                            <td>{{ $trajet->prix }}</td>
+                            <td>{{ $trajet->disponible }}</td>
+                            <td><button id="btn" type="submit">modifier</button></td>
+                            </form>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </section>
         <section id="preferences">
             <form action="{{ route('profile.preferences') }}" method="POST">
@@ -300,12 +302,15 @@
                         <select name="confort">
                             <option value="" selected>Choisissez</option>
                             <option value="Basique"
-                                {{ optional($user->voiture)->confort === 'Basique' ? 'selected' : '' }}>Basique</option>
+                                {{ optional($user->voiture)->confort === 'Basique' ? 'selected' : '' }}>Basique
+                            </option>
                             <option value="Normal"
                                 {{ optional($user->voiture)->confort === 'Normal' ? 'selected' : '' }}>Normal</option>
                             <option value="Confortable"
-                                {{ optional($user->voiture)->confort === 'Confortable' ? 'selected' : '' }}>Confortable</option>
-                            <option value="Luxe" {{ optional($user->voiture)->confort === 'Luxe' ? 'selected' : '' }}>Luxe
+                                {{ optional($user->voiture)->confort === 'Confortable' ? 'selected' : '' }}>Confortable
+                            </option>
+                            <option value="Luxe"
+                                {{ optional($user->voiture)->confort === 'Luxe' ? 'selected' : '' }}>Luxe
                             </option>
                         </select>
                     </div>
