@@ -45,11 +45,11 @@ class RegisteredUserController extends Controller
 
     $picturePath = null;
     if ($request->hasFile('picture')) {
-        $picturePath = $request->file('picture')->storePublicly('public/pictures');
+        $picturePath = $request->file('picture')->store('public/pictures');
+        $picturePath = str_replace('public/', '', $picturePath);
     }
-
+    
     $picture = $picturePath ? Storage::url($picturePath) : 'images/Default_pfp.svg.png';
-
     $user = User::create([
         'nom' => $request->nom,
         'prenom' => $request->prenom,

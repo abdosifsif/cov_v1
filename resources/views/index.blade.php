@@ -28,7 +28,9 @@
     <section class="hero">
         <h1>Covoiturage</h1>
         <h3>Réserver vos trajets à petits prix</h3>
-        <button>Chercher Trajet</button>
+        <a href="{{ route('recherche') }}">
+            <button>Chercher Trajet</button>
+        </a>
     </section>
     <section class="description">
         <div class="mov hidden">

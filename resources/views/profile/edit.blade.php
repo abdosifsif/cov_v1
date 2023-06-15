@@ -72,7 +72,7 @@
                     <div class="image">
                         <label for="image-input" id="image-label">
                             <div class="profile-image" id="profile-image">
-                                <img src="{{ asset('storage/' . $user->picture) }}" alt="" id="preview-image">
+                                <img src="{{ app('App\Http\Controllers\UserController')->getUserPic() }}" alt="" id="preview-image">
                             </div>
                         </label>
                         <span class="error-message"></span>
@@ -205,7 +205,7 @@
                                                     max="4" value="{{ $trajet->nbr_passager }}" disabled>
                                             @else
                                                 <input id="input" type="number" name="nbr_passager"
-                                                    max="4" value="{{ $trajet->nbr_passager }}">
+                                                    max="4" min="0" value="{{ $trajet->nbr_passager }}">
                                             @endif
                                         </td>
                                         <td>{{ $trajet->prix }}</td>

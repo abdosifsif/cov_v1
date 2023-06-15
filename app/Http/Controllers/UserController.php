@@ -11,9 +11,9 @@ class UserController extends Controller
     {
         $user = auth()->user();
         if ($user && $user->picture) {
-            return asset('storage/' . $user->picture);
+            return asset( $user->picture);
         } else {
-            return asset('images/person-circle-fill-svgrepo-com.svg');
+            return asset('images/Default_pfp.svg.png');
         }
     }
 

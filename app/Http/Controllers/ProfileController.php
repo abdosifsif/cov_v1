@@ -36,7 +36,7 @@ class ProfileController extends Controller
         $voiture = $user->voitures;
         $villes = Ville::all();
         $userId = $request->user()->id;
-        $trajets = Trajet::where('user_id', $userId)->get();    
+        $trajets = Trajet::where('user_id', $userId)->get();
         return view('profile.edit', compact('user', 'preferences', 'voiture', 'villes', 'trajets'));
     }
 
@@ -54,15 +54,17 @@ class ProfileController extends Controller
         $user->date = $request->input('date');
         $user->sexe = $request->input('sexe');
         $user->ville = $request->input('ville');
-    
-        // Handle profile picture upload
+
+        $picturePath = null;
         if ($request->hasFile('picture')) {
-            $picturePath = $request->file('picture')->store('pictures', 'public');
-            $user->picture = $picturePath;
+            $picturePath = $request->file('picture')->store('public/pictures');
+            $picturePath = str_replace('public/pictures/', '', $picturePath);
+            $user->picture = '/storage/pictures/' . $picturePath;
+        } else {
+            $user->picture = 'images/Default_pfp.svg.png';
         }
-    
         $currentPassword = DB::table('users')->where('id', $user->id)->value('password');
-    
+
         $validatedData = $request->validate([
             'nom' => 'required|string',
             'prenom' => 'required|string',
@@ -81,13 +83,13 @@ class ProfileController extends Controller
             'in' => 'Le champ :attribute doit être Homme ou Femme.',
             'before_or_equal' => 'Vous devez avoir au moins 18 ans.',
         ]);
-    
+
         if (Hash::check($validatedData['Mot_de_passe_actuel'], $currentPassword)) {
             // Password is correct, update the profile
             unset($validatedData['Mot_de_passe_actuel']); // Remove the Mot_de_passe_actuel field from the validated data
             $user->fill($validatedData);
             $user->save();
-    
+
             return redirect()->route('profile.edit')->with('status', 'profile-updated');
         } else {
             // Password is incorrect, show error message
@@ -203,16 +205,16 @@ class ProfileController extends Controller
     {
         $trajet = Trajet::findOrFail($id);
         $nbrPassager = intval($request->input('nbr_passager'));
-    
+
         if ($nbrPassager == 0) {
             $trajet->disponible = 'non';
         } else {
             $trajet->disponible = 'oui';
         }
-    
+
         $trajet->nbr_passager = $nbrPassager;
         $trajet->save();
-    
+
         return redirect()->back()->with('status', 'Trajet updated successfully.');
     }
 

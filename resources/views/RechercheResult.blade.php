@@ -160,7 +160,7 @@
                 <div class="overlay" id="overlay{{ $trajet->id }}">
                     <div class="popup" id="popup{{ $trajet->id }}">
                         <button class="close-btn" onclick="closePopup({{ $trajet->id }})">&times;</button>
-                        <img id="popup-img" src="storage/{{ $trajet->user->picture }}" alt="carpool image">
+                        <img id="popup-img" src="{{ app('App\Http\Controllers\UserController')->getUserPic() }}" alt="carpool image">
                         <h3><strong>{{ $trajet->user->prenom }}&nbsp;{{ $trajet->user->nom }}</strong></h1>
                             <div id="qrcode{{ $trajet->id }}" class="wraper-qr"></div>
                             <h4>merci d'utiliser le QR Code ou le numéro pour me contacter</h4>
