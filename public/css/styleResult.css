@@ -202,7 +202,14 @@ button {
   height: 65px;
   border-radius: 50%;
 }
+#phone{
+  color: green;
+}
+body.popup-open {
+  overflow: hidden;
+}
 #popup-img {
+  margin-top: 10px;
   width: 65px;
   height: 65px;
   border-radius: 50%;

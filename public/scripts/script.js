@@ -22,13 +22,19 @@ function closePopup(trajetId) {
     popup.classList.remove("open-popup");
 }
 
+let qrCodeGenerated = {};
+
 function generateQRCode(trajetId, phoneNumber) {
-    let qrCodeElement = document.getElementById(`qrcode${trajetId}`);
-    console.log(qrCodeElement);
-    let qrCode = new QRCode(qrCodeElement, {
-        text: phoneNumber,
-        width: 128,
-        height: 128
-    });
-    qrCode.style.display = "none";
+    let qrCodeElement = document.querySelector(`.qrcode${trajetId}`);
+
+    if (!(trajetId in qrCodeGenerated)) {
+        let qrCodeElement = document.getElementById(`qrcode${trajetId}`);
+        let qrCode = new QRCode(qrCodeElement, {
+            text: phoneNumber,
+            width: 128,
+            height: 128
+        });
+
+        qrCodeGenerated[trajetId] = true; // Set the flag to indicate QR code generation
+    } 
 }

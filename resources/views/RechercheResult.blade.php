@@ -99,10 +99,10 @@
                         </div>
                         <img src="storage/{{ $trajet->user->picture }}" alt="carpool image">
                         <div class="preference">
-                            <i class="fas fa-music fa-lg {{ $trajet->user->preferences->music == 1 ? 'green' : '' }}"></i>
-                            <i class="fas fa-paw fa-lg {{ $trajet->user->preferences->animal == 1 ? 'green' : '' }}"></i>
-                            <i class="fas fa-smoking fa-lg {{ $trajet->user->preferences->fumeur == 1 ? 'green' : '' }}"></i>
-                            <i class="fas fa-comment fa-lg {{ $trajet->user->preferences->discussion == 1 ? 'green' : '' }}"></i>
+                            <i class="fas fa-music fa-lg {{ $trajet->user->preferences->music ?? 0 == 1 ? 'green' : '' }}"></i>
+                            <i class="fas fa-paw fa-lg {{ $trajet->user->preferences->animal ?? 0 == 1 ? 'green' : '' }}"></i>
+                            <i class="fas fa-smoking fa-lg {{ $trajet->user->preferences->fumeur ?? 0 == 1 ? 'green' : '' }}"></i>
+                            <i class="fas fa-comment fa-lg {{ $trajet->user->preferences->discussion ?? 0 == 1 ? 'green' : '' }}"></i>
                         </div>
                         
                     </div>
@@ -147,7 +147,10 @@
                         <button class="close-btn" onclick="closePopup({{ $trajet->id }})">&times;</button>
                         <img id="popup-img" src="storage/{{ $trajet->user->picture }}" alt="carpool image">
                         <h3><strong>{{ $trajet->user->prenom }}&nbsp;{{ $trajet->user->nom }}</strong></h1>
-                        <div id="qrcode{{ $trajet->id }}" class="wraper-qr"></div>                            
+                        <div id="qrcode{{ $trajet->id }}" class="wraper-qr"></div>
+                        <h4>merci d'utiliser le QR Code ou le numéro pour me contacter</h4>
+                        <h4 id="phone">{{ $trajet->user->telephone }}</h4>
+                            
                     </div>
                 </div>
             @endforeach
