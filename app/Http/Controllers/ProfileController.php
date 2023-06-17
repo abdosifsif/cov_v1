@@ -60,9 +60,7 @@ class ProfileController extends Controller
             $picturePath = $request->file('picture')->store('public/pictures');
             $picturePath = str_replace('public/pictures/', '', $picturePath);
             $user->picture = '/storage/pictures/' . $picturePath;
-        } else {
-            $user->picture = 'images/Default_pfp.svg.png';
-        }
+        } 
         $currentPassword = DB::table('users')->where('id', $user->id)->value('password');
 
         $validatedData = $request->validate([

@@ -55,7 +55,7 @@
                     <li><a href="#profile" id="btnprofile">Profile</a></li>
                     <li><a href="#mestrajets" id="btntrajets">Mes trajets</a></li>
                     <li><a href="#preference" id="btnpreferences">Mes préferences</a></li>
-                    <li><a href="#voiture" id="btnvoiture">Ma véhicule</a></li>
+                    <li><a href="#voiture" id="btnvoiture">Mon véhicule</a></li>
                 </ul>
             </div>
         </section>
